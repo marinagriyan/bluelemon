@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
@@ -21,14 +21,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ResetPasswordActivity"
+            android:name=".Activities.ResetPasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".Activities.SignInActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".AlertActivity"></activity>
+        <activity android:name=".Activities.AlertActivity" />
+        <activity android:name=".Activities.AddAlertActivity"></activity>
     </application>
 
 </manifest>

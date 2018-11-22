@@ -35,4 +35,13 @@
     <string name="sign_in">Sign In</string>
     <string name="incorrect_username_or_password">Incorrect username or password</string>
     <string name="current">Current</string>
+    <string name="password_doesn_t_match">Password doesn\'t match</string>
+    <string name="edit_file">Edit File</string>
+    <string name="renew_document">Renew Document</string>
+    <string name="download">Download</string>
+    <string name="back_home">Back home</string>
+    <string name="instant_security_alert">INSTANT SECURITY ALERT</string>
+    <string name="pin_my_current_location">Pin my current location</string>
+    <string name="cancel_search">Cancel Search</string>
+    <string name="searching_for_your_location">SEARCHING FOR YOUR LOCATION</string>
 </resources>

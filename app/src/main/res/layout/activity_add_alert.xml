@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.AddAlertActivity">
+
+    <LinearLayout
+        android:id="@+id/pin_location_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/yellow"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/yellow_circle"
+                android:backgroundTint="@android:color/white"
+                android:src="@drawable/back_yellow"
+                android:padding="2dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"
+                android:fontFamily="@font/opensans"
+                android:text="@string/back_home"/>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="110dp"
+            android:background="@drawable/yellow_circle"
+            android:backgroundTint="@android:color/white"
+            android:src="@drawable/safety_modelu_yellow"
+            android:padding="25dp"/>
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/instant_security_alert"/>
+
+        <LinearLayout
+            android:id="@+id/pin_location"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="65dp"
+            android:orientation="horizontal"
+            android:background="@drawable/button_blue"
+            android:backgroundTint="@android:color/white"
+            android:gravity="center">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/location_white"
+                    android:tint="@color/yellow"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/pin_my_current_location"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/opensans"
+                    android:textColor="@color/yellow"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/yellow"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/cancel"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/cancel_yellow"
+                android:padding="2dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"
+                android:fontFamily="@font/opensans"
+                android:text="@string/cancel_search"/>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="110dp"
+            android:background="@drawable/location_search_background"
+            android:src="@drawable/location_white"
+            android:padding="93dp"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="11sp"
+            android:textAlignment="center"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="60dp"
+            android:fontFamily="@font/opensans_semibold"
+            android:text="@string/searching_for_your_location"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></LinearLayout>
+
+</RelativeLayout>

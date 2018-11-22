@@ -1,7 +1,8 @@
-package com.bluelemon.bluelemon;
+package com.bluelemon.bluelemon.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
+
+import com.bluelemon.bluelemon.R;
 
 public class MainActivity extends BaseActivity {
 
@@ -11,5 +12,10 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
      //   startActivity(new Intent(this, SignInActivity.class));
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

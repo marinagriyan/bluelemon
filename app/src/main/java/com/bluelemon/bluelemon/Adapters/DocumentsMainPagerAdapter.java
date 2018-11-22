@@ -1,14 +1,19 @@
-package com.bluelemon.bluelemon;
+package com.bluelemon.bluelemon.Adapters;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
+import com.bluelemon.bluelemon.Fragments.CertificatesFragment;
+import com.bluelemon.bluelemon.Fragments.DocumentsFragment;
+import com.bluelemon.bluelemon.R;
+
+public class DocumentsMainPagerAdapter extends FragmentPagerAdapter {
     private Context context;
 
-    public PagerAdapter(FragmentManager fm, Context context) {
+    public DocumentsMainPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
     }
@@ -26,7 +31,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment = null;
         if (position == 0)
-            fragment = new DocumentsMainFragment();
+            fragment = new DocumentsFragment();
         if (position == 1)
             fragment = new CertificatesFragment();
         return fragment;

@@ -1,10 +1,12 @@
-package com.bluelemon.bluelemon;
+package com.bluelemon.bluelemon.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.bluelemon.bluelemon.R;
 
 public class CertificatesFragment extends Fragment {
     @Override

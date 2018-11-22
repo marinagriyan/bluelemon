@@ -1,14 +1,18 @@
-package com.bluelemon.bluelemon;
+package com.bluelemon.bluelemon.Activities;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+
+import com.bluelemon.bluelemon.Constants;
+import com.bluelemon.bluelemon.Fragments.DocumentsMainFragment;
+import com.bluelemon.bluelemon.Fragments.TrainingFragment;
+import com.bluelemon.bluelemon.R;
 
 public class BaseActivity extends AppCompatActivity implements View.OnClickListener, TabLayout.OnTabSelectedListener {
 
@@ -17,7 +21,9 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     private int[] tabIcons;
     private int[] tabSelectedIcons;
     private String[] tabLabels;
-    private DocumentsFragment documentsFragment;
+    private DocumentsMainFragment documentsMainFragment;
+    private TrainingFragment trainingFragment;
+    private Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +38,19 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             tabLayout.addTab(tabLayout.newTab().setText(tabLabels[i]).setIcon(tabIcons[i]));
         }
 
-        int selectedTab = Constants.SELECTED_TAB;
-        tabLayout.getTabAt(selectedTab).setIcon(tabSelectedIcons[selectedTab]);
-
-        documentsFragment = new DocumentsFragment();
+        documentsMainFragment = new DocumentsMainFragment();
+        fragment = documentsMainFragment;
+        trainingFragment = new TrainingFragment();
 
         getSupportFragmentManager().beginTransaction()
-                .add(view_stub.getId(), documentsFragment).commit();
-        
+                .add(view_stub.getId(), documentsMainFragment).commit();
+
         tabLayout.addOnTabSelectedListener(this);
+
+        int selectedTab = Constants.SELECTED_TAB;
+        tabLayout.getTabAt(selectedTab).select();
+        tabLayout.getTabAt(selectedTab).setIcon(tabSelectedIcons[selectedTab]);
+
         findViewById(R.id.profile).setOnClickListener(this);
         findViewById(R.id.security_alert).setOnClickListener(this);
     }
@@ -59,7 +69,6 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.security_alert:
                 startActivity(new Intent(BaseActivity.this, AlertActivity.class));
-                finish();
                 break;
             case R.id.profile:
                 startActivity(new Intent(BaseActivity.this, SignInActivity.class));
@@ -72,11 +81,27 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         int position = tab.getPosition();
         tab.setIcon(tabSelectedIcons[position]);
         Constants.SELECTED_TAB = position;
-        switch (position){
+        switch (position) {
             case 0:
-
+                fragment = documentsMainFragment;
+                break;
+            case 1:
+                fragment = trainingFragment;
+                break;
+            case 2:
+                fragment = trainingFragment;
+                break;
+            case 3:
+                fragment = trainingFragment;
+                break;
+            case 4:
+                fragment = trainingFragment;
                 break;
         }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(view_stub.getId(), fragment)
+                .commit();
     }
 
     @Override

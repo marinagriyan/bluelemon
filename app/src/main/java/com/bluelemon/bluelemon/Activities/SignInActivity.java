@@ -1,9 +1,11 @@
-package com.bluelemon.bluelemon;
+package com.bluelemon.bluelemon.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.bluelemon.bluelemon.R;
 
 public class SignInActivity extends AppCompatActivity {
 
