@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">BlueLemon</string>
+    <string name="we_re_almost_there">WE’RE ALMOST THERE</string>
+    <string name="password_revive">You lost the password for your heart, let’s work on reviving it</string>
+    <string name="new_password">New Password</string>
+    <string name="re_type_new_password">Re-type new password</string>
+    <string name="confirm">Confirm</string>
+
+    <string name="documents">Documents</string>
+    <string name="training">Training</string>
+    <string name="risks">Risks</string>
+    <string name="equipment">Equipment</string>
+    <string name="incidents">Incidents</string>
+
+    <string name="certificates">Certificates</string>
+
+    <string-array name="tabs">
+        <item>Documents</item>
+        <item>Training</item>
+        <item>Risks</item>
+        <item>Equipment</item>
+        <item>Incidents</item>
+    </string-array>
+
+    <string name="hello_blank_fragment">Blank fragment</string>
+    <string name="search_hint">Search for anything or nothing at all</string>
+    <string name="add_new_document">Add new document</string>
+    <string name="congrats">CONGRATS</string>
+    <string name="password_resetted">You have successfully resetted your password. Enjoy your BlueLemon</string>
+    <string name="login">Login</string>
+    <string name="slogan">MAKE YOUR LIFE EASIER\nAND YOUR WORKPLACE SAFER</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="incorrect_username_or_password">Incorrect username or password</string>
+    <string name="current">Current</string>
+</resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="@dimen/tab_layout_height">
+
+    <TextView
+        android:id="@+id/documents"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="5dp"
+        style="@style/TabLayout"
+        android:text="@string/documents"
+        android:gravity="center_horizontal|bottom"
+        android:textColor="@color/colorAccent"
+        android:drawableTop="@drawable/documents_icon"/>
+
+    <TextView
+        android:id="@+id/training"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="5dp"
+        style="@style/TabLayout"
+        android:text="@string/training"
+        android:gravity="center_horizontal|bottom"
+        android:textColor="@color/colorAccent"
+        android:drawableTop="@drawable/training_icon"/>
+
+
+    <TextView
+        android:id="@+id/risks"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="5dp"
+        style="@style/TabLayout"
+        android:text="@string/risks"
+        android:gravity="center_horizontal|bottom"
+        android:textColor="@color/colorAccent"
+        android:drawableTop="@drawable/risk_icon"/>
+
+
+    <TextView
+        android:id="@+id/equipment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="5dp"
+        style="@style/TabLayout"
+        android:text="@string/equipment"
+        android:gravity="center_horizontal|bottom"
+        android:textColor="@color/colorAccent"
+        android:drawableTop="@drawable/equipment_icon"/>
+
+
+    <TextView
+        android:id="@+id/incidents"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="5dp"
+        style="@style/TabLayout"
+        android:text="@string/incidents"
+        android:gravity="center_horizontal|bottom"
+        android:textColor="@color/colorAccent"
+        android:drawableTop="@drawable/incident_icon"/>
+
+</LinearLayout>
