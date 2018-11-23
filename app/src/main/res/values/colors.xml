@@ -11,7 +11,8 @@
     <color name="hintColor">#a0a7af</color>
     <color name="lightGray">#dfe2e8</color>
     <color name="fieldColorGrayTransparent">#80ebeef4</color>
-    <color name="fieldColorGray">#ebeef4</color>
+    <color name="fieldBorderGray">#ebeef4</color>
+    <color name="fieldColorGray">#f4f8fa</color>
     <color name="backgroundGrayTransparent">#40ebeef4</color>
     <color name="darkGray">#1e6b7885</color>
     <color name="whiteOpaque">#4dffffff</color>

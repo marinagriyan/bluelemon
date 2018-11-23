@@ -30,4 +30,18 @@
         <item name="android:backgroundTint">@color/colorGreen</item>
     </style>
 
+    <style name="SmallText">
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">@font/opensans</item>
+        <item name="android:textColor">@color/hintColor</item>
+    </style>
+
+    <style name="InputField" parent="SmallText">
+        <item name="android:background">@drawable/input_field_gray</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColorHint">@color/hintColor</item>
+        <item name="android:fontFamily">@font/opensans_semibold</item>
+    </style>
+
 </resources>

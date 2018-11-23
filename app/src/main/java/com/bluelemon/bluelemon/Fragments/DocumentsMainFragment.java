@@ -11,20 +11,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bluelemon.bluelemon.Activities.BaseActivity;
+import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Adapters.DocumentsMainPagerAdapter;
 import com.bluelemon.bluelemon.R;
 
 public class DocumentsMainFragment extends Fragment {
 
-    private BaseActivity activity;
+    private MainActivity activity;
     private TabLayout tabLayout;
     private ViewPager pager;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity = (BaseActivity) context;
+        activity = (MainActivity) context;
     }
 
     @Override

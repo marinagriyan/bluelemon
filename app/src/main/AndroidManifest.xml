@@ -28,8 +28,12 @@
             android:name=".Activities.SignInActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".Activities.AlertActivity" />
-        <activity android:name=".Activities.AddAlertActivity"></activity>
+        <activity android:name=".Activities.AlertActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity android:name=".Activities.AddAlertActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
     </application>
 
 </manifest>

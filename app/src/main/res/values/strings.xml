@@ -44,4 +44,11 @@
     <string name="pin_my_current_location">Pin my current location</string>
     <string name="cancel_search">Cancel Search</string>
     <string name="searching_for_your_location">SEARCHING FOR YOUR LOCATION</string>
+    <string name="risk_title">Risk Title</string>
+    <string name="risk_type">Risk Type</string>
+    <string name="team">Team</string>
+    <string name="tell_about_incident">Please tell us about the risky incident in couple of lines…</string>
+    <string name="add_image_of_the_incident">Add Image of the incident</string>
+    <string name="this_risk_has_action_plans">THIS RISK HAS\nACTION PLANS</string>
+    <string name="check_plans">Check Plans</string>
 </resources>

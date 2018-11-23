@@ -26,6 +26,7 @@ public class AddAlertActivity extends AppCompatActivity implements View.OnClickL
         mainLayout = findViewById(R.id.main_layout);
 
         findViewById(R.id.back_btn).setOnClickListener(this);
+        findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.pin_location).setOnClickListener(this);
         findViewById(R.id.cancel).setOnClickListener(this);
     }
@@ -35,6 +36,7 @@ public class AddAlertActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()){
             case R.id.back_btn:
             case R.id.cancel:
+            case R.id.back:
                 finish();
                 break;
             case R.id.pin_location:
