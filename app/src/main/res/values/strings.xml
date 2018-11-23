@@ -51,4 +51,7 @@
     <string name="add_image_of_the_incident">Add Image of the incident</string>
     <string name="this_risk_has_action_plans">THIS RISK HAS\nACTION PLANS</string>
     <string name="check_plans">Check Plans</string>
+    <string name="send_alert">SEND ALERT</string>
+    <string name="notice">Notice!</string>
+    <string name="are_you_sure_you_want_to_proceed">you are sending alert to this group\nare you sure you want to proceed?</string>
 </resources>

@@ -13,8 +13,7 @@ import com.google.android.gms.location.LocationServices;
 public class AddAlertActivity extends AppCompatActivity implements View.OnClickListener {
     private View pinLayout;
     private View searchLayout;
-    private View mainLayout;
-    private double lat = 0, lng = 0;
+    private View confirmLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,18 +22,23 @@ public class AddAlertActivity extends AppCompatActivity implements View.OnClickL
 
         pinLayout = findViewById(R.id.pin_location_layout);
         searchLayout = findViewById(R.id.search_layout);
-        mainLayout = findViewById(R.id.main_layout);
+        confirmLayout = findViewById(R.id.confirm_layout);
 
         findViewById(R.id.back_btn).setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.pin_location).setOnClickListener(this);
+        findViewById(R.id.cancel_search).setOnClickListener(this);
         findViewById(R.id.cancel).setOnClickListener(this);
+        findViewById(R.id.confirm).setOnClickListener(this);
+
+        findViewById(R.id.send).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.back_btn:
+            case R.id.cancel_search:
             case R.id.cancel:
             case R.id.back:
                 finish();
@@ -43,6 +47,12 @@ public class AddAlertActivity extends AppCompatActivity implements View.OnClickL
                 pinLayout.setVisibility(View.GONE);
                 searchLayout.setVisibility(View.VISIBLE);
                 searchForLocation();
+                break;
+            case R.id.send:
+                confirmLayout.setVisibility(View.VISIBLE);
+                break;
+            case R.id.confirm:
+                finish();
                 break;
         }
     }
@@ -53,7 +63,6 @@ public class AddAlertActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void run() {
                 searchLayout.setVisibility(View.GONE);
-                mainLayout.setVisibility(View.VISIBLE);
             }
         }, 3000);
     }
