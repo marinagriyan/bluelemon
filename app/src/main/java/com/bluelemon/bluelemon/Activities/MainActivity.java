@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 
 import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.Fragments.DocumentsMainFragment;
+import com.bluelemon.bluelemon.Fragments.RisksFragment;
 import com.bluelemon.bluelemon.Fragments.TrainingFragment;
 import com.bluelemon.bluelemon.R;
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String[] tabLabels;
     private DocumentsMainFragment documentsMainFragment;
     private TrainingFragment trainingFragment;
+    private RisksFragment risksFragment;
     private Fragment fragment;
 
     @Override
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         documentsMainFragment = new DocumentsMainFragment();
         fragment = documentsMainFragment;
         trainingFragment = new TrainingFragment();
+        risksFragment = new RisksFragment();
 
         getSupportFragmentManager().beginTransaction()
                 .add(view_stub.getId(), documentsMainFragment).commit();
@@ -89,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 fragment = trainingFragment;
                 break;
             case 2:
-                fragment = trainingFragment;
+                fragment = risksFragment;
                 break;
             case 3:
                 fragment = trainingFragment;

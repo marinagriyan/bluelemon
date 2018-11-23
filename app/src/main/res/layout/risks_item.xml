@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="25dp"
+    android:paddingEnd="25dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@android:color/white"
+        android:paddingTop="10dp"
+        android:paddingBottom="17dp">
+
+        <RelativeLayout
+            android:id="@+id/title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/date"
+                android:text="Risk Title"
+                android:textSize="12sp"
+                android:fontFamily="@font/opensans_bold"
+                android:textColor="@color/colorAccent"/>
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="15dp"
+                android:text="January 30, 2019"
+                android:textSize="10sp"
+                android:fontFamily="@font/opensans"
+                android:textColor="@color/colorAccent"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="AH0928117"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/opensans"
+                    android:textColor="@color/colorAccent"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/category_icon"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginEnd="5dp"/>
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:text="Live"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/opensans"
+                    android:textColor="@color/colorAccent"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/view"
+                android:layout_width="70dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                style="@style/ButtonBlue"
+                android:text="@string/view"
+                android:textSize="10sp"
+                android:fontFamily="@font/opensans"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

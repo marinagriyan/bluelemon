@@ -54,4 +54,5 @@
     <string name="send_alert">SEND ALERT</string>
     <string name="notice">Notice!</string>
     <string name="are_you_sure_you_want_to_proceed">you are sending alert to this group\nare you sure you want to proceed?</string>
+    <string name="view">View</string>
 </resources>
