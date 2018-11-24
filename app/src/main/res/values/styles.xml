@@ -10,7 +10,7 @@
 
 
     <style name="TabLayout" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">8sp</item>
+        <item name="android:textSize">6sp</item>
         <item name="android:fontFamily">@font/opensans_bold</item>
     </style>
 
@@ -32,6 +32,14 @@
 
     <style name="ButtonRed" parent="ButtonBlue">
         <item name="android:backgroundTint">@color/red</item>
+    </style>
+
+    <style name="ButtonYellow" parent="ButtonBlue">
+        <item name="android:backgroundTint">@color/yellow</item>
+    </style>
+
+    <style name="ButtonGray" parent="ButtonBlue">
+        <item name="android:backgroundTint">@color/hintColorPassword</item>
     </style>
 
     <style name="SmallText">

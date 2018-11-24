@@ -69,4 +69,23 @@
     <string name="view_equipment">View Equipment</string>
     <string name="edit_equipment">Edit Equipment</string>
     <string name="move_selected_to_folder">Move selected to folder</string>
+    <string name="ref_number">Ref. Number</string>
+    <string name="make">Make</string>
+    <string name="model">Model</string>
+    <string name="serial_number">Serial Number</string>
+    <string name="entered_by">Entered By</string>
+    <string name="template">Template</string>
+    <string name="department">Department</string>
+    <string name="check_days">Check every (Days)</string>
+    <string name="next_check_due">Next Check Due</string>
+    <string name="check_requirements">Check Requirements</string>
+    <string name="add_more_requirement">Add more requirement</string>
+    <string name="upload_images">Upload images</string>
+    <string name="comments">Comments</string>
+    <string name="type_here">Type here...</string>
+    <string name="pass">Pass</string>
+    <string name="fail">Fail</string>
+    <string name="quarantine">Quarantine</string>
+    <string name="out_of_use">Out of use</string>
+    <string name="done">Done</string>
 </resources>

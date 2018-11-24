@@ -5,14 +5,14 @@ public class EquipmentModel {
     private String date;
     private String days;
     private String id;
-    private String building;
+    private String department;
 
-    public EquipmentModel(String title, String date, String days, String id, String building) {
+    public EquipmentModel(String title, String date, String days, String id, String department) {
         this.title = title;
         this.date = date;
         this.days = days;
         this.id = id;
-        this.building = building;
+        this.department = department;
     }
 
     public String getTitle() {
@@ -31,7 +31,7 @@ public class EquipmentModel {
         return id;
     }
 
-    public String getBuilding() {
-        return building;
+    public String getDepartment() {
+        return department;
     }
 }

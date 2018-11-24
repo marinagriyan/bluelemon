@@ -8,9 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
-import com.bluelemon.bluelemon.Fragments.EquipmentFragment;
 import com.bluelemon.bluelemon.Fragments.NewDocumentFragment;
+import com.bluelemon.bluelemon.Fragments.NewEquipmentFragment;
 import com.bluelemon.bluelemon.Fragments.NewFolderFragment;
+import com.bluelemon.bluelemon.Fragments.ReviewEquipmentFragment;
 import com.bluelemon.bluelemon.Models.EquipmentModel;
 import com.bluelemon.bluelemon.R;
 
@@ -41,16 +42,17 @@ public class EquipmentsAdapter extends RecyclerView.Adapter<EquipmentsAdapter.Vi
         viewHolder.date.setText(model.getDate());
         viewHolder.days.setText(model.getDays());
         viewHolder.id.setText(model.getId());
-        viewHolder.building.setText(model.getBuilding());
+        viewHolder.department.setText(model.getDepartment());
         viewHolder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.setFragment(new NewDocumentFragment());
+                activity.setFragment(new NewEquipmentFragment());
             }
         });
         viewHolder.review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                activity.setFragment(new ReviewEquipmentFragment());
             }
         });
 
@@ -74,7 +76,7 @@ public class EquipmentsAdapter extends RecyclerView.Adapter<EquipmentsAdapter.Vi
         private TextView date;
         private TextView days;
         private TextView id;
-        private TextView building;
+        private TextView department;
         private View review;
         private View edit;
 
@@ -85,7 +87,7 @@ public class EquipmentsAdapter extends RecyclerView.Adapter<EquipmentsAdapter.Vi
             date = view.findViewById(R.id.date);
             days = view.findViewById(R.id.day_count);
             id = view.findViewById(R.id.id_number);
-            building = view.findViewById(R.id.building);
+            department = view.findViewById(R.id.department);
             review = view.findViewById(R.id.view);
             edit = view.findViewById(R.id.edit);
         }

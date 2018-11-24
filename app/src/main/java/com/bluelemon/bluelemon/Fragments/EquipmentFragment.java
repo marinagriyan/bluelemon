@@ -36,17 +36,24 @@ public class EquipmentFragment extends Fragment {
             }
         });
 
-        TextView folder = (TextView) inflater.inflate(R.layout.folder_item, container, false);
+        view.findViewById(R.id.show_all).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.setFragment(new AllFoldersFragment());
+            }
+        });
+
+        TextView folder = (TextView) inflater.inflate(R.layout.folder_category, container, false);
         folder.setBackground(activity.getDrawable(R.drawable.button_red));
         folder.setText("Quarantine");
         folders.addView(folder);
 
-        TextView folder2 = (TextView) inflater.inflate(R.layout.folder_item, container, false);
+        TextView folder2 = (TextView) inflater.inflate(R.layout.folder_category, container, false);
         folder2.setBackground(activity.getDrawable(R.drawable.button_yellow));
         folder2.setText("Missing");
         folders.addView(folder2);
 
-        TextView folder3 = (TextView) inflater.inflate(R.layout.folder_item, container, false);
+        TextView folder3 = (TextView) inflater.inflate(R.layout.folder_category, container, false);
         folder3.setBackground(activity.getDrawable(R.drawable.button_red));
         folder3.setText("Broken");
         folders.addView(folder3);

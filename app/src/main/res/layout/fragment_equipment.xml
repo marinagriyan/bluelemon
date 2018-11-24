@@ -39,6 +39,7 @@
 
 
         <LinearLayout
+            android:id="@+id/show_all"
             android:layout_width="270dp"
             android:layout_height="50dp"
             android:layout_marginTop="40dp"
