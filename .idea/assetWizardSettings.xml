@@ -57,12 +57,27 @@
                             <entry key="launcherLegacy">
                               <value>
                                 <PersistentState>
+                                  <option name="children">
+                                    <map>
+                                      <entry key="image">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="paddingPercent" value="50" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                    </map>
+                                  </option>
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="$PROJECT_DIR$/../BlueLemonFiles/image.png" />
-                                      <entry key="outputName" value="ic_image" />
+                                      <entry key="imageAsset" value="$PROJECT_DIR$/../BlueLemonFiles/pencil.png" />
+                                      <entry key="outputName" value="pencil" />
                                     </map>
                                   </option>
                                 </PersistentState>

@@ -88,4 +88,6 @@
     <string name="quarantine">Quarantine</string>
     <string name="out_of_use">Out of use</string>
     <string name="done">Done</string>
+    <string name="email">Email</string>
+    <string name="edit">Edit</string>
 </resources>
