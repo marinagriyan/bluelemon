@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.Fragments.DocumentsMainFragment;
@@ -28,6 +29,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RisksFragment risksFragment;
     private EquipmentFragment equipmentFragment;
     private Fragment fragment;
+
+    private ImageView profile;
+    private ImageView back;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +62,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tabLayout.getTabAt(selectedTab).select();
         tabLayout.getTabAt(selectedTab).setIcon(tabSelectedIcons[selectedTab]);
 
-        findViewById(R.id.profile).setOnClickListener(this);
+        profile = findViewById(R.id.profile);
+        profile.setOnClickListener(this);
+
+        back = findViewById(R.id.back);
+        back.setOnClickListener(this);
+
         findViewById(R.id.security_alert).setOnClickListener(this);
     }
 
@@ -78,6 +88,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.profile:
                 startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                break;
+            case R.id.back:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(view_stub.getId(), fragment)
+                        .commit();
+                showBack(false);
                 break;
         }
     }
@@ -122,10 +138,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void setFragment(Fragment fragment){
-        this.fragment = fragment;
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(view_stub.getId(), fragment)
                 .commit();
+    }
+
+    public void showBack(boolean show){
+        if (show){
+            profile.setVisibility(View.GONE);
+            back.setVisibility(View.VISIBLE);
+        } else {
+            back.setVisibility(View.GONE);
+            profile.setVisibility(View.VISIBLE);
+        }
     }
 }

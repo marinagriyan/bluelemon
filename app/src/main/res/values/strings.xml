@@ -64,4 +64,6 @@
     <string name="close">Close</string>
     <string name="create_new_folder">Create New Folder</string>
     <string name="show_all_folders">Show all folders</string>
+    <string name="add_equipment">Add new equipment</string>
+    <string name="here_goes_the_new_folder_name">Here goes the new folder name</string>
 </resources>

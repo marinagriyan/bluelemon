@@ -1,6 +1,5 @@
 package com.bluelemon.bluelemon.Adapters;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,16 +8,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bluelemon.bluelemon.Activities.MainActivity;
+import com.bluelemon.bluelemon.Fragments.NewDocumentFragment;
 import com.bluelemon.bluelemon.Models.DocumentModel;
 import com.bluelemon.bluelemon.R;
 
 import java.util.List;
 
 public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.ViewHolder>{
-    private Activity activity;
+    private MainActivity activity;
     private List<DocumentModel> list;
 
-    public DocumentsAdapter(Activity activity, List<DocumentModel> list) {
+    public DocumentsAdapter(MainActivity activity, List<DocumentModel> list) {
         this.activity = activity;
         this.list = list;
     }
@@ -43,7 +44,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.View
         viewHolder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                activity.setFragment(new NewDocumentFragment());
             }
         });
         viewHolder.renew.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +69,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.View
         private View edit;
         private View renew;
 
-        public ViewHolder(@NonNull View view) {
+        ViewHolder(@NonNull View view) {
             super(view);
             status = view.findViewById(R.id.status);
             title = view.findViewById(R.id.title);
