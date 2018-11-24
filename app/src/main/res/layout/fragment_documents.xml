@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.DocumentsFragment">
+    tools:context=".Fragments.DocumentsFragment"
+    android:background="@color/backgroundGrayTransparent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:paddingTop="40dp"
-        android:background="@color/backgroundGrayTransparent">
+        android:paddingTop="40dp">
 
         <include layout="@layout/search_layout" />
 
@@ -75,7 +75,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp"/>
 
     </LinearLayout>
 

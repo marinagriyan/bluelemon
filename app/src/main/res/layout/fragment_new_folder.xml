@@ -3,30 +3,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.DocumentsFragment">
+    tools:context=".Fragments.DocumentsFragment"
+    android:background="@color/backgroundGrayTransparent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:background="@color/backgroundGrayTransparent">
+        android:gravity="center_horizontal">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/top_tab"
-            android:layout_marginBottom="40dp"
             android:background="@color/colorBlue"
             android:gravity="center"
             android:textSize="12sp"
             android:textColor="@android:color/white"
             android:fontFamily="@font/opensans"
-            android:text="@string/here_goes_the_new_folder_name"/>
-
-        <include layout="@layout/search_layout" />
+            android:text="@string/here_goes_the_new_folder_name"
+            android:visibility="gone"/>
 
         <LinearLayout
-            android:id="@+id/add_document"
+            android:id="@+id/move"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/top_tab"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@color/colorBlue"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/move"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/move_selected_to_folder"
+                android:layout_marginStart="5dp"
+                android:textSize="10sp"
+                android:fontFamily="@font/opensans"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+        <include layout="@layout/search_layout"
+            android:layout_marginTop="40dp"
+            android:layout_height="40dp"
+            android:layout_width="300dp" />
+
+        <LinearLayout
+            android:id="@+id/add_equipment"
             android:layout_width="240dp"
             android:layout_height="32dp"
             android:layout_marginTop="60dp"
@@ -72,21 +100,11 @@
                 android:textColor="@android:color/white"/>
         </LinearLayout>
 
-        <HorizontalScrollView
-            android:id="@+id/scrollView"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginStart="20dp"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:id="@+id/folders"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:paddingEnd="20dp"/>
-        </HorizontalScrollView>
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"/>
 
     </LinearLayout>
 

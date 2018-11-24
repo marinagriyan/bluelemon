@@ -90,12 +90,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(MainActivity.this, SignInActivity.class));
                 break;
             case R.id.back:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(view_stub.getId(), fragment)
-                        .commit();
-                showBack(false);
+                onBackPressed();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(view_stub.getId(), fragment)
+                .commit();
+        showBack(false);
     }
 
     @Override

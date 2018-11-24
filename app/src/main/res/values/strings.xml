@@ -66,4 +66,7 @@
     <string name="show_all_folders">Show all folders</string>
     <string name="add_equipment">Add new equipment</string>
     <string name="here_goes_the_new_folder_name">Here goes the new folder name</string>
+    <string name="view_equipment">View Equipment</string>
+    <string name="edit_equipment">Edit Equipment</string>
+    <string name="move_selected_to_folder">Move selected to folder</string>
 </resources>
