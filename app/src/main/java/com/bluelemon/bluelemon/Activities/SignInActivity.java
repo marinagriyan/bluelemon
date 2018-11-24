@@ -20,5 +20,13 @@ public class SignInActivity extends AppCompatActivity {
                 startActivity(new Intent(SignInActivity.this, ResetPasswordActivity.class));
             }
         });
+
+        findViewById(R.id.sign_in).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                finish();
+            }
+        });
     }
 }

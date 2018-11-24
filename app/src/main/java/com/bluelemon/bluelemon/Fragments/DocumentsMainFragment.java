@@ -15,7 +15,7 @@ import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Adapters.DocumentsMainPagerAdapter;
 import com.bluelemon.bluelemon.R;
 
-public class DocumentsMainFragment extends Fragment {
+public class DocumentsMainFragment extends Fragment implements  View.OnClickListener{
 
     private MainActivity activity;
     private TabLayout tabLayout;
@@ -28,9 +28,8 @@ public class DocumentsMainFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-           View view = inflater.inflate(R.layout.fragment_documents_main, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_documents_main, container, false);
 
         tabLayout = view.findViewById(R.id.tab_layout);
         pager = view.findViewById(R.id.view_pager);
@@ -38,6 +37,14 @@ public class DocumentsMainFragment extends Fragment {
         DocumentsMainPagerAdapter adapter = new DocumentsMainPagerAdapter(fm, activity);
         pager.setAdapter(adapter);
         tabLayout.setupWithViewPager(pager);
+
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+
+        }
     }
 }

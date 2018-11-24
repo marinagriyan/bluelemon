@@ -19,6 +19,7 @@ import java.util.List;
 
 public class DocumentsFragment extends Fragment {
     private MainActivity activity;
+    private DocumentsMainFragment fragment;
     private RecyclerView recyclerView;
     private List<DocumentModel> list = new ArrayList<>();
 
@@ -26,6 +27,7 @@ public class DocumentsFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = (MainActivity) context;
+        fragment = (DocumentsMainFragment) getParentFragment();
     }
 
     @Override
@@ -43,7 +45,7 @@ public class DocumentsFragment extends Fragment {
         view.findViewById(R.id.add_document).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                activity.setFragment(new NewDocumentFragment());
             }
         });
         return view;

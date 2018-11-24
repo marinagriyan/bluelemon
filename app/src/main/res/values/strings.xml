@@ -55,4 +55,13 @@
     <string name="notice">Notice!</string>
     <string name="are_you_sure_you_want_to_proceed">you are sending alert to this group\nare you sure you want to proceed?</string>
     <string name="view">View</string>
+    <string name="document_title">Document Title</string>
+    <string name="sites">Sites</string>
+    <string name="category">Category</string>
+    <string name="renewal_date">Renewal Date</string>
+    <string name="upload_the_file_pdf">Upload the file (pdf)</string>
+    <string name="add">Add</string>
+    <string name="close">Close</string>
+    <string name="create_new_folder">Create New Folder</string>
+    <string name="show_all_folders">Show all folders</string>
 </resources>

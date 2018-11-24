@@ -61,12 +61,18 @@
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="$PROJECT_DIR$/../BlueLemonFiles/icons8-lock-filled-100.png" />
+                                      <entry key="imageAsset" value="$PROJECT_DIR$/../BlueLemonFiles/folder@3x.png" />
+                                      <entry key="outputName" value="ic_files" />
                                     </map>
                                   </option>
                                 </PersistentState>
                               </value>
                             </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
                           </map>
                         </option>
                       </PersistentState>

@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 
 import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.Fragments.DocumentsMainFragment;
+import com.bluelemon.bluelemon.Fragments.EquipmentFragment;
 import com.bluelemon.bluelemon.Fragments.RisksFragment;
 import com.bluelemon.bluelemon.Fragments.TrainingFragment;
 import com.bluelemon.bluelemon.R;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DocumentsMainFragment documentsMainFragment;
     private TrainingFragment trainingFragment;
     private RisksFragment risksFragment;
+    private EquipmentFragment equipmentFragment;
     private Fragment fragment;
 
     @Override
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragment = documentsMainFragment;
         trainingFragment = new TrainingFragment();
         risksFragment = new RisksFragment();
+        equipmentFragment = new EquipmentFragment();
 
         getSupportFragmentManager().beginTransaction()
                 .add(view_stub.getId(), documentsMainFragment).commit();
@@ -95,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 fragment = risksFragment;
                 break;
             case 3:
-                fragment = trainingFragment;
+                fragment = equipmentFragment;
                 break;
             case 4:
                 fragment = trainingFragment;
@@ -116,5 +119,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
 
+    }
+
+    public void setFragment(Fragment fragment){
+        this.fragment = fragment;
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(view_stub.getId(), fragment)
+                .commit();
     }
 }

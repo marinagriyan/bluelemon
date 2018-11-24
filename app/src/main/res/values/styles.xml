@@ -30,8 +30,12 @@
         <item name="android:backgroundTint">@color/colorGreen</item>
     </style>
 
+    <style name="ButtonRed" parent="ButtonBlue">
+        <item name="android:backgroundTint">@color/red</item>
+    </style>
+
     <style name="SmallText">
-        <item name="android:textSize">11sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">@font/opensans</item>
         <item name="android:textColor">@color/hintColor</item>
     </style>
@@ -43,5 +47,7 @@
         <item name="android:textColorHint">@color/hintColor</item>
         <item name="android:fontFamily">@font/opensans_semibold</item>
     </style>
+
+
 
 </resources>
