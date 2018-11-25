@@ -1,4 +1,4 @@
-package com.bluelemon.bluelemon.Activities;
+package com.bluelemon.bluelemon.Fragments;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Adapters.DocumentsMainPagerAdapter;
 import com.bluelemon.bluelemon.Adapters.TrainingsPagerAdapter;
 import com.bluelemon.bluelemon.R;

@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         back.setOnClickListener(this);
 
         findViewById(R.id.security_alert).setOnClickListener(this);
+        findViewById(R.id.notification).setOnClickListener(this);
     }
 
     @Override
@@ -90,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                 overridePendingTransition(R.anim.right_in, R.anim.right_out);
                 break;
+            case R.id.notification:
+                startActivity(new Intent(MainActivity.this, NotificationsActivity.class));
             case R.id.back:
                 onBackPressed();
                 break;

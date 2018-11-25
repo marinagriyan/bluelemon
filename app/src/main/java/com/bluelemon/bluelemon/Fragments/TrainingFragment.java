@@ -2,7 +2,6 @@ package com.bluelemon.bluelemon.Fragments;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
-import com.bluelemon.bluelemon.Activities.TrainerDetailsFragment;
 import com.bluelemon.bluelemon.R;
 
 public class TrainingFragment extends Fragment {

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginStart="3dp"
+    android:background="@drawable/white_background">
+
+    <TextView
+        android:id="@+id/initials"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/green_circle"
+        android:gravity="center"
+        android:fontFamily="@font/opensans_bold"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:text="RI"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="7dp"
+        android:layout_toEndOf="@id/initials"
+        android:text="Ritana I."
+        android:fontFamily="@font/opensans_bold"
+        android:textSize="11sp"
+        android:textColor="@color/colorAccent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/name"
+        android:layout_marginStart="3dp"
+        android:layout_toEndOf="@id/name"
+        android:text="Reported a new incident"
+        android:fontFamily="@font/opensans"
+        android:textSize="11sp"
+        android:textColor="@color/colorAccent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/name"
+        android:layout_below="@id/name"
+        android:text="10:15 PM"
+        android:fontFamily="@font/opensans"
+        android:textSize="10sp"
+        android:textColor="@color/hintColor"/>
+
+</RelativeLayout>

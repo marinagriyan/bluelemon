@@ -38,7 +38,8 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".Activities.ProfileActivity" />
         <activity android:name=".Activities.AlertDetailsActivity" />
-        <activity android:name=".Activities.TrainerDetailsFragment"></activity>
+        <activity android:name=".Fragments.TrainerDetailsFragment" />
+        <activity android:name=".Activities.NotificationsActivity"></activity>
     </application>
 
 </manifest>
