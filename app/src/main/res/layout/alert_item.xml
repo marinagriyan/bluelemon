@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@android:color/white"
+    android:layout_marginStart="3dp"
+    android:layout_marginEnd="3dp"
+    android:layout_marginTop="14dp"
+    android:layout_marginBottom="14dp">
+
+    <ImageView
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="14dp"
+        android:background="@drawable/yellow_circle"
+        android:src="@drawable/safety_module"
+        android:padding="10dp"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:fontFamily="@font/opensans_bold"
+        android:textSize="13sp"
+        android:text="Fire in the building"/>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/colorAccent"
+        android:fontFamily="@font/opensans"
+        android:textSize="11sp"
+        android:text="3:34 PM"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="12dp"
+        android:layout_below="@id/title"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@drawable/warning"/>
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="10sp"
+            android:fontFamily="@font/opensans"
+            android:text="Fire"
+            />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="12dp"
+            android:src="@drawable/team"
+            android:layout_marginStart="5dp"/>
+
+        <TextView
+            android:id="@+id/department"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="10sp"
+            android:fontFamily="@font/opensans"
+            android:text="Marketing Department"
+            />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

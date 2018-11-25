@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.profile:
                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                overridePendingTransition(R.anim.left_in, R.anim.left_out);
+                overridePendingTransition(R.anim.right_in, R.anim.right_out);
                 break;
             case R.id.back:
                 onBackPressed();

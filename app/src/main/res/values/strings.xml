@@ -11,6 +11,8 @@
     <string name="risks">Risks</string>
     <string name="equipment">Equipment</string>
     <string name="incidents">Incidents</string>
+    <string name="my_alerts">My Alerts</string>
+    <string name="received_alerts">Received Alerts</string>
 
     <string name="certificates">Certificates</string>
 
@@ -90,4 +92,5 @@
     <string name="done">Done</string>
     <string name="email">Email</string>
     <string name="edit">Edit</string>
+    <string name="add_alert">ADD ALERT</string>
 </resources>

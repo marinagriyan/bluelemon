@@ -10,11 +10,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
+import com.bluelemon.bluelemon.Models.FolderModel;
 import com.bluelemon.bluelemon.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EquipmentFragment extends Fragment {
     private MainActivity activity;
     private LinearLayout folders;
+    private List<FolderModel> list = new ArrayList<>();
 
     @Override
     public void onAttach(Context context) {
@@ -43,20 +48,23 @@ public class EquipmentFragment extends Fragment {
             }
         });
 
-        TextView folder = (TextView) inflater.inflate(R.layout.folder_category, container, false);
-        folder.setBackground(activity.getDrawable(R.drawable.button_red));
-        folder.setText("Quarantine");
-        folders.addView(folder);
 
-        TextView folder2 = (TextView) inflater.inflate(R.layout.folder_category, container, false);
-        folder2.setBackground(activity.getDrawable(R.drawable.button_yellow));
-        folder2.setText("Missing");
-        folders.addView(folder2);
+        list.add(new FolderModel("Quarantine", "Count1"));
+        list.add(new FolderModel("Missing", "Count1"));
+        list.add(new FolderModel("Broken", "Count1"));
 
-        TextView folder3 = (TextView) inflater.inflate(R.layout.folder_category, container, false);
-        folder3.setBackground(activity.getDrawable(R.drawable.button_red));
-        folder3.setText("Broken");
-        folders.addView(folder3);
+        for (int i = 0; i < list.size(); i ++){
+            TextView folder = (TextView) inflater.inflate(R.layout.folder_category, container, false);
+            folder.setBackground(activity.getDrawable(R.drawable.button_red));
+            folder.setText(list.get(i).getTitle());
+            folder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    activity.setFragment(new AllFoldersFragment());
+                }
+            });
+            folders.addView(folder);
+        }
 
         return view;
     }
