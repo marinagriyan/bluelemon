@@ -93,4 +93,7 @@
     <string name="email">Email</string>
     <string name="edit">Edit</string>
     <string name="add_alert">ADD ALERT</string>
+    <string name="recent_unchecked_alerts">Recent Unchecked Alerts</string>
+    <string name="recent_alerts">Recent Alerts</string>
+    <string name="remind">Remind</string>
 </resources>

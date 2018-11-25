@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.TrainingFragment">
+    tools:context=".Fragments.TrainingFragment"
+    android:background="@color/backgroundGrayTransparent">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
 
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/top_tab"
+            android:background="@color/colorBlue"
+            android:gravity="center"
+            android:fontFamily="@font/opensans_semibold"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:text="CIEH L2 Food Safety in Catering"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+        <include layout="@layout/search_layout"/>
+
+        <GridLayout
+            android:id="@+id/staff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="13dp"
+            android:columnCount="2"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+        </GridLayout>
+
+    </LinearLayout>
+
+</ScrollView>

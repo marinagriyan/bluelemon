@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.ReceivedAlertsFragment">
+    android:orientation="vertical"
+    tools:context=".Fragments.MyAlertsFragment"
+    android:background="@color/backgroundGrayTransparent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <include layout="@layout/received_alerts_header"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:layout_marginBottom="45dp"/>
 
-</FrameLayout>
+</LinearLayout>

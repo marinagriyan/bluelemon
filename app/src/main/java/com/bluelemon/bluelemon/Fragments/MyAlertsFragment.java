@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bluelemon.bluelemon.Adapters.AlertItemsAdapter;
+import com.bluelemon.bluelemon.Adapters.MyAlertsAdapter;
 import com.bluelemon.bluelemon.Models.AlertsModel;
 import com.bluelemon.bluelemon.Models.SingleAlert;
 import com.bluelemon.bluelemon.R;
@@ -41,16 +41,19 @@ public class MyAlertsFragment extends Fragment {
         List<AlertsModel> sections = new ArrayList<>();
 
         List<SingleAlert> childList = new ArrayList<>();
-        childList.add(new SingleAlert("Fire 1", "3:35 PM", "Fire", "Marketing"));
-        childList.add(new SingleAlert("Fire 2", "7:45 PM", "Fire", "Marketing"));
+        childList.add(new SingleAlert(false,"Fire 1", "3:35 PM", "Fire", "Marketing"));
+        childList.add(new SingleAlert(false,"Fire 2", "7:45 PM", "Fire", "Marketing"));
 
         sections.add(new AlertsModel("Today", childList));
 
-        childList.add(new SingleAlert("Fire 3", "6:25 AM", "Fire", "Marketing"));
+        List<SingleAlert> childList2 = new ArrayList<>();
+        childList2.add(new SingleAlert(false,"Fire 1", "3:35 PM", "Fire", "Marketing"));
+        childList2.add(new SingleAlert(false,"Fire 2", "7:45 PM", "Fire", "Marketing"));
+        childList2.add(new SingleAlert(false,"Fire 3", "6:25 AM", "Fire", "Marketing"));
 
-        sections.add(new AlertsModel("Yesterday", childList));
+        sections.add(new AlertsModel("Yesterday", childList2));
 
-        recyclerView.setAdapter(new AlertItemsAdapter(activity, sections));
+        recyclerView.setAdapter(new MyAlertsAdapter(activity, sections));
 
         return view;
     }

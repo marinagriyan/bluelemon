@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginTop="10dp"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical">
+
+        <View
+            android:id="@+id/status_indicator"
+            android:layout_width="12.5dp"
+            android:layout_height="12.5dp"
+            android:background="@drawable/green_square" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="5dp">
+
+            <TextView
+                android:id="@+id/member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="10sp"
+                android:fontFamily="@font/opensans"
+                android:text="Jonahan Brewings"/>
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorGreen"
+                android:textSize="10sp"
+                android:fontFamily="@font/opensans"
+                android:text="Seen"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    <TextView
+        android:layout_width="70dp"
+        android:layout_height="20dp"
+        style="@style/ButtonGreen"
+        android:fontFamily="@font/opensans"
+        android:textSize="10sp"
+        android:text="@string/remind"
+        android:layout_marginEnd="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        />
+
+    <LinearLayout
+        android:id="@+id/done_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorGreen"
+            android:fontFamily="@font/opensans"
+            android:textSize="10sp"
+            android:text="@string/done" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="@font/opensans"
+            android:textSize="10sp"
+            android:text="June 12, 2018"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="28dp"
+        android:background="@color/lightGray"/>
+
+</RelativeLayout>

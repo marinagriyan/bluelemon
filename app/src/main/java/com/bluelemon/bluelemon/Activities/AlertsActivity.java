@@ -7,15 +7,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.bluelemon.bluelemon.Adapters.AlertsAdapter;
-import com.bluelemon.bluelemon.Adapters.DocumentsMainPagerAdapter;
-import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.Utils;
 
-public class AlertActivity extends AppCompatActivity implements View.OnClickListener {
+public class AlertsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TabLayout tabLayout;
     private ViewPager pager;
@@ -27,6 +24,7 @@ public class AlertActivity extends AppCompatActivity implements View.OnClickList
         startActivity(new Intent(this, AddAlertActivity.class));
         Utils.setTabLayoutClicks(this);
         findViewById(R.id.profile).setOnClickListener(this);
+        findViewById(R.id.add).setOnClickListener(this);
 
         tabLayout = findViewById(R.id.tab_layout);
         pager = findViewById(R.id.view_pager);
@@ -41,7 +39,10 @@ public class AlertActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.profile:
-                startActivity(new Intent(AlertActivity.this, ProfileActivity.class));
+                startActivity(new Intent(AlertsActivity.this, ProfileActivity.class));
+                break;
+            case R.id.add:
+                startActivity(new Intent(AlertsActivity.this, AddAlertActivity.class));
                 break;
         }
     }
