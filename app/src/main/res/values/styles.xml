@@ -53,6 +53,18 @@
         <item name="android:textColor">@color/hintColor</item>
     </style>
 
+    <style name="SmallTextDark">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/opensans</item>
+        <item name="android:textColor">@color/hintColorPassword</item>
+    </style>
+
+    <style name="SmallTextBold">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/opensans_bold</item>
+        <item name="android:textColor">@color/hintColorPassword</item>
+    </style>
+
     <style name="InputField" parent="SmallText">
         <item name="android:background">@drawable/input_field_gray</item>
         <item name="android:padding">10dp</item>

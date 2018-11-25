@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="85dp"
+    android:layout_marginTop="1dp"
+    android:layout_marginBottom="1dp"
+    android:layout_marginStart="3dp"
+    android:background="@drawable/green_stripe">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="13sp"
+        android:fontFamily="@font/opensans_bold"
+        android:text="Digital Marketing Workshop"/>
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/arrow_right"
+        />
+
+    <TextView
+        android:id="@+id/assigned_by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/hintColor"
+        android:textSize="8sp"
+        android:fontFamily="@font/opensans_semibold"
+        android:layout_alignStart="@id/title"
+        android:layout_alignParentBottom="true"
+        android:text="Andreas Asorati"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_alignStart="@id/title"
+        android:layout_toStartOf="@id/arrow"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/location"
+                android:layout_marginEnd="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="Tumo Center Komitas"
+                android:textSize="12sp"
+                android:fontFamily="@font/opensans"
+                android:textColor="@color/hintColor"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/alarm_clock"
+                android:layout_marginEnd="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="3:00 to 5:30 PM"
+                android:textSize="12sp"
+                android:fontFamily="@font/opensans"
+                android:textColor="@color/hintColor"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/hintColor"
+        android:textSize="8sp"
+        android:fontFamily="@font/opensans"
+        android:layout_alignStart="@id/title"
+        android:layout_above="@id/assigned_by"
+        android:text="Assigned by"/>
+
+</RelativeLayout>

@@ -102,4 +102,13 @@
     <string name="remind">Remind</string>
     <string name="trainings">Trainings</string>
     <string name="courses">Courses</string>
+    <string name="date_completed">Date Completed</string>
+    <string name="complete">Complete</string>
+    <string name="course_subject">Course Subject:</string>
+    <string name="course_venue">Course Venue:</string>
+    <string name="tutor">Tutor:</string>
+    <string name="date_and_time"><![CDATA[Date & Time:]]></string>
+    <string name="attendees">Attendees</string>
+    <string name="notes">Notes</string>
+    <string name="signature">Signature</string>
 </resources>
