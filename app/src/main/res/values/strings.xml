@@ -6,6 +6,7 @@
     <string name="re_type_new_password">Re-type new password</string>
     <string name="confirm">Confirm</string>
 
+    <string name="all">All</string>
     <string name="documents">Documents</string>
     <string name="training">Training</string>
     <string name="risks">Risks</string>
@@ -13,6 +14,9 @@
     <string name="incidents">Incidents</string>
     <string name="my_alerts">My Alerts</string>
     <string name="received_alerts">Received Alerts</string>
+    <string name="expiring_soon">Expiring Soon</string>
+    <string name="expired">Expired</string>
+    <string name="expires_in">Expires in 30 days</string>
 
     <string name="certificates">Certificates</string>
 
@@ -96,4 +100,6 @@
     <string name="recent_unchecked_alerts">Recent Unchecked Alerts</string>
     <string name="recent_alerts">Recent Alerts</string>
     <string name="remind">Remind</string>
+    <string name="trainings">Trainings</string>
+    <string name="courses">Courses</string>
 </resources>

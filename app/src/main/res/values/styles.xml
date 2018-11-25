@@ -20,6 +20,11 @@
         <item name="android:fontFamily">@font/opensans_semibold</item>
     </style>
 
+    <style name="TrainingsTabLayout" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/opensans_semibold</item>
+    </style>
+
     <style name="ButtonBlue">
         <item name="android:background">@drawable/button_blue</item>
         <item name="android:textColor">@android:color/white</item>

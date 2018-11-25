@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.TrainerDetailsFragment"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/pic"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/profile_pic_example"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="55dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:textSize="13sp"
+                android:textColor="@color/colorAccent"
+                android:fontFamily="@font/opensans_bold"
+                android:text="John Thomas"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:textSize="11sp"
+                android:layout_marginTop="-3dp"
+                android:textColor="@color/hintColor"
+                android:fontFamily="@font/opensans"
+                android:text="General Manager"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:textSize="10sp"
+                android:layout_marginTop="7dp"
+                android:textColor="@color/hintColor"
+                android:fontFamily="@font/opensans"
+                android:text="Management"
+                android:alpha="0.5"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:textSize="10sp"
+                android:textColor="@color/hintColor"
+                android:fontFamily="@font/opensans"
+                android:text="Apollo"
+                android:alpha="0.5"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:textSize="10sp"
+                android:layout_marginTop="7dp"
+                android:textColor="@color/colorAccent"
+                android:fontFamily="@font/opensans"
+                android:text="June 12, 2018"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_tab"
+        app:tabSelectedTextColor="@color/colorBlue"
+        app:tabTextColor="@color/colorBlue"
+        app:tabIndicatorHeight="4dp"
+        app:tabIndicator="@drawable/tab_indicator_blue"
+        app:tabIndicatorColor="@color/colorBlue"
+        app:tabTextAppearance="@style/TrainingsTabLayout"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundGrayTransparent"/>
+
+</LinearLayout>

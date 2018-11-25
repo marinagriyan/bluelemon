@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragments.MyAlertsFragment"
+    android:background="@color/backgroundGrayTransparent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorBlue"
+        android:textSize="15sp"
+        android:fontFamily="@font/opensans_semibold"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:text="@string/courses"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:layout_marginBottom="45dp"/>
+
+</LinearLayout>
