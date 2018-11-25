@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_tab"
+        android:background="@color/colorBlue">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/the_action_plan"
+            />
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:padding="9dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/opensans_semibold"
+            android:textColor="@android:color/white"
+            android:text="@string/save"
+            android:textSize="12sp"
+            android:drawableLeft="@drawable/plus"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="40dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/actions_hint"
+            android:textSize="14sp"
+            android:textColor="@color/hintColor"
+            android:fontFamily="@font/opensans_semibold"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:orientation="horizontal">
+
+            <!-- Add programmatically -->
+
+            <CheckBox
+                android:buttonTint="@color/colorBlue"
+                android:checked="true"
+                android:text="Action plan 1 can be this
+long too, why not. don’t
+you ever saw a long
+sentence before"
+                android:gravity="top"
+                android:textColor="@color/hintColor"
+                android:textSize="10sp"
+                android:fontFamily="@font/opensans"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+
+            <CheckBox
+                android:buttonTint="@color/colorBlue"
+                android:text="Action plan 2"
+                android:gravity="top"
+                android:textColor="@color/hintColor"
+                android:textSize="10sp"
+                android:fontFamily="@font/opensans"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+            <CheckBox
+                android:buttonTint="@color/colorBlue"
+                android:text="Action plan 3"
+                android:gravity="top"
+                android:textColor="@color/hintColor"
+                android:textSize="10sp"
+                android:fontFamily="@font/opensans"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+            <CheckBox
+                android:buttonTint="@color/colorBlue"
+                android:checked="true"
+                android:text="Action plan 4"
+                android:gravity="top"
+                android:textColor="@color/hintColor"
+                android:textSize="10sp"
+                android:fontFamily="@font/opensans"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+            <CheckBox
+                android:buttonTint="@color/colorBlue"
+                android:checked="true"
+                android:text="Action plan 1 can be this
+long too, why not. don’t
+you ever saw a long
+sentence before"
+                android:gravity="top"
+                android:textColor="@color/hintColor"
+                android:textSize="10sp"
+                android:fontFamily="@font/opensans"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+            <CheckBox
+                android:buttonTint="@color/colorBlue"
+                android:text="Action plan 6"
+                android:gravity="top"
+                android:textColor="@color/hintColor"
+                android:textSize="10sp"
+                android:fontFamily="@font/opensans"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+        </GridLayout>
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/darkGray"
+            android:alpha="0.2"
+            android:layout_marginTop="45dp"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/you_can_benefit"
+            android:textSize="14sp"
+            android:layout_marginTop="50dp"
+            android:textColor="@color/hintColor"
+            android:fontFamily="@font/opensans_semibold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp">
+
+            <!--  Add programmatically -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/colorBlue"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="45dp"
+                    style="@style/InputField"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@mipmap/ic_files"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/upload_the_file_pdf"
+                        android:textSize="12.5sp"
+                        android:fontFamily="@font/opensans"
+                        android:textColor="@color/hintColorPassword"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="240dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/opensans_bold"
+            android:textSize="10sp"
+            android:text="SHARE"
+            style="@style/ButtonBlue"/>
+
+        <TextView
+            android:id="@+id/incorrect_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/red"
+            android:fontFamily="@font/opensans"
+            android:textSize="10sp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/select_the_file_s_you_want_to_share"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

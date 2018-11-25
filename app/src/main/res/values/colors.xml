@@ -10,6 +10,7 @@
     <color name="hintColorPassword">#70839b</color>
     <color name="hintColor">#a0a7af</color>
     <color name="lightGray">#dfe2e8</color>
+    <color name="darkGray">#707070</color>
     <color name="fieldColorGrayTransparent">#80ebeef4</color>
     <color name="fieldBorderGray">#ebeef4</color>
     <color name="fieldColorGray">#f4f8fa</color>

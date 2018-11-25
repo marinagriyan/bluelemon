@@ -17,11 +17,13 @@
 
     <style name="DocumentsTabLayout" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">14sp</item>
+        <item name="textAllCaps">false</item>
         <item name="android:fontFamily">@font/opensans_semibold</item>
     </style>
 
     <style name="TrainingsTabLayout" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">12sp</item>
+        <item name="textAllCaps">false</item>
         <item name="android:fontFamily">@font/opensans_semibold</item>
     </style>
 

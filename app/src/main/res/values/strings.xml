@@ -111,4 +111,9 @@
     <string name="attendees">Attendees</string>
     <string name="notes">Notes</string>
     <string name="signature">Signature</string>
+    <string name="the_action_plan">THE ACTION PLAN</string>
+    <string name="save">Save</string>
+    <string name="actions_hint">Here are some Action plans you can follow to be safe.</string>
+    <string name="you_can_benefit">You can benefit from a list of guidance related to your Risk</string>
+    <string name="select_the_file_s_you_want_to_share">Select the file(s) you want to share</string>
 </resources>
