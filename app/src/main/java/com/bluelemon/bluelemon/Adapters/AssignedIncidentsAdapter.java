@@ -1,7 +1,6 @@
 package com.bluelemon.bluelemon.Adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +14,11 @@ import com.intrusoft.sectionedrecyclerview.SectionRecyclerViewAdapter;
 
 import java.util.List;
 
-public class MyIncidentsAdapter extends SectionRecyclerViewAdapter<IncidentsModel, SingleIncident, MyIncidentsAdapter.SectionViewHolder, MyIncidentsAdapter.ChildViewHolder> {
+public class AssignedIncidentsAdapter extends SectionRecyclerViewAdapter<IncidentsModel, SingleIncident, AssignedIncidentsAdapter.SectionViewHolder, AssignedIncidentsAdapter.ChildViewHolder> {
     private Activity activity;
     private List<IncidentsModel> sectionItemList;
 
-    public MyIncidentsAdapter(Activity activity, List<IncidentsModel> sectionItemList) {
+    public AssignedIncidentsAdapter(Activity activity, List<IncidentsModel> sectionItemList) {
         super(activity, sectionItemList);
         this.activity = activity;
         this.sectionItemList = sectionItemList;
@@ -32,7 +31,7 @@ public class MyIncidentsAdapter extends SectionRecyclerViewAdapter<IncidentsMode
 
     @Override
     public ChildViewHolder onCreateChildViewHolder(ViewGroup viewGroup, int i) {
-        return new ChildViewHolder(LayoutInflater.from(activity).inflate(R.layout.incidents_item, viewGroup, false));
+        return new ChildViewHolder(LayoutInflater.from(activity).inflate(R.layout.assigned_incidents_item, viewGroup, false));
     }
 
     @Override

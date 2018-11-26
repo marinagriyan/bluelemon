@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.bluelemon.bluelemon.Fragments.AssignedIncidentsFragment;
 import com.bluelemon.bluelemon.Fragments.MyIncidentsFragment;
 import com.bluelemon.bluelemon.R;
 
@@ -31,7 +32,7 @@ public class IncidentsMainAdapter extends FragmentPagerAdapter {
         if (position == 0)
             fragment = new MyIncidentsFragment();
         if (position == 1)
-            fragment = new MyIncidentsFragment();
+            fragment = new AssignedIncidentsFragment();
         return fragment;
     }
 

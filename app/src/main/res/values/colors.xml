@@ -7,7 +7,9 @@
 
     <color name="colorBlue">#3088f4</color>
     <color name="colorGreen">#35d6b7</color>
+    <color name="colorGreenDark">#086150</color>
     <color name="hintColorPassword">#70839b</color>
+    <color name="hintColorPasswordDark">#455b76</color>
     <color name="hintColor">#a0a7af</color>
     <color name="lightGray">#dfe2e8</color>
     <color name="darkGray">#707070</color>
@@ -18,5 +20,7 @@
     <color name="grayTransparent">#1e6b7885</color>
     <color name="whiteOpaque">#4dffffff</color>
     <color name="red">#fe626d</color>
+    <color name="redDark">#9b3239</color>
     <color name="yellow">#fecc35</color>
+    <color name="yellowDark">#9c7604</color>
 </resources>

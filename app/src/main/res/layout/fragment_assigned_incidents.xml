@@ -42,44 +42,9 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
-
-        <LinearLayout
-            android:layout_width="250dp"
-            android:layout_height="35dp"
-            android:background="@drawable/dashed_background"
-            android:layout_marginTop="45dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            style="@style/ButtonBlue">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/plus"
-                android:tint="@color/hintColor"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/hintColor"
-                android:fontFamily="@font/opensans"
-                android:text="@string/report_an_incident"
-                android:textSize="12sp"/>
-
-        </LinearLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"/>
-
-    </LinearLayout>
-
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>

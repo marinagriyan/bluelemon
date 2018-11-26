@@ -202,53 +202,18 @@
             android:layout_marginTop="25dp"
             android:background="@android:color/white" />
 
-        <LinearLayout
-            android:id="@+id/investigator"
+        <TextView
+            android:id="@+id/begin"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:layout_marginTop="5dp"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:background="@drawable/white_background">
+            android:text="@string/begin_investigation"
+            android:textSize="10sp"
+            android:fontFamily="@font/opensans"
+            style="@style/ButtonGreen"/>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="5dp"
-                android:src="@drawable/profile_pic_example"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:orientation="vertical"
-                android:layout_marginStart="6dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:lines="1"
-                    android:textSize="9sp"
-                    android:textColor="@color/hintColor"
-                    android:fontFamily="@font/opensans"
-                    android:text="@string/investigator"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:lines="1"
-                    android:textSize="11sp"
-                    android:layout_marginTop="-5dp"
-                    android:textColor="@color/colorAccent"
-                    android:fontFamily="@font/opensans_bold"
-                    android:text="John S."/>
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
 
     </LinearLayout>
 
