@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingStart="25dp"
+    android:paddingEnd="45dp"
+    android:layout_marginTop="40dp">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        style="@style/ButtonBlue"
+        android:background="@drawable/input_field_gray_stroke">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="@font/opensans_bold"
+            android:textColor="@color/colorAccent"
+            android:text="@string/level_0"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:fontFamily="@font/opensans"
+            android:textColor="@color/colorAccent"
+            android:text="@string/no_further_actions_neeeded"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        style="@style/ButtonBlue"
+        android:background="@drawable/input_field_gray_stroke">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="@font/opensans_bold"
+            android:textColor="@color/colorAccent"
+            android:text="@string/level_1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:fontFamily="@font/opensans"
+            android:textColor="@color/colorAccent"
+            android:text="@string/further_actions_and_follow_up_neeeded"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:fontFamily="@font/opensans_bold"
+        android:textColor="#fff"
+        android:text="@string/level_2"
+        style="@style/ButtonBlue"/>
+
+</LinearLayout>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.NewDocumentFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="270dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:fontFamily="@font/opensans"
+                android:textColor="@android:color/white"
+                android:background="@drawable/button_blue"
+                android:text="@string/incident_with_injury"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:fontFamily="@font/opensans"
+                android:textColor="@color/hintColorPassword"
+                android:background="@drawable/input_field_gray"
+                android:text="@string/near_miss"/>
+
+        </LinearLayout>
+
+        <include layout="@layout/general_information_layout"/>
+
+        <include layout="@layout/your_details_layout"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="60dp"
+            android:background="@color/fieldColorGray"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingTop="40dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="165dp"
+                android:layout_height="40dp"
+                style="@style/ButtonBlue"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/plus" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/white"
+                    android:text="@string/add_person"/>
+            </LinearLayout>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/hintColor"
+                android:buttonTint="@color/hintColor"
+                android:textSize="10sp"
+                android:fontFamily="@font/opensans"
+                android:text="All the information entered have been confirmed with the people involved and are a true reflection of the incident that occurred ?"
+                />
+
+        </LinearLayout>
+
+        <include layout="@layout/choose_investigator_layout"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/save"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginEnd="7dp"
+                style="@style/ButtonYellow"
+                android:text="@string/save"/>
+
+            <TextView
+                android:id="@+id/complete"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="7dp"
+                style="@style/ButtonGreen"
+                android:text="@string/complete"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

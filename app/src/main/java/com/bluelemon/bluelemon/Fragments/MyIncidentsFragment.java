@@ -48,6 +48,13 @@ public class MyIncidentsFragment extends Fragment {
         list.add(new IncidentsModel("June 12, 2018", singleIncidentList));
 
         recyclerView.setAdapter(new MyIncidentsAdapter(activity, list));
+
+        view.findViewById(R.id.report).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.setFragment(new AddIncidentFragment());
+            }
+        });
         return view;
     }
 

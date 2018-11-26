@@ -20,6 +20,11 @@
     <string name="expired">Expired</string>
     <string name="expires_in">Expires in 30 days</string>
 
+    <string-array name="yes_no">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
     <string name="certificates">Certificates</string>
 
     <string-array name="tabs">
@@ -125,4 +130,25 @@
     <string name="investigator">Investigator</string>
     <string name="begin_investigation">Begin Investigation</string>
     <string name="completed">COMPLETED!</string>
+    <string name="incident_with_injury">Incident with injury</string>
+    <string name="near_miss">Near miss</string>
+    <string name="accident_category">Accident Category</string>
+    <string name="time">Time</string>
+    <string name="add_person">Add Person</string>
+    <string name="accident_value">Accident Value</string>
+    <string name="accident_location">Accident Location</string>
+    <string name="accident_venue">Accident Venue</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="contacts">Contacts</string>
+    <string name="job_title">Job Title</string>
+    <string name="post_code">Post Code</string>
+    <string name="address">Address</string>
+    <string name="riddor_accident">Riddor Accident</string>
+    <string name="position">Position</string>
+    <string name="level_0">Level 0</string>
+    <string name="no_further_actions_neeeded">No further actions neeeded</string>
+    <string name="level_1">Level 1</string>
+    <string name="further_actions_and_follow_up_neeeded">Further actions and follow-up neeeded</string>
+    <string name="level_2">Level 2</string>
 </resources>
