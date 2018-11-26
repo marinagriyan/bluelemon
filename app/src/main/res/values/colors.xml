@@ -23,4 +23,6 @@
     <color name="redDark">#9b3239</color>
     <color name="yellow">#fecc35</color>
     <color name="yellowDark">#9c7604</color>
+
+    <color name="blackTransparent">#50030303</color>
 </resources>

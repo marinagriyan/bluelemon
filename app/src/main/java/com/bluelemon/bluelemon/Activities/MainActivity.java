@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView profile;
     private ImageView back;
 
+    private View messageLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.security_alert).setOnClickListener(this);
         findViewById(R.id.notification).setOnClickListener(this);
+
+        messageLayout = findViewById(R.id.completed_layout);
+        findViewById(R.id.continue_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                messageLayout.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    public void showMessageLayout(){
+        messageLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

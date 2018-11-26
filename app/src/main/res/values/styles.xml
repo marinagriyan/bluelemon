@@ -36,6 +36,16 @@
         <item name="android:focusable">true</item>
     </style>
 
+    <style name="ButtonWhite" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_white</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@color/colorBlue</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+
     <style name="ButtonGreen" parent="ButtonBlue">
         <item name="android:background">@drawable/button_green</item>
     </style>
@@ -78,6 +88,12 @@
         <item name="android:fontFamily">@font/opensans_semibold</item>
     </style>
 
-
+    <style name="Theme.Transparent" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 
 </resources>

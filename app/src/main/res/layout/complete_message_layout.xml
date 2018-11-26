@@ -4,12 +4,11 @@
     android:layout_height="match_parent"
     android:background="@color/colorBlue"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center">
 
     <ImageView
         android:layout_width="140dp"
         android:layout_height="120dp"
-        android:layout_marginTop="140dp"
         android:src="@drawable/speaker"/>
 
 
@@ -32,6 +31,7 @@
         android:text="You have successfully successfully completed the investigation now you can continue investigating more."/>
     
     <TextView
+        android:id="@+id/continue_btn"
         android:layout_width="165dp"
         android:layout_height="45dp"
         style="@style/ButtonBlue"

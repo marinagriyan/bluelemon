@@ -1,12 +1,13 @@
 package com.bluelemon.bluelemon.Adapters;
 
-import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bluelemon.bluelemon.Activities.MainActivity;
+import com.bluelemon.bluelemon.Fragments.BeginInvestigationFragment;
 import com.bluelemon.bluelemon.Models.IncidentsModel;
 import com.bluelemon.bluelemon.Models.SingleIncident;
 import com.bluelemon.bluelemon.R;
@@ -15,10 +16,10 @@ import com.intrusoft.sectionedrecyclerview.SectionRecyclerViewAdapter;
 import java.util.List;
 
 public class AssignedIncidentsAdapter extends SectionRecyclerViewAdapter<IncidentsModel, SingleIncident, AssignedIncidentsAdapter.SectionViewHolder, AssignedIncidentsAdapter.ChildViewHolder> {
-    private Activity activity;
+    private MainActivity activity;
     private List<IncidentsModel> sectionItemList;
 
-    public AssignedIncidentsAdapter(Activity activity, List<IncidentsModel> sectionItemList) {
+    public AssignedIncidentsAdapter(MainActivity activity, List<IncidentsModel> sectionItemList) {
         super(activity, sectionItemList);
         this.activity = activity;
         this.sectionItemList = sectionItemList;
@@ -41,7 +42,12 @@ public class AssignedIncidentsAdapter extends SectionRecyclerViewAdapter<Inciden
 
     @Override
     public void onBindChildViewHolder(ChildViewHolder viewHolder, int i, int i1, SingleIncident child) {
-
+        viewHolder.begin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.setFragment(new BeginInvestigationFragment());
+            }
+        });
     }
 
     public class SectionViewHolder extends RecyclerView.ViewHolder {
@@ -53,11 +59,11 @@ public class AssignedIncidentsAdapter extends SectionRecyclerViewAdapter<Inciden
     }
 
     public class ChildViewHolder extends RecyclerView.ViewHolder {
-
+        private View begin;
 
         public ChildViewHolder(View itemView) {
             super(itemView);
-
+            begin = itemView.findViewById(R.id.begin);
         }
     }
 }

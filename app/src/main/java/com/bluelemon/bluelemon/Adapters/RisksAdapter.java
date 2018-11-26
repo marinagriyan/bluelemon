@@ -1,6 +1,7 @@
 package com.bluelemon.bluelemon.Adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bluelemon.bluelemon.Activities.DownloadActivity;
 import com.bluelemon.bluelemon.Models.DocumentModel;
 import com.bluelemon.bluelemon.Models.RiskModel;
 import com.bluelemon.bluelemon.R;
@@ -41,7 +43,7 @@ public class RisksAdapter extends RecyclerView.Adapter<RisksAdapter.ViewHolder>{
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                activity.startActivity(new Intent(activity,  DownloadActivity.class));
             }
         });
     }

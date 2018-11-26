@@ -34,6 +34,9 @@
         <activity android:name=".Activities.ProfileActivity" />
         <activity android:name=".Activities.AlertDetailsActivity" />
         <activity android:name=".Activities.NotificationsActivity" />
+        <activity
+            android:name=".Activities.DownloadActivity"
+            android:theme="@style/Theme.Transparent" />
     </application>
 
 </manifest>

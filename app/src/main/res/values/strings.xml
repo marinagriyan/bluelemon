@@ -151,4 +151,7 @@
     <string name="level_1">Level 1</string>
     <string name="further_actions_and_follow_up_neeeded">Further actions and follow-up neeeded</string>
     <string name="level_2">Level 2</string>
+    <string name="human_factor">Human Factor</string>
+    <string name="environmental_factor">Environmental Factor</string>
+    <string name="cancel">Cancel</string>
 </resources>
