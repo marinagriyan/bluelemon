@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.Fragments.DocumentsMainFragment;
 import com.bluelemon.bluelemon.Fragments.EquipmentFragment;
+import com.bluelemon.bluelemon.Fragments.IncidentsFragment;
 import com.bluelemon.bluelemon.Fragments.RisksFragment;
 import com.bluelemon.bluelemon.Fragments.TrainingFragment;
 import com.bluelemon.bluelemon.R;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TrainingFragment trainingFragment;
     private RisksFragment risksFragment;
     private EquipmentFragment equipmentFragment;
+    private IncidentsFragment incidentsFragment;
     private Fragment fragment;
 
     private ImageView profile;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         trainingFragment = new TrainingFragment();
         risksFragment = new RisksFragment();
         equipmentFragment = new EquipmentFragment();
+        incidentsFragment = new IncidentsFragment();
 
         getSupportFragmentManager().beginTransaction()
                 .add(view_stub.getId(), documentsMainFragment).commit();
@@ -126,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 fragment = equipmentFragment;
                 break;
             case 4:
-                fragment = trainingFragment;
+                fragment = incidentsFragment;
                 break;
         }
         getSupportFragmentManager()

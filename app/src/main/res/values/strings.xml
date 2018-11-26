@@ -14,6 +14,8 @@
     <string name="incidents">Incidents</string>
     <string name="my_alerts">My Alerts</string>
     <string name="received_alerts">Received Alerts</string>
+    <string name="my_incidents">My Incidents</string>
+    <string name="assigned_incidents">Assigned Incidents</string>
     <string name="expiring_soon">Expiring Soon</string>
     <string name="expired">Expired</string>
     <string name="expires_in">Expires in 30 days</string>
@@ -31,6 +33,7 @@
     <string name="hello_blank_fragment">Blank fragment</string>
     <string name="search_hint">Search for anything or nothing at all</string>
     <string name="add_new_document">Add new document</string>
+    <string name="add_new_certificate">Add new certificate</string>
     <string name="congrats">CONGRATS</string>
     <string name="password_resetted">You have successfully resetted your password. Enjoy your BlueLemon</string>
     <string name="login">Login</string>
@@ -116,4 +119,5 @@
     <string name="actions_hint">Here are some Action plans you can follow to be safe.</string>
     <string name="you_can_benefit">You can benefit from a list of guidance related to your Risk</string>
     <string name="select_the_file_s_you_want_to_share">Select the file(s) you want to share</string>
+    <string name="no_incidents_message">Sorry there are no added incidents in this place would you like to start your first</string>
 </resources>

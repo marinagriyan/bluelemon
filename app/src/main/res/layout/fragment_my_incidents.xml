@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.MyIncidentsFragment"
+    android:background="@color/backgroundGrayTransparent">
+
+    <LinearLayout
+        android:id="@+id/no_incidents_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:src="@drawable/empty_box"/>
+        
+        <TextView
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="15sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAlignment="center"
+            android:fontFamily="@font/opensans"
+            android:text="@string/no_incidents_message"/>
+        
+        <Button
+            android:id="@+id/report"
+            android:layout_width="165dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="65dp"
+            style="@style/ButtonBlue"
+            android:text="Report Incident"
+            android:textSize="12sp"
+            android:fontFamily="@font/opensans_semibold"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
