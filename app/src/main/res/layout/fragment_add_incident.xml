@@ -43,9 +43,46 @@
 
         </LinearLayout>
 
-        <include layout="@layout/general_information_layout"/>
+        <TextView
+            android:id="@+id/general_information"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorBlue"
+            android:layout_marginTop="30dp"
+            android:alpha="0.5"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:drawableEnd="@drawable/minus"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/opensans"
+            android:text="GENERAL INFORMATION"/>
 
-        <include layout="@layout/your_details_layout"/>
+        <include
+            android:id="@+id/general_information_layout"
+            layout="@layout/general_information_layout"/>
+
+        <TextView
+            android:id="@+id/your_details"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorBlue"
+            android:layout_marginTop="30dp"
+            android:alpha="0.5"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:drawableEnd="@drawable/plus"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/opensans"
+            android:text="YOUR DETAIL"/>
+
+        <include
+            android:id="@+id/your_details_layout"
+            layout="@layout/your_details_layout"
+            android:visibility="gone"/>
 
 
         <LinearLayout

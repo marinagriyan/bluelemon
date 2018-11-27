@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.bluelemon.bluelemon.Adapters.AlertsAdapter;
+import com.bluelemon.bluelemon.Models.Notification;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.Utils;
 
@@ -25,6 +26,7 @@ public class AlertsActivity extends AppCompatActivity implements View.OnClickLis
         Utils.setTabLayoutClicks(this);
         findViewById(R.id.profile).setOnClickListener(this);
         findViewById(R.id.add).setOnClickListener(this);
+        findViewById(R.id.notification).setOnClickListener(this);
 
         tabLayout = findViewById(R.id.tab_layout);
         pager = findViewById(R.id.view_pager);
@@ -43,6 +45,9 @@ public class AlertsActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.add:
                 startActivity(new Intent(AlertsActivity.this, AddAlertActivity.class));
+                break;
+            case R.id.notification:
+                startActivity(new Intent(AlertsActivity.this, NotificationsActivity.class));
                 break;
         }
     }

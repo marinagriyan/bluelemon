@@ -23,11 +23,46 @@
             android:textColor="@android:color/white"
             android:text="CIEH L2 Food Safety in Catering"/>
 
-        <View
+        <FrameLayout
+            android:id="@+id/search_layout_container"
             android:layout_width="match_parent"
-            android:layout_height="40dp"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:visibility="visible">
 
-        <include layout="@layout/search_layout"/>
+            <include layout="@layout/search_layout"/>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/complete_layout"
+            android:layout_width="match_parent"
+            android:layout_height="145dp"
+            android:orientation="vertical"
+            android:background="#fff"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Available Spaces 3"
+                android:textSize="12sp"
+                android:textColor="@color/hintColor"
+                android:fontFamily="@font/opensans"/>
+
+            <TextView
+                android:id="@+id/complete"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                style="@style/ButtonBlue"
+                android:text="@string/complete"
+                android:textSize="12sp"
+                android:fontFamily="@font/opensans_semibold"/>
+
+        </LinearLayout>
+
 
         <GridLayout
             android:id="@+id/staff"

@@ -3,21 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorBlue"
-        android:layout_marginTop="30dp"
-        android:alpha="0.5"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:drawableEnd="@drawable/minus"
-        android:textSize="12sp"
-        android:textColor="@android:color/white"
-        android:gravity="center_vertical"
-        android:fontFamily="@font/opensans"
-        android:text="YOUR DETAIL"/>
-
 
     <LinearLayout
         android:layout_width="match_parent"
