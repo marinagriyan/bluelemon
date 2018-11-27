@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab_layout_height"
+        android:background="@color/colorPrimary">
+        
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="25dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/search"
+            android:tint="#fff"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_centerVertical="true"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:backgroundTint="#fff"
+            android:textSize="11sp"
+            android:fontFamily="@font/opensans"
+            android:hint="Search for Admins, Accident types…"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="45dp"
+        style="@style/SmallText"
+        android:text="@string/sites"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="45dp"
+        android:text="All Sites"
+        android:background="@drawable/input_field_gray"
+        style="@style/InputField" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="45dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="25dp"
+            android:text="Hordes"
+            android:gravity="center"
+            android:background="@drawable/input_field_gray_stroke"
+            style="@style/InputField" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="25dp"
+            android:text="Dolores"
+            android:gravity="center"
+            android:background="@drawable/input_field_gray_stroke"
+            style="@style/InputField" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Paytes"
+            android:gravity="center"
+            android:background="@drawable/input_field_gray_stroke"
+            style="@style/InputField" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="45dp"
+        style="@style/SmallText"
+        android:text="@string/status"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="45dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="25dp"
+            android:text="Hordes"
+            style="@style/ButtonGreen" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="25dp"
+            android:text="On Hold"
+            android:gravity="center"
+            style="@style/InputField" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Unchecked"
+            android:gravity="center"
+            style="@style/InputField" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="45dp"
+        style="@style/SmallText"
+        android:text="@string/dates"
+        />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="45dp"
+        style="@style/InputField">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="13 November 2018"
+            style="@style/SmallText" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/calendar_icon"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="55dp"
+        android:layout_gravity="center_horizontal"
+        style="@style/ButtonBlue"
+        android:text="@string/show_results"
+        android:textSize="11sp"
+        android:fontFamily="@font/opensans_semibold"/>
+
+</LinearLayout>

@@ -154,4 +154,7 @@
     <string name="human_factor">Human Factor</string>
     <string name="environmental_factor">Environmental Factor</string>
     <string name="cancel">Cancel</string>
+    <string name="status">Status</string>
+    <string name="dates">Dates</string>
+    <string name="show_results">SHOW RESULTS</string>
 </resources>
