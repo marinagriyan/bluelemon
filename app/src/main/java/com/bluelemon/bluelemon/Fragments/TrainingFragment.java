@@ -41,27 +41,21 @@ public class TrainingFragment extends Fragment {
                 for (int i = 0; i < 6; i ++) {
                     View staff = inflater.inflate(R.layout.staff_card, container, false);
                     staff.getLayoutParams().width = grid.getWidth() / 2;
+                    final int finalI = i;
                     staff.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            activity.setFragment(new TrainerDetailsFragment());
+                            if(selectedIds.size() > 0) {
+                               select(finalI);
+                            } else {
+                                activity.setFragment(new TrainerDetailsFragment());
+                            }
                         }
                     });
-                    final int finalI = i;
                     staff.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {
-                            if (selectedIds.contains(finalI)){
-                                selectedIds.remove(finalI);
-                                if (selectedIds.size() == 0){
-                                    hideSelectors(finalI);
-                                } else {
-                                    showSelectors();
-                                }
-                            } else {
-                                selectedIds.add(finalI);
-                                showSelectors();
-                            }
+                            select(finalI);
                             return true;
                         }
                     });
@@ -80,6 +74,20 @@ public class TrainingFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void select(int index){
+        if (selectedIds.contains(index)){
+            selectedIds.remove(index);
+            if (selectedIds.size() == 0){
+                hideSelectors(index);
+            } else {
+                showSelectors();
+            }
+        } else {
+            selectedIds.add(index);
+            showSelectors();
+        }
     }
 
     private void hideSelectors(int index){
