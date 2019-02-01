@@ -4,18 +4,23 @@ import android.app.Application;
 
 public class App extends Application {
 
-    private static App _instance;
+    private static App instance;
+    private Preferences preferences;
 
     @Override
     public void onCreate() {
         super.onCreate();
         //    Fabric.with(this, new Crashlytics());
 
-        _instance = this;
+        instance = this;
+        preferences = new Preferences(getApplicationContext());
     }
 
     public static App getInstance() {
-        return _instance;
+        return instance;
     }
 
+    public Preferences getPreferences() {
+        return preferences;
+    }
 }

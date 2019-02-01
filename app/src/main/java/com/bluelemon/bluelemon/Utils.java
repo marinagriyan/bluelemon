@@ -3,8 +3,13 @@ package com.bluelemon.bluelemon;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
+
+import org.json.JSONObject;
+
+import okhttp3.ResponseBody;
 
 public class Utils {
     public static void setTabLayoutClicks(final Activity activity){
@@ -39,5 +44,16 @@ public class Utils {
         activity.findViewById(R.id.risks).setOnClickListener(listener);
         activity.findViewById(R.id.equipment).setOnClickListener(listener);
         activity.findViewById(R.id.incidents).setOnClickListener(listener);
+    }
+
+    public static void showError(Activity activity, ResponseBody errorBody){
+        String message = "Error";
+        try {
+            JSONObject error = new JSONObject(errorBody.string());
+            message = error.getString("Error");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
     }
 }

@@ -1,8 +1,7 @@
 package com.bluelemon.bluelemon;
 
 public class Constants {
-
     public static int SELECTED_TAB = 0;
-    public static boolean ALERTS_OPEN = false;
-    public static boolean GET_LOCATION = true;
+    public static final String BASE_URL = "https://mvctest.blhealthandsafety.co.uk";
+    public static final String ORIGIN = "https://staging.blhealthandsafety.co.uk/";
 }

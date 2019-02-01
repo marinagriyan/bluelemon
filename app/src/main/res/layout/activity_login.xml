@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.SignInActivity">
+    tools:context=".Activities.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -133,11 +133,9 @@
             android:layout_width="130dp"
             android:layout_height="50dp"
             android:layout_marginTop="22dp"
+            android:layout_marginBottom="20dp"
             android:text="@string/sign_in"
             android:textSize="14sp"
             style="@style/ButtonBlue" />
-
     </LinearLayout>
-
-
 </ScrollView>
