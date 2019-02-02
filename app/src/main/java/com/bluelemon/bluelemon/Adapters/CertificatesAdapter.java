@@ -49,12 +49,12 @@ public class CertificatesAdapter extends RecyclerView.Adapter<CertificatesAdapte
             viewHolder.edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    BeginInvestigationFragment fragment = new BeginInvestigationFragment();
+                    NewCertificateFragment fragment = new NewCertificateFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt("id", body.getDocumentID());
                     fragment.setArguments(bundle);
                     activity.setFragment(fragment);
-                    activity.setFragment(new NewCertificateFragment());
+                    activity.setFragment(fragment);
                 }
             });
             viewHolder.renew.setOnClickListener(new View.OnClickListener() {

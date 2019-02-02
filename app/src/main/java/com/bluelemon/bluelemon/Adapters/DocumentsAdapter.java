@@ -49,12 +49,12 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.View
             viewHolder.edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    BeginInvestigationFragment fragment = new BeginInvestigationFragment();
+                    NewDocumentFragment fragment = new NewDocumentFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt("id", body.getDocumentID());
                     fragment.setArguments(bundle);
                     activity.setFragment(fragment);
-                    activity.setFragment(new NewDocumentFragment());
+                    activity.setFragment(fragment);
                 }
             });
             viewHolder.renew.setOnClickListener(new View.OnClickListener() {
