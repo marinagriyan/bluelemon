@@ -1,16 +1,37 @@
 package com.bluelemon.bluelemon.Fragments;
 
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
+import com.bluelemon.bluelemon.App;
+import com.bluelemon.bluelemon.Constants;
+import com.bluelemon.bluelemon.PresetRadioGroup;
 import com.bluelemon.bluelemon.R;
+import com.bluelemon.bluelemon.RetrofitClient;
+import com.google.gson.JsonObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddIncidentFragment extends Fragment implements View.OnClickListener{
     private MainActivity activity;
@@ -18,6 +39,21 @@ public class AddIncidentFragment extends Fragment implements View.OnClickListene
     private View yourDetailsLayout;
     private TextView generalInformation;
     private TextView yourDetails;
+
+    private EditText category, department;
+    private TextView date, time;
+    private EditText value, location, venue;
+
+    private EditText firstName, lastName;
+    private Spinner isRiddorSpinner;
+    private boolean isRiddor;
+    private EditText immediateAction;
+    private EditText address, mobile, postCode, email;
+    private EditText jobTitle, occupation;
+
+    private PresetRadioGroup radioGroup;
+    private String level = "0";
+    private Calendar calendar;
 
     @Override
     public void onAttach(Context context) {
@@ -31,22 +67,78 @@ public class AddIncidentFragment extends Fragment implements View.OnClickListene
         View view = inflater.inflate(R.layout.fragment_add_incident, container, false);
         activity.showBack(true);
 
-        generalInformationLayout = view.findViewById(R.id.general_information_layout);
-        yourDetailsLayout = view.findViewById(R.id.your_details_layout);
+        initViews(view);
+        calendar = Calendar.getInstance();
 
         view.findViewById(R.id.complete).setOnClickListener(this);
-        generalInformation = view.findViewById(R.id.general_information);
         generalInformation.setOnClickListener(this);
-        yourDetails = view.findViewById(R.id.your_details);
         yourDetails.setOnClickListener(this);
+        date.setOnClickListener(this);
+        time.setOnClickListener(this);
+        radioGroup.setOnCheckedChangeListener(new PresetRadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(View radioGroup, View radioButton, boolean isChecked, int checkedId) {
+                switch (checkedId){
+                    case R.id.level_0:
+                        level = "0";
+                        break;
+                    case R.id.level_1:
+                        level = "1";
+                        break;
+                    case R.id.level_2:
+                        level = "2";
+                        break;
+                }
+            }
+        });
+
+        isRiddorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                isRiddor = position == 0;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         return view;
+    }
+
+    private void initViews(View view) {
+        generalInformationLayout = view.findViewById(R.id.general_information_layout);
+        yourDetailsLayout = view.findViewById(R.id.your_details_layout);
+        generalInformation = view.findViewById(R.id.general_information);
+        yourDetails = view.findViewById(R.id.your_details);
+
+        category = view.findViewById(R.id.category);
+        department = view.findViewById(R.id.department);
+        date = view.findViewById(R.id.accident_date);
+        time = view.findViewById(R.id.time);
+        value = view.findViewById(R.id.value);
+        venue = view.findViewById(R.id.location);
+        location = view.findViewById(R.id.venue);
+
+        firstName = view.findViewById(R.id.first_name);
+        lastName = view.findViewById(R.id.last_name);
+        isRiddorSpinner = view.findViewById(R.id.is_riddor);
+        immediateAction = view.findViewById(R.id.immediate_action);
+        address = view.findViewById(R.id.address);
+        mobile = view.findViewById(R.id.mobile);
+        postCode = view.findViewById(R.id.postal_code);
+        email = view.findViewById(R.id.email);
+        jobTitle = view.findViewById(R.id.job_title);
+        occupation = view.findViewById(R.id.occupation);
+
+        radioGroup =  view.findViewById(R.id.radio);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.complete:
-                activity.setFragment(new IncidentsFragment());
+                setData();
                 break;
             case R.id.general_information:
                 switchLayoutVisibility(generalInformationLayout, generalInformation);
@@ -54,7 +146,85 @@ public class AddIncidentFragment extends Fragment implements View.OnClickListene
             case R.id.your_details:
                 switchLayoutVisibility(yourDetailsLayout, yourDetails);
                 break;
+            case R.id.accident_date:
+                openCalendar();
+                break;
+            case R.id.time:
+                openTimePicker();
+                break;
         }
+    }
+
+    private void openCalendar(){
+        new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                calendar.set(year, month, day);
+                SimpleDateFormat sdf = new SimpleDateFormat("d MMMM, yyyy", Locale.ENGLISH);
+                date.setText(sdf.format(calendar.getTime()));
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
+    private void openTimePicker(){
+        new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                String AM_PM ;
+                if(hourOfDay < 12) {
+                    AM_PM = "AM";
+                } else {
+                    AM_PM = "PM";
+                    if (hourOfDay != 12){
+                        hourOfDay -= 12;
+                    }
+                }
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar.set(Calendar.MINUTE, minute);
+                time.setText(String.format(Locale.ENGLISH, "%02d:%02d %s", hourOfDay, minute, AM_PM));
+            }
+        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
+    }
+
+    private void setData(){
+        JsonObject body = new JsonObject();
+        String accidentDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).format(calendar.getTime());
+        body.addProperty("accidentDate", accidentDate);
+        // get ID from category and department names
+        body.addProperty("accidentCategoryID", 1);
+        body.addProperty("accidentDepartmentID", 1);
+        body.addProperty("accidentVenueLocation", location.getText().toString());
+        body.addProperty("reportedByFirstName", firstName.getText().toString());
+        body.addProperty("reportedBySurname", lastName.getText().toString());
+        body.addProperty("isRiddorIncident", isRiddor);
+        body.addProperty("immediateAction", immediateAction.getText().toString());
+        body.addProperty("reportedByAddress1", address.getText().toString());
+        body.addProperty("reportedByMobile", mobile.getText().toString());
+        body.addProperty("reportedByPostCode", postCode.getText().toString());
+        body.addProperty("reportedByEmail", email.getText().toString());
+        body.addProperty("reportedByJobTitle", jobTitle.getText().toString());
+        body.addProperty("reportedByOccupation", occupation.getText().toString());
+        body.addProperty("accidentInvestigationLevel", level);
+
+        create(body);
+    }
+
+    private void create(JsonObject body){
+        Call<JsonObject> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .createAccident(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                activity.setFragment(new IncidentsFragment());
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void switchLayoutVisibility(View layout, TextView title){

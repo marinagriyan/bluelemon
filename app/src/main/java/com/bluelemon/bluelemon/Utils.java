@@ -72,7 +72,7 @@ public class Utils {
             }
         }
         if (date != null) {
-            return new SimpleDateFormat("MMMM d, yyyy", Locale.UK).format(date);
+            return new SimpleDateFormat("d MMMM, yyyy", Locale.UK).format(date);
         } else return "";
     }
 

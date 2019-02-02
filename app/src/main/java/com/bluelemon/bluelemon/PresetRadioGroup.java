@@ -35,13 +35,37 @@ public class PresetRadioGroup extends LinearLayout {
 
     public PresetRadioGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
+        parseAttributes(attrs);
         setupView();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public PresetRadioGroup(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        parseAttributes(attrs);
         setupView();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public PresetRadioGroup(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        parseAttributes(attrs);
+        setupView();
+    }
+
+    //================================================================================
+    // Init & inflate methods
+    //================================================================================
+
+    private void parseAttributes(AttributeSet attrs) {
+        TypedArray a = getContext().obtainStyledAttributes(attrs,
+                R.styleable.PresetRadioGroup, 0, 0);
+        try {
+            mCheckedId = a.getResourceId(R.styleable.PresetRadioGroup_presetRadioCheckedId, View.NO_ID);
+
+        } finally {
+            a.recycle();
+        }
     }
 
     // Template method
@@ -200,8 +224,8 @@ public class PresetRadioGroup extends LinearLayout {
 
         /**
          * <p>Fixes the child's width to
-         * {@link ViewGroup.LayoutParams#WRAP_CONTENT} and the child's
-         * height to  {@link ViewGroup.LayoutParams#WRAP_CONTENT}
+         * {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT} and the child's
+         * height to  {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT}
          * when not specified in the XML file.</p>
          *
          * @param a          the styled attributes set
@@ -249,8 +273,8 @@ public class PresetRadioGroup extends LinearLayout {
     }
 
     private class PassThroughHierarchyChangeListener implements
-            OnHierarchyChangeListener {
-        private OnHierarchyChangeListener mOnHierarchyChangeListener;
+            ViewGroup.OnHierarchyChangeListener {
+        private ViewGroup.OnHierarchyChangeListener mOnHierarchyChangeListener;
 
         /**
          * {@inheritDoc}

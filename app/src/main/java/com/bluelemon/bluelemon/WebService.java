@@ -1,8 +1,6 @@
 package com.bluelemon.bluelemon;
 
 
-import com.bluelemon.bluelemon.Models.CreateAccident;
-import com.bluelemon.bluelemon.Models.Responses.AccidentBody;
 import com.bluelemon.bluelemon.Models.Responses.Accidents;
 import com.bluelemon.bluelemon.Models.Responses.SingleAccident;
 import com.google.gson.JsonObject;
@@ -12,7 +10,6 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 
 public interface WebService {
@@ -26,7 +23,7 @@ public interface WebService {
     @POST("/Accident/CreateOrUpdate")
     Call<JsonObject> createAccident(@Header("Origin") String origin,
                                     @Header("Authorization") String token,
-                                    @Body CreateAccident body);
+                                    @Body JsonObject body);
 
     @POST("Accident/GetAccidentsList")
     Call<Accidents> getAccidentsList(@Header("Origin") String origin,

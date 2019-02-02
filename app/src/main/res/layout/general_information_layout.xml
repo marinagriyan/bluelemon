@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,12 +16,12 @@
         />
 
     <EditText
+        android:id="@+id/category"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="45dp"
-        android:text="Category One"
         android:background="@drawable/input_field_gray"
         style="@style/InputField" />
 
@@ -38,12 +36,12 @@
         />
 
     <EditText
+        android:id="@+id/department"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="45dp"
-        android:text="Department One"
         style="@style/InputField" />
 
     <TextView
@@ -53,7 +51,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginEnd="45dp"
         style="@style/SmallText"
-        android:text="Accident Date"
+        android:text="@string/accident_date"
         />
 
     <RelativeLayout
@@ -65,10 +63,10 @@
         style="@style/InputField">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="13 November 2018"
+            android:id="@+id/accident_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             style="@style/SmallText" />
 
         <ImageView
@@ -80,7 +78,6 @@
 
     </RelativeLayout>
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,13 +88,13 @@
         android:text="@string/time"
         />
 
-    <EditText
+    <TextView
+        android:id="@+id/time"
         android:layout_width="80dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="45dp"
-        android:text="3:45 Pm"
         style="@style/InputField" />
 
     <RelativeLayout
@@ -111,17 +108,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/SmallText"
-            android:text="Images" />
+            android:text="@string/images" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/SmallText"
-            android:textSize="10sp"
-            android:layout_alignParentEnd="true"
-            android:textColor="@color/fieldBorderGray"
-            android:layout_alignParentBottom="true"
-            android:text="See All ( 32 Images in total )" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--style="@style/SmallText"-->
+            <!--android:textSize="10sp"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:textColor="@color/fieldBorderGray"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:text="See All ( 32 Images in total )" />-->
 
     </RelativeLayout>
 
@@ -221,12 +218,12 @@
         />
 
     <EditText
+        android:id="@+id/value"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="45dp"
-        android:text="Bad"
         style="@style/InputField" />
 
     <TextView
@@ -240,12 +237,12 @@
         />
 
     <EditText
+        android:id="@+id/location"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="45dp"
-        android:text="Poseidon"
         android:background="@drawable/input_field_gray_stroke"
         style="@style/InputField" />
 
@@ -260,13 +257,12 @@
         />
 
     <EditText
+        android:id="@+id/venue"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="45dp"
-        android:text="Poseidon"
         style="@style/InputField" />
-
 
 </LinearLayout>

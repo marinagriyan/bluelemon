@@ -26,10 +26,10 @@
                 />
 
             <EditText
+                android:id="@+id/first_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
-                android:text="Lukas"
                 android:background="@drawable/input_field_gray_stroke"
                 style="@style/InputField" />
 
@@ -48,10 +48,10 @@
                 />
 
             <EditText
+                android:id="@+id/last_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
-                android:text="Donabedyan"
                 android:background="@drawable/input_field_gray_stroke"
                 style="@style/InputField" />
 
@@ -83,6 +83,7 @@
 
             <!-- change text style programmatically-->
             <Spinner
+                android:id="@+id/is_riddor"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
@@ -106,10 +107,10 @@
                 />
 
             <EditText
+                android:id="@+id/immediate_action"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
-                android:text="Fire in the house"
                 android:background="@drawable/input_field_gray_stroke"
                 style="@style/InputField" />
 
@@ -129,12 +130,12 @@
         />
 
     <EditText
+        android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="45dp"
-        android:text="Poseidon"
         android:background="@drawable/input_field_gray_stroke"
         style="@style/InputField" />
 
@@ -161,10 +162,11 @@
                 />
 
             <EditText
+                android:id="@+id/mobile"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
-                android:text="+44 454 332223 "
+                android:inputType="phone"
                 android:background="@drawable/input_field_gray_stroke"
                 style="@style/InputField" />
 
@@ -183,10 +185,11 @@
                 />
 
             <EditText
+                android:id="@+id/postal_code"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
-                android:text="00961"
+                android:inputType="number"
                 android:background="@drawable/input_field_gray_stroke"
                 style="@style/InputField" />
 
@@ -213,12 +216,12 @@
         />
 
     <EditText
+        android:id="@+id/job_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="45dp"
-        android:text="Household Engineer"
         android:background="@drawable/input_field_gray_stroke"
         style="@style/InputField" />
 
@@ -235,12 +238,12 @@
         />
 
     <EditText
+        android:id="@+id/occupation"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="45dp"
-        android:text="CEO of the company"
         android:background="@drawable/input_field_gray_stroke"
         style="@style/InputField" />
 
@@ -257,15 +260,13 @@
         />
 
     <EditText
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="45dp"
-        android:text="Lukas@gmail.com"
         android:background="@drawable/input_field_gray_stroke"
         style="@style/InputField" />
-
-
 
 </LinearLayout>

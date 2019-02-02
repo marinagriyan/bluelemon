@@ -157,4 +157,7 @@
     <string name="status">Status</string>
     <string name="dates">Dates</string>
     <string name="show_results">SHOW RESULTS</string>
+    <string name="general_information">GENERAL INFORMATION</string>
+    <string name="accident_date">Accident Date</string>
+    <string name="images">Images</string>
 </resources>
