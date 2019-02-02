@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.Locale;
+
 public class Preferences extends Application {
     private static final String PREFERENCES_NAME = "prefs";
 
@@ -19,7 +21,10 @@ public class Preferences extends Application {
         return _preferences.edit();
     }
 
-    public String getAccessToken(){ return _preferences.getString(ACCESS_TOKEN, null); }
+    public String getAccessToken(){
+        String token = _preferences.getString(ACCESS_TOKEN, null);
+        return String.format(Locale.ENGLISH, "Bearer %s", token);
+    }
 
     public void setAccessToken(String value){ getEditor().putString(ACCESS_TOKEN, value).apply(); }
 }

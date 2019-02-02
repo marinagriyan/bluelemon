@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.NewDocumentFragment">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -132,7 +131,7 @@
 
         </LinearLayout>
 
-        <include layout="@layout/choose_investigator_layout"/>
+        <include layout="@layout/choose_level_layout"/>
 
         <LinearLayout
             android:layout_width="match_parent"

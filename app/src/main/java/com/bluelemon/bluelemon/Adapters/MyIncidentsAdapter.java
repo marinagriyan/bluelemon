@@ -1,64 +1,84 @@
 package com.bluelemon.bluelemon.Adapters;
 
 import android.app.Activity;
-import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bluelemon.bluelemon.Models.IncidentsModel;
+import com.bluelemon.bluelemon.Models.AccidentBody;
 import com.bluelemon.bluelemon.Models.SingleIncident;
 import com.bluelemon.bluelemon.R;
-import com.intrusoft.sectionedrecyclerview.SectionRecyclerViewAdapter;
+import com.bluelemon.bluelemon.Utils;
 
 import java.util.List;
+import java.util.Locale;
 
-public class MyIncidentsAdapter extends SectionRecyclerViewAdapter<IncidentsModel, SingleIncident, MyIncidentsAdapter.SectionViewHolder, MyIncidentsAdapter.ChildViewHolder> {
+public class MyIncidentsAdapter extends RecyclerView.Adapter<MyIncidentsAdapter.VH> {
     private Activity activity;
-    private List<IncidentsModel> sectionItemList;
+    private List<AccidentBody> list;
+    private String date = "";
 
-    public MyIncidentsAdapter(Activity activity, List<IncidentsModel> sectionItemList) {
-        super(activity, sectionItemList);
+    public MyIncidentsAdapter(Activity activity, List<AccidentBody> sectionItemList) {
         this.activity = activity;
-        this.sectionItemList = sectionItemList;
+        this.list = sectionItemList;
+    }
+    @NonNull
+    @Override
+    public VH onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        return new VH(LayoutInflater.from(activity).inflate(R.layout.incidents_item, viewGroup, false));
     }
 
     @Override
-    public SectionViewHolder onCreateSectionViewHolder(ViewGroup viewGroup, int i) {
-        return new SectionViewHolder(LayoutInflater.from(activity).inflate(R.layout.date_layout, viewGroup, false));
-    }
-
-    @Override
-    public ChildViewHolder onCreateChildViewHolder(ViewGroup viewGroup, int i) {
-        return new ChildViewHolder(LayoutInflater.from(activity).inflate(R.layout.incidents_item, viewGroup, false));
-    }
-
-    @Override
-    public void onBindSectionViewHolder(SectionViewHolder viewHolder, int i, IncidentsModel sectionHeader) {
-        viewHolder.date.setText(sectionItemList.get(i).getDate());
-    }
-
-    @Override
-    public void onBindChildViewHolder(ChildViewHolder viewHolder, int i, int i1, SingleIncident child) {
-
-    }
-
-    public class SectionViewHolder extends RecyclerView.ViewHolder {
-        private TextView date;
-        public SectionViewHolder(View itemView) {
-            super(itemView);
-            date = (TextView) itemView;
+    public void onBindViewHolder(@NonNull VH vh, int i) {
+        try{
+            AccidentBody body = list.get(i);
+            if (!Utils.dayFormatFromTimestamp(body.getAccidentDate()).equals(date)){
+                date = Utils.dayFormatFromTimestamp(body.getAccidentDate());
+                vh.date.setVisibility(View.VISIBLE);
+                vh.date.setText(date);
+            }
+            vh.reference.setText(body.getReference());
+            vh.stage.setText(body.getAccidentInvestigationStageName());
+            vh.categoryName.setText(body.getCategoryName());
+            vh.severityName.setText(body.getSeverityName());
+            vh.type.setText(body.getAccidentTypeName());
+            vh.reportedBy.setText(String.format(Locale.ENGLISH, "%s %s.", body.getReportedByFirstName(), body.getReportedBySurname().charAt(0)));
+            if (body.getAccidentInvestigatorUserName() != null && !body.getAccidentInvestigatorUserName().equals("")) {
+                vh.itemView.findViewById(R.id.investigator_layout).setVisibility(View.VISIBLE);
+                vh.investigator.setText(body.getAccidentInvestigatorUserName());
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
-    public class ChildViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
 
-
-        public ChildViewHolder(View itemView) {
+    class VH extends RecyclerView.ViewHolder {
+        TextView date;
+        TextView reference;
+        TextView stage;
+        TextView categoryName;
+        TextView severityName;
+        TextView type;
+        TextView reportedBy;
+        TextView investigator;
+        VH(View itemView) {
             super(itemView);
-
+            date = itemView.findViewById(R.id.date);
+            reference = itemView.findViewById(R.id.reference);
+            stage = itemView.findViewById(R.id.stage);
+            categoryName = itemView.findViewById(R.id.category_name);
+            severityName = itemView.findViewById(R.id.severity_name);
+            type = itemView.findViewById(R.id.type);
+            reportedBy = itemView.findViewById(R.id.reported_by);
+            investigator = itemView.findViewById(R.id.investigator);
         }
     }
 }

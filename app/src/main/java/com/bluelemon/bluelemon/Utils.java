@@ -9,6 +9,11 @@ import com.bluelemon.bluelemon.Activities.MainActivity;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import okhttp3.ResponseBody;
 
 public class Utils {
@@ -56,4 +61,20 @@ public class Utils {
         }
         Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
     }
+
+    public static String dayFormatFromTimestamp(String inputDate) {
+        Date date = null;
+        if (inputDate != null) {
+            try {
+                date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.UK).parse(inputDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        if (date != null) {
+            return new SimpleDateFormat("MMMM d, yyyy", Locale.UK).format(date);
+        } else return "";
+    }
+
+
 }

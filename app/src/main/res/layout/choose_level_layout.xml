@@ -9,12 +9,13 @@
     android:layout_marginTop="40dp">
     
     <LinearLayout
+        android:id="@+id/level_0"
         android:layout_width="match_parent"
         android:layout_height="85dp"
         android:gravity="center"
         android:orientation="vertical"
         style="@style/ButtonBlue"
-        android:background="@drawable/input_field_gray_stroke">
+        android:background="@drawable/button_gray">
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,13 +35,14 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/level_1"
         android:layout_width="match_parent"
         android:layout_height="85dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="vertical"
         style="@style/ButtonBlue"
-        android:background="@drawable/input_field_gray_stroke">
+        android:background="@drawable/button_gray">
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,6 +62,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/level_2"
         android:layout_width="match_parent"
         android:layout_height="85dp"
         android:layout_marginTop="20dp"
@@ -69,5 +72,7 @@
         android:textColor="#fff"
         android:text="@string/level_2"
         style="@style/ButtonBlue"/>
+
+
 
 </LinearLayout>

@@ -18,8 +18,6 @@ public class AddIncidentFragment extends Fragment implements View.OnClickListene
     private View yourDetailsLayout;
     private TextView generalInformation;
     private TextView yourDetails;
-    private boolean isGeneralInfoVisible = true;
-    private boolean isDetailsVisible = false;
 
     @Override
     public void onAttach(Context context) {
@@ -51,27 +49,21 @@ public class AddIncidentFragment extends Fragment implements View.OnClickListene
                 activity.setFragment(new IncidentsFragment());
                 break;
             case R.id.general_information:
-                if (isGeneralInfoVisible) {
-                    generalInformationLayout.setVisibility(View.GONE);
-                    generalInformation.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.plus, 0);
-                    isGeneralInfoVisible = false;
-                } else {
-                    generalInformationLayout.setVisibility(View.VISIBLE);
-                    generalInformation.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.minus, 0);
-                    isGeneralInfoVisible = true;
-                }
+                switchLayoutVisibility(generalInformationLayout, generalInformation);
                 break;
             case R.id.your_details:
-                if (isDetailsVisible) {
-                    yourDetailsLayout.setVisibility(View.GONE);
-                    yourDetails.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.plus, 0);
-                    isDetailsVisible = false;
-                } else {
-                    yourDetailsLayout.setVisibility(View.VISIBLE);
-                    yourDetails.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.minus, 0);
-                    isDetailsVisible = true;
-                }
+                switchLayoutVisibility(yourDetailsLayout, yourDetails);
                 break;
+        }
+    }
+
+    private void switchLayoutVisibility(View layout, TextView title){
+        if (layout.getVisibility() == View.VISIBLE){
+            layout.setVisibility(View.GONE);
+            title.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.plus, 0);
+        } else {
+            layout.setVisibility(View.VISIBLE);
+            title.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.minus, 0);
         }
     }
 }
