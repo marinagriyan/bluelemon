@@ -1,5 +1,6 @@
 package com.bluelemon.bluelemon.Adapters;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
+import com.bluelemon.bluelemon.Fragments.BeginInvestigationFragment;
 import com.bluelemon.bluelemon.Fragments.NewDocumentFragment;
 import com.bluelemon.bluelemon.Models.DocumentModel;
 import com.bluelemon.bluelemon.Models.Responses.DocumentBody;
@@ -35,18 +37,23 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         try {
-            final DocumentBody model = list.get(i);
-            if (!model.getExpired()) {
+            final DocumentBody body = list.get(i);
+            if (!body.getExpired()) {
                 viewHolder.status.setBackground(activity.getDrawable(R.drawable.green_circle));
                 viewHolder.renew.setVisibility(View.GONE);
             }
-            viewHolder.title.setText(model.getDocumentName());
-            viewHolder.date.setText(Utils.dayFormatFromTimestamp(model.getDocumentDate()));
-            viewHolder.category.setText(model.getCategoryName());
-            viewHolder.location.setText(model.getSite());
+            viewHolder.title.setText(body.getDocumentName());
+            viewHolder.date.setText(Utils.dayFormatFromTimestamp(body.getDocumentDate()));
+            viewHolder.category.setText(body.getCategoryName());
+            viewHolder.location.setText(body.getSite());
             viewHolder.edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    BeginInvestigationFragment fragment = new BeginInvestigationFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", body.getDocumentID());
+                    fragment.setArguments(bundle);
+                    activity.setFragment(fragment);
                     activity.setFragment(new NewDocumentFragment());
                 }
             });

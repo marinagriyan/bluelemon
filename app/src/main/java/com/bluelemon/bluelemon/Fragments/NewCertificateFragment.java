@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
+import com.bluelemon.bluelemon.Models.Responses.DocumentBody;
 import com.bluelemon.bluelemon.Models.Responses.SingleDocument;
 import com.bluelemon.bluelemon.Models.Responses.SingleDocumentBody;
 import com.bluelemon.bluelemon.R;
@@ -25,14 +26,16 @@ import com.bluelemon.bluelemon.Utils;
 import com.google.gson.JsonObject;
 
 import java.text.SimpleDateFormat;
+import java.util.AbstractSequentialList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NewDocumentFragment extends Fragment implements View.OnClickListener{
+public class NewCertificateFragment extends Fragment implements View.OnClickListener{
     private MainActivity activity;
     private int id;
     private EditText title, sites, category;
@@ -46,13 +49,14 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
         Bundle bundle = getArguments();
         if (bundle != null && bundle.getInt("id") != 0){
             id = bundle.getInt("id");
-            getDocument();
+            getCertificate();
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_document, container, false);
         initViews(view);
         calendar = Calendar.getInstance();
@@ -63,16 +67,16 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
     }
 
     private void initViews(View view) {
-        TextView document = view.findViewById(R.id.document);
-        document.setBackground(getResources().getDrawable(R.drawable.button_blue));
-        document.setTextColor(Color.WHITE);
+        TextView certificate = view.findViewById(R.id.certificate);
+        certificate.setBackground(getResources().getDrawable(R.drawable.button_blue));
+        certificate.setTextColor(Color.WHITE);
         title = view.findViewById(R.id.title);
         sites = view.findViewById(R.id.sites);
         category = view.findViewById(R.id.category);
         date = view.findViewById(R.id.date);
     }
 
-    private void getDocument(){
+    private void getCertificate(){
         JsonObject body = new JsonObject();
         body.addProperty("documentID", id);
         Call<SingleDocument> call = RetrofitClient

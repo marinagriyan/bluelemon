@@ -4,6 +4,7 @@ package com.bluelemon.bluelemon;
 import com.bluelemon.bluelemon.Models.Responses.Accidents;
 import com.bluelemon.bluelemon.Models.Responses.Documents;
 import com.bluelemon.bluelemon.Models.Responses.SingleAccident;
+import com.bluelemon.bluelemon.Models.Responses.SingleDocument;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -41,8 +42,28 @@ public interface WebService {
                         @Header("Authorization") String token,
                         @Body JsonObject body);
 
+    @POST("/document/Get")
+    Call<SingleDocument> getSingleDocument(@Header("Origin") String origin,
+                                           @Header("Authorization") String token,
+                                           @Body JsonObject body);
+
+    @POST("/document/document")
+    Call<JsonObject> createDocument(@Header("Origin") String origin,
+                        @Header("Authorization") String token,
+                        @Body JsonObject body);
+
     @POST("/certificate")
     Call<Documents> getCertificates(@Header("Origin") String origin,
+                                 @Header("Authorization") String token,
+                                 @Body JsonObject body);
+
+    @POST("/certificate/Get")
+    Call<SingleDocument> getSingleCertificate(@Header("Origin") String origin,
+                                           @Header("Authorization") String token,
+                                           @Body JsonObject body);
+
+    @POST("/certificate/certificate")
+    Call<JsonObject> createCertificate(@Header("Origin") String origin,
                                  @Header("Authorization") String token,
                                  @Body JsonObject body);
 }
