@@ -2,6 +2,7 @@ package com.bluelemon.bluelemon;
 
 
 import com.bluelemon.bluelemon.Models.Responses.Accidents;
+import com.bluelemon.bluelemon.Models.Responses.Documents;
 import com.bluelemon.bluelemon.Models.Responses.SingleAccident;
 import com.google.gson.JsonObject;
 
@@ -25,13 +26,23 @@ public interface WebService {
                                     @Header("Authorization") String token,
                                     @Body JsonObject body);
 
-    @POST("Accident/GetAccidentsList")
+    @POST("/Accident/GetAccidentsList")
     Call<Accidents> getAccidentsList(@Header("Origin") String origin,
                                      @Header("Authorization") String token,
                                      @Body JsonObject body);
 
-    @POST("Accident/GetAccident")
+    @POST("/Accident/GetAccident")
     Call<SingleAccident> getAccident(@Header("Origin") String origin,
                                      @Header("Authorization") String token,
                                      @Body JsonObject body);
+
+    @POST("/document")
+    Call<Documents> getDocuments(@Header("Origin") String origin,
+                        @Header("Authorization") String token,
+                        @Body JsonObject body);
+
+    @POST("/certificate")
+    Call<Documents> getCertificates(@Header("Origin") String origin,
+                                 @Header("Authorization") String token,
+                                 @Body JsonObject body);
 }

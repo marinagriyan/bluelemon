@@ -10,18 +10,17 @@ import android.widget.TextView;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Fragments.NewDocumentFragment;
-import com.bluelemon.bluelemon.Models.DocumentModel;
 import com.bluelemon.bluelemon.Models.Responses.DocumentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.Utils;
 
 import java.util.List;
 
-public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.ViewHolder>{
+public class CertificatesAdapter extends RecyclerView.Adapter<CertificatesAdapter.ViewHolder>{
     private MainActivity activity;
     private List<DocumentBody> list;
 
-    public DocumentsAdapter(MainActivity activity, List<DocumentBody> list) {
+    public CertificatesAdapter(MainActivity activity, List<DocumentBody> list) {
         this.activity = activity;
         this.list = list;
     }

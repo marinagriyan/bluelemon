@@ -64,7 +64,7 @@ public class MyIncidentsFragment extends Fragment {
 
     private void getAccidents(){
         JsonObject body = new JsonObject();
-        body.add("site", App.getInstance().getPreferences().getSites());
+        body.add("sites", App.getInstance().getPreferences().getSites());
         Call<Accidents> call = RetrofitClient
                 .getInstance()
                 .getApi()
