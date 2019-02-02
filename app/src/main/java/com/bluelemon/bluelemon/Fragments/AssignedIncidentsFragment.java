@@ -9,20 +9,33 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Adapters.AssignedIncidentsAdapter;
 import com.bluelemon.bluelemon.Adapters.MyIncidentsAdapter;
+import com.bluelemon.bluelemon.App;
+import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.Models.IncidentsModel;
+import com.bluelemon.bluelemon.Models.Responses.AccidentBody;
+import com.bluelemon.bluelemon.Models.Responses.Accidents;
 import com.bluelemon.bluelemon.Models.SingleIncident;
 import com.bluelemon.bluelemon.R;
+import com.bluelemon.bluelemon.RetrofitClient;
+import com.bluelemon.bluelemon.Utils;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AssignedIncidentsFragment extends Fragment {
     private MainActivity activity;
     private RecyclerView recyclerView;
+    private List<AccidentBody> list = new ArrayList<>();
 
     @Override
     public void onAttach(Context context) {
@@ -37,19 +50,39 @@ public class AssignedIncidentsFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        getAccidents();
 
-        List<IncidentsModel> list = new ArrayList<>();
-
-        List<SingleIncident> singleIncidentList = new ArrayList<>();
-
-        singleIncidentList.add(new SingleIncident("2018 / ATH / 0001", "Fall from height", "Riddor Reportable", "Whipped", "Ritana M.", "John S."));
-        singleIncidentList.add(new SingleIncident("2018 / ATH / 0001", "Fall from height", "Riddor Reportable", "Whipped", "Ritana M.", "John S."));
-
-        list.add(new IncidentsModel("June 12, 2018", singleIncidentList));
-        list.add(new IncidentsModel("June 12, 2018", singleIncidentList));
-
-        recyclerView.setAdapter(new AssignedIncidentsAdapter(activity, list));
         return view;
+    }
+
+    private void getAccidents(){
+        JsonObject body = new JsonObject();
+        body.add("site", null);
+        Call<Accidents> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .getAccidentsList(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
+        call.enqueue(new Callback<Accidents>() {
+            @Override
+            public void onResponse(Call<Accidents> call, Response<Accidents> response) {
+                if (response.isSuccessful()){
+                    if (response.body() != null && response.body().getBody() != null){
+                        list = response.body().getBody();
+                        recyclerView.setAdapter(new AssignedIncidentsAdapter(activity, list));
+                    }
+                    else {
+                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Utils.showError(activity, response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Accidents> call, Throwable t) {
+                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }

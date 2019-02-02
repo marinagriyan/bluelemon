@@ -13,8 +13,16 @@ import com.bluelemon.bluelemon.Preferences;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.util.Iterator;
+import java.util.Set;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,9 +56,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful()){
-                    if (response.body() != null){
+                    if (response.body() != null && response.body().get("Body") != null){
                         JsonObject body = response.body().getAsJsonObject("Body");
                         String token = body.get("AccessToken").getAsString();
+                        Set<String> siteAccesses = body.getAsJsonObject("SiteAccesses").keySet();
+                        JsonArray sites = new JsonArray();
+                        for (String site : siteAccesses) {
+                            sites.add(site);
+                        }
+                        preferences.setSites(sites);
                         App.getInstance().getPreferences().setAccessToken(token);
                         openApp();
                     } else {

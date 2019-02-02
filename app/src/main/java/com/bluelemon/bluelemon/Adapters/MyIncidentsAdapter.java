@@ -8,8 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bluelemon.bluelemon.Models.AccidentBody;
-import com.bluelemon.bluelemon.Models.SingleIncident;
+import com.bluelemon.bluelemon.Models.Responses.AccidentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.Utils;
 
@@ -61,14 +60,14 @@ public class MyIncidentsAdapter extends RecyclerView.Adapter<MyIncidentsAdapter.
     }
 
     class VH extends RecyclerView.ViewHolder {
-        TextView date;
-        TextView reference;
-        TextView stage;
-        TextView categoryName;
-        TextView severityName;
-        TextView type;
-        TextView reportedBy;
-        TextView investigator;
+        private TextView date;
+        private TextView reference;
+        private TextView stage;
+        private TextView categoryName;
+        private TextView severityName;
+        private TextView type;
+        private TextView reportedBy;
+        private TextView investigator;
         VH(View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.date);

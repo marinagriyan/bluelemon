@@ -3,14 +3,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginStart="25dp"
+    android:layout_marginStart="20dp"
     android:layout_marginEnd="25dp"
     android:layout_marginBottom="7dp"
     android:layout_marginTop="10dp">
 
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="6dp"
+        android:fontFamily="@font/opensans"
+        android:textSize="10sp"
+        android:textColor="@color/colorAccent"
+        android:visibility="gone"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:paddingBottom="5dp"
         android:background="@android:color/white">
 
         <View
@@ -22,6 +35,7 @@
             android:layout_marginStart="20dp"/>
 
         <TextView
+            android:id="@+id/reference"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:lines="1"
@@ -31,17 +45,17 @@
             android:layout_marginTop="12dp"
             android:textColor="@color/colorAccent"
             android:fontFamily="@font/opensans_bold"
-            android:text="2018 / ATH / 0001"/>
+            />
 
         <TextView
+            android:id="@+id/stage"
             android:layout_width="65dp"
             android:layout_height="18dp"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="20dp"
             style="@style/ButtonBlue"
-            android:alpha="0.45"
-            android:text="Assigned"
+            android:alpha="0.7"
             android:textSize="8dp"
             android:fontFamily="@font/opensans"/>
 
@@ -50,14 +64,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="10dp"
             android:layout_below="@id/status"
             android:layout_toStartOf="@id/downlaod">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center_vertical">
 
                 <ImageView
@@ -67,70 +82,56 @@
                     android:layout_marginEnd="5dp"/>
 
                 <TextView
-                    android:id="@+id/category"
+                    android:id="@+id/category_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fall from height"
                     android:textSize="10sp"
                     android:fontFamily="@font/opensans"
                     android:textColor="@color/colorAccent" />
-
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_marginStart="15dp">
+                android:layout_weight="1"
+                android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="10dp"
+                    android:layout_width="14dp"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/measure_icon"
                     android:layout_marginEnd="5dp"/>
 
                 <TextView
-                    android:id="@+id/location"
-                    android:layout_width="match_parent"
+                    android:id="@+id/severity_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Riddor Reportable"
                     android:textSize="10sp"
                     android:fontFamily="@font/opensans"
                     android:textColor="@color/colorAccent" />
-
             </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_alignStart="@id/category_layout"
+            android:textSize="10sp"
+            android:fontFamily="@font/opensans"
+            android:textColor="@color/colorAccent"
+            android:drawableStart="@drawable/injury_type"
+            android:drawablePadding="5dp"
+            android:layout_marginStart="40dp"
             android:layout_below="@id/category_layout"
-            android:layout_marginTop="5dp">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/injury_type"
-                android:layout_marginEnd="5dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Whipped"
-                android:textSize="10sp"
-                android:fontFamily="@font/opensans"
-                android:textColor="@color/colorAccent" />
-        </LinearLayout>
-
+            android:layout_marginTop="5dp"/>
 
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp">
 
         <View
             android:layout_width="5dp"

@@ -1,9 +1,4 @@
-package com.bluelemon.bluelemon.Models;
-
-import com.intrusoft.sectionedrecyclerview.Section;
-
-import java.io.Serializable;
-import java.util.List;
+package com.bluelemon.bluelemon.Models.Responses;
 
 public class AccidentBody{
     private Object injuredParty;

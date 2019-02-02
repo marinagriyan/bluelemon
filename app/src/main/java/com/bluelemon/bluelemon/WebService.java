@@ -2,6 +2,9 @@ package com.bluelemon.bluelemon;
 
 
 import com.bluelemon.bluelemon.Models.CreateAccident;
+import com.bluelemon.bluelemon.Models.Responses.AccidentBody;
+import com.bluelemon.bluelemon.Models.Responses.Accidents;
+import com.bluelemon.bluelemon.Models.Responses.SingleAccident;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -26,7 +29,12 @@ public interface WebService {
                                     @Body CreateAccident body);
 
     @POST("Accident/GetAccidentsList")
-    Call<JsonObject> getAccidentsList(@Header("Origin") String origin,
-                                      @Header("Authorization") String token);
+    Call<Accidents> getAccidentsList(@Header("Origin") String origin,
+                                     @Header("Authorization") String token,
+                                     @Body JsonObject body);
 
+    @POST("Accident/GetAccident")
+    Call<SingleAccident> getAccident(@Header("Origin") String origin,
+                                     @Header("Authorization") String token,
+                                     @Body JsonObject body);
 }

@@ -2,7 +2,6 @@ package com.bluelemon.bluelemon.Fragments;
 
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,14 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.bluelemon.bluelemon.Activities.LoginActivity;
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Adapters.MyIncidentsAdapter;
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
-import com.bluelemon.bluelemon.Models.AccidentBody;
-import com.bluelemon.bluelemon.Models.IncidentsModel;
-import com.bluelemon.bluelemon.Models.SingleIncident;
+import com.bluelemon.bluelemon.Models.Responses.AccidentBody;
+import com.bluelemon.bluelemon.Models.Responses.Accidents;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
@@ -30,8 +27,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -68,18 +63,18 @@ public class MyIncidentsFragment extends Fragment {
     }
 
     private void getAccidents(){
-        Call<JsonObject> call = RetrofitClient
+        JsonObject body = new JsonObject();
+        body.add("site", App.getInstance().getPreferences().getSites());
+        Call<Accidents> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .getAccidentsList(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken());
-        call.enqueue(new Callback<JsonObject>() {
+                .getAccidentsList(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
+        call.enqueue(new Callback<Accidents>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<Accidents> call, Response<Accidents> response) {
                 if (response.isSuccessful()){
-                    if (response.body() != null){
-                        JsonArray body = response.body().getAsJsonArray("Body");
-                        Type listType = new TypeToken<List<AccidentBody>>() {}.getType();
-                        list = new Gson().fromJson(body, listType);
+                    if (response.body() != null && response.body().getBody() != null){
+                        list = response.body().getBody();
                         recyclerView.setAdapter(new MyIncidentsAdapter(activity, list));
                     }
                     else {
@@ -91,7 +86,7 @@ public class MyIncidentsFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<Accidents> call, Throwable t) {
                 Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
