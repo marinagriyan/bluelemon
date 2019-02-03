@@ -2,6 +2,7 @@ package com.bluelemon.bluelemon;
 
 
 import com.bluelemon.bluelemon.Models.Responses.Accidents;
+import com.bluelemon.bluelemon.Models.Responses.Courses;
 import com.bluelemon.bluelemon.Models.Responses.Documents;
 import com.bluelemon.bluelemon.Models.Responses.EquipmentBody;
 import com.bluelemon.bluelemon.Models.Responses.EquipmentFolders;
@@ -90,4 +91,9 @@ public interface WebService {
     Call<EquipmentFolders> getFolders(@Header("Origin") String origin,
                                       @Header("Authorization") String token,
                                       @Body JsonObject body);
+
+    @POST("/training/GetStaffCourses")
+    Call<Courses> getCourses(@Header("Origin") String origin,
+                             @Header("Authorization") String token,
+                             @Body JsonObject body);
 }
