@@ -61,7 +61,7 @@ public class CertificatesFragment extends Fragment {
 
     private void getCertificates() {
         JsonObject body = new JsonObject();
-        body.add("sites", App.getInstance().getPreferences().getSites());
+        body.add("sites", App.getInstance().getPreferences().getSiteIDs());
         Call<Documents> call = RetrofitClient
                 .getInstance()
                 .getApi()

@@ -9,8 +9,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,10 +25,14 @@ import com.bluelemon.bluelemon.Models.Responses.SingleDocumentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -35,9 +42,12 @@ import retrofit2.Response;
 public class NewDocumentFragment extends Fragment implements View.OnClickListener{
     private MainActivity activity;
     private int id;
-    private EditText title, sites, category;
+    private EditText title, category;
+    private Spinner sites;
     private TextView date;
     private Calendar calendar;
+    private List<String> siteData = new ArrayList<>();
+    private String selectedSite;
 
     @Override
     public void onAttach(Context context) {
@@ -57,6 +67,21 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
         initViews(view);
         calendar = Calendar.getInstance();
         date.setOnClickListener(this);
+
+        siteData.addAll(App.getInstance().getPreferences().getSites().keySet());
+        sites.setAdapter(new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, siteData));
+        sites.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedSite = App.getInstance().getPreferences().getSites().get(siteData.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         view.findViewById(R.id.close).setOnClickListener(this);
         view.findViewById(R.id.add).setOnClickListener(this);
         return view;
@@ -105,7 +130,7 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
 
     private void setData(SingleDocumentBody body){
         title.setText(body.getDocumentName());
-        sites.setText(body.getSite());
+//        sites.setSelection();
         category.setText(body.getCategoryName());
         if (body.getSyncDateTime() != null){
             date.setText(Utils.dayFormatFromTimestamp(body.getSyncDateTime()));
@@ -131,7 +156,7 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
         body.addProperty("documentName", title.getText().toString());
         body.addProperty("issueDate", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).format(calendar.getTime()));
         body.addProperty("renewalFrequency", 365);
-        body.addProperty("siteID", "edafb0c8-83c5-43ba-9d8d-11bfd03bc53f");
+        body.addProperty("siteID", selectedSite);
         body.addProperty("live", true);
         body.addProperty("currentDocumentID", 81);
         body.addProperty("fileName", "");

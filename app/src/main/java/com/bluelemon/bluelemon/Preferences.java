@@ -7,13 +7,17 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class Preferences extends Application {
     private static final String PREFERENCES_NAME = "prefs";
 
     private static final String ACCESS_TOKEN = "access_token";
+    private static final String SITES_IDS = "site_ids";
     private static final String SITES = "sites";
 
     private SharedPreferences _preferences;
@@ -37,17 +41,32 @@ public class Preferences extends Application {
 
     public void setAccessToken(String value){ getEditor().putString(ACCESS_TOKEN, value).apply(); }
 
-    public JsonArray getSites(){
+    public JsonArray getSiteIDs(){
         JsonArray jsonArray = null;
         try {
-            jsonArray = new Gson().fromJson(_preferences.getString(SITES, ""), JsonArray.class);
+            jsonArray = new Gson().fromJson(_preferences.getString(SITES_IDS, ""), JsonArray.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return jsonArray;
     }
 
-    public void setSites(JsonArray value){
+    public void setSiteIDs(JsonArray value){
+        getEditor().putString(SITES_IDS, value.toString()).apply();
+    }
+
+    public HashMap<String, String> getSites(){
+        HashMap<String, String> map = new Gson().fromJson(
+                _preferences.getString(SITES, null), new TypeToken<HashMap<String, String>>() {}.getType()
+        );
+        HashMap<String,String> swapped = new HashMap<>();
+        for(HashMap.Entry<String,String> entry : map.entrySet()){
+            swapped.put(entry.getValue(), entry.getKey());
+        }
+        return swapped;
+    }
+
+    public void setSites(JsonObject value){
         getEditor().putString(SITES, value.toString()).apply();
     }
 }

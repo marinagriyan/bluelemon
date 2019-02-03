@@ -8,14 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Adapters.FoldersAdapter;
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
-import com.bluelemon.bluelemon.Models.FolderModel;
 import com.bluelemon.bluelemon.Models.Responses.EquipmentFolders;
 import com.bluelemon.bluelemon.Models.Responses.Folder;
 import com.bluelemon.bluelemon.R;
@@ -58,7 +56,7 @@ public class AllFoldersFragment extends Fragment {
 
     private void getFolders() {
         JsonObject body = new JsonObject();
-        body.add("sites", App.getInstance().getPreferences().getSites());
+        body.add("sites", App.getInstance().getPreferences().getSiteIDs());
         Call<EquipmentFolders> call = RetrofitClient
                 .getInstance()
                 .getApi()

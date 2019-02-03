@@ -20,12 +20,8 @@ import com.bluelemon.bluelemon.Models.Responses.Accidents;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +60,7 @@ public class MyIncidentsFragment extends Fragment {
 
     private void getAccidents(){
         JsonObject body = new JsonObject();
-        body.add("sites", App.getInstance().getPreferences().getSites());
+        body.add("sites", App.getInstance().getPreferences().getSiteIDs());
         Call<Accidents> call = RetrofitClient
                 .getInstance()
                 .getApi()

@@ -61,7 +61,7 @@ public class DocumentsFragment extends Fragment {
 
     private void getDocuments() {
         JsonObject body = new JsonObject();
-        body.add("sites", App.getInstance().getPreferences().getSites());
+        body.add("sites", App.getInstance().getPreferences().getSiteIDs());
         Call<Documents> call = RetrofitClient
                 .getInstance()
                 .getApi()

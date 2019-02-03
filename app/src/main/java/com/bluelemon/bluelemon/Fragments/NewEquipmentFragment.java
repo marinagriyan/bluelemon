@@ -10,9 +10,12 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +32,9 @@ import com.google.gson.JsonObject;
 
 import java.text.SimpleDateFormat;
 import java.util.AbstractSequentialList;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -45,12 +50,15 @@ public class NewEquipmentFragment extends Fragment {
     private EditText model, serialNumber;
     private TextView enteredBy;
     private EditText description, template;
-    private EditText sites, department, frequency;
+    private Spinner sites;
+    private EditText department, frequency;
     private TextView checkDate;
 
     private TextView requirementsList;
     private EquipmentBody equipmentBody;
     private Calendar calendar;
+    private List<String> siteData = new ArrayList<>();
+    private String selectedSite;
 
     @Override
     public void onAttach(Context context) {
@@ -89,7 +97,19 @@ public class NewEquipmentFragment extends Fragment {
                 openCalendar();
             }
         });
+        siteData.addAll(App.getInstance().getPreferences().getSites().keySet());
+        sites.setAdapter(new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, siteData));
+        sites.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedSite = App.getInstance().getPreferences().getSites().get(siteData.get(position));
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         return view;
     }
 
@@ -117,8 +137,6 @@ public class NewEquipmentFragment extends Fragment {
         enteredBy.setText(equipmentBody.getUserName());
         description.setText(equipmentBody.getComments());
         template.setText(equipmentBody.getCategory());
-        // no sites ?
-        sites.setText(null);
         department.setText(equipmentBody.getDepartmentName());
         frequency.setText(String.valueOf(equipmentBody.getFrequency()));
         checkDate.setText(Utils.dayFormatFromTimestamp(equipmentBody.getCheckDate()));

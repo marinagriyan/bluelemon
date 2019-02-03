@@ -2,6 +2,7 @@ package com.bluelemon.bluelemon.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -13,21 +14,16 @@ import com.bluelemon.bluelemon.Preferences;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import java.util.Iterator;
 import java.util.Set;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText username;
     private EditText password;
     private Preferences preferences;
@@ -38,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         initViews();
         preferences = App.getInstance().getPreferences();
-        if (preferences.getAccessToken() != null){
+        if (preferences.getAccessToken() != null) {
             openApp();
         }
     }
@@ -50,8 +46,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.sign_in).setOnClickListener(this);
     }
 
-    private void login(String username, String password){
-        Call<JsonObject> call = RetrofitClient.getInstance().getApi().login(Constants.ORIGIN, username, password);
+    private void login() {
+        String device = Settings.Secure.getString(getContentResolver(),  Settings.Secure.ANDROID_ID);
+        Call<JsonObject> call = RetrofitClient.getInstance().getApi().login(Constants.ORIGIN, device,  username.getText().toString(), password.getText().toString());
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -59,12 +56,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if (response.body() != null && response.body().get("Body") != null){
                         JsonObject body = response.body().getAsJsonObject("Body");
                         String token = body.get("AccessToken").getAsString();
+                        preferences.setSites(body.getAsJsonObject("SiteAccesses"));
                         Set<String> siteAccesses = body.getAsJsonObject("SiteAccesses").keySet();
                         JsonArray sites = new JsonArray();
                         for (String site : siteAccesses) {
                             sites.add(site);
                         }
-                        preferences.setSites(sites);
+                        preferences.setSiteIDs(sites);
                         App.getInstance().getPreferences().setAccessToken(token);
                         openApp();
                     } else {
@@ -94,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
                 break;
             case R.id.sign_in:
-                login(username.getText().toString(), password.getText().toString());
+                login();
                 break;
         }
     }

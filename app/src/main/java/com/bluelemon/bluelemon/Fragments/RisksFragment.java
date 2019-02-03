@@ -53,7 +53,7 @@ public class RisksFragment extends Fragment {
 
     private void getRisks() {
         JsonObject body = new JsonObject();
-        body.add("sites", App.getInstance().getPreferences().getSites());
+        body.add("sites", App.getInstance().getPreferences().getSiteIDs());
         Call<Risks> call = RetrofitClient
                 .getInstance()
                 .getApi()

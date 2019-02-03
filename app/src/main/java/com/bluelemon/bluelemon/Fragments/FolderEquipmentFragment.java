@@ -12,16 +12,13 @@ import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Adapters.EquipmentsAdapter;
-import com.bluelemon.bluelemon.Adapters.RisksAdapter;
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
-import com.bluelemon.bluelemon.Models.EquipmentModel;
 import com.bluelemon.bluelemon.Models.Responses.EquipmentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
