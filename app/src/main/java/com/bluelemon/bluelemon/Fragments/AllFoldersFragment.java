@@ -8,19 +8,32 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Adapters.FoldersAdapter;
+import com.bluelemon.bluelemon.App;
+import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.Models.FolderModel;
+import com.bluelemon.bluelemon.Models.Responses.EquipmentFolders;
+import com.bluelemon.bluelemon.Models.Responses.Folder;
 import com.bluelemon.bluelemon.R;
+import com.bluelemon.bluelemon.RetrofitClient;
+import com.bluelemon.bluelemon.Utils;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AllFoldersFragment extends Fragment {
     private MainActivity activity;
     private RecyclerView recyclerView;
-    private List<FolderModel> list = new ArrayList<>();
+    private List<Folder> list = new ArrayList<>();
 
     @Override
     public void onAttach(Context context) {
@@ -38,15 +51,41 @@ public class AllFoldersFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
 
-        list.add(new FolderModel("Folder 1", "Count 1"));
-        list.add(new FolderModel("Folder 1", "Count 1"));
-        list.add(new FolderModel("Folder 1", "Count 1"));
-        list.add(new FolderModel("Folder 1", "Count 1"));
-        list.add(new FolderModel("Folder 1", "Count 1"));
-
-        recyclerView.setAdapter(new FoldersAdapter(activity, list));
+        getFolders();
 
         return view;
+    }
+
+    private void getFolders() {
+        JsonObject body = new JsonObject();
+        body.add("sites", App.getInstance().getPreferences().getSites());
+        Call<EquipmentFolders> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .getFolders(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
+        call.enqueue(new Callback<EquipmentFolders>() {
+            @Override
+            public void onResponse(Call<EquipmentFolders> call, Response<EquipmentFolders> response) {
+                if (response.code() == 401){
+                    Utils.logout(activity);
+                } else if (response.isSuccessful()){
+                    if (response.body() != null && response.body().getBody() != null){
+                        list = response.body().getBody().getFolders();
+                        recyclerView.setAdapter(new FoldersAdapter(activity, list));
+                    }
+                    else {
+                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Utils.showError(activity, response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EquipmentFolders> call, Throwable t) {
+                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }

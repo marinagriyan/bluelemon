@@ -4,6 +4,7 @@ package com.bluelemon.bluelemon;
 import com.bluelemon.bluelemon.Models.Responses.Accidents;
 import com.bluelemon.bluelemon.Models.Responses.Documents;
 import com.bluelemon.bluelemon.Models.Responses.EquipmentBody;
+import com.bluelemon.bluelemon.Models.Responses.EquipmentFolders;
 import com.bluelemon.bluelemon.Models.Responses.Risks;
 import com.bluelemon.bluelemon.Models.Responses.SingleAccident;
 import com.bluelemon.bluelemon.Models.Responses.SingleDocument;
@@ -80,4 +81,13 @@ public interface WebService {
     @POST("/equipment")
     Call<List<EquipmentBody>> getEquipment(@Header("Origin") String origin,
                                            @Header("Authorization") String token);
+
+    @POST("/equipment/Folder")
+    Call<JsonObject> createFolder(@Header("Origin") String origin,
+                                  @Header("Authorization") String token);
+
+    @POST("/equipment/GetFolders")
+    Call<EquipmentFolders> getFolders(@Header("Origin") String origin,
+                                      @Header("Authorization") String token,
+                                      @Body JsonObject body);
 }

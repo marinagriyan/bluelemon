@@ -10,15 +10,17 @@ import android.widget.TextView;
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Fragments.FolderEquipmentFragment;
 import com.bluelemon.bluelemon.Models.FolderModel;
+import com.bluelemon.bluelemon.Models.Responses.Folder;
 import com.bluelemon.bluelemon.R;
 
 import java.util.List;
+import java.util.Locale;
 
 public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.ViewHolder>{
     private MainActivity activity;
-    private List<FolderModel> list;
+    private List<Folder> list;
 
-    public FoldersAdapter(MainActivity activity, List<FolderModel> list) {
+    public FoldersAdapter(MainActivity activity, List<Folder> list) {
         this.activity = activity;
         this.list = list;
     }
@@ -31,16 +33,20 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        final FolderModel model = list.get(i);
-        viewHolder.title.setText(model.getTitle());
-        viewHolder.count.setText(model.getCount());
+        try {
+            final Folder model = list.get(i);
+            viewHolder.title.setText(model.getName());
+            viewHolder.count.setText(String.format(Locale.ENGLISH, "Count %d", model.getCount()));
 
-        viewHolder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.setFragment(new FolderEquipmentFragment());
-            }
-        });
+            viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    activity.setFragment(new FolderEquipmentFragment());
+                }
+            });
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
