@@ -3,6 +3,7 @@ package com.bluelemon.bluelemon;
 
 import com.bluelemon.bluelemon.Models.Responses.Accidents;
 import com.bluelemon.bluelemon.Models.Responses.Documents;
+import com.bluelemon.bluelemon.Models.Responses.Risks;
 import com.bluelemon.bluelemon.Models.Responses.SingleAccident;
 import com.bluelemon.bluelemon.Models.Responses.SingleDocument;
 import com.google.gson.JsonObject;
@@ -66,4 +67,9 @@ public interface WebService {
     Call<SingleDocument> createCertificate(@Header("Origin") String origin,
                                  @Header("Authorization") String token,
                                  @Body JsonObject body);
+
+    @POST("/Risk")
+    Call<Risks> getRisks(@Header("Origin") String origin,
+                             @Header("Authorization") String token,
+                             @Body JsonObject body);
 }

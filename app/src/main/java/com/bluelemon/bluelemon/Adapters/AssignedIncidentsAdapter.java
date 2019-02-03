@@ -10,12 +10,9 @@ import android.widget.TextView;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Fragments.BeginInvestigationFragment;
-import com.bluelemon.bluelemon.Models.IncidentsModel;
 import com.bluelemon.bluelemon.Models.Responses.AccidentBody;
-import com.bluelemon.bluelemon.Models.SingleIncident;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.Utils;
-import com.intrusoft.sectionedrecyclerview.SectionRecyclerViewAdapter;
 
 import java.util.List;
 import java.util.Locale;

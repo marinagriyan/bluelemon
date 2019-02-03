@@ -13,13 +13,10 @@ import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Adapters.AssignedIncidentsAdapter;
-import com.bluelemon.bluelemon.Adapters.MyIncidentsAdapter;
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
-import com.bluelemon.bluelemon.Models.IncidentsModel;
 import com.bluelemon.bluelemon.Models.Responses.AccidentBody;
 import com.bluelemon.bluelemon.Models.Responses.Accidents;
-import com.bluelemon.bluelemon.Models.SingleIncident;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;

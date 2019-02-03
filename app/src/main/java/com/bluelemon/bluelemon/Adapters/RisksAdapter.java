@@ -12,16 +12,18 @@ import android.widget.TextView;
 
 import com.bluelemon.bluelemon.Activities.DownloadActivity;
 import com.bluelemon.bluelemon.Models.DocumentModel;
+import com.bluelemon.bluelemon.Models.Responses.RiskBody;
 import com.bluelemon.bluelemon.Models.RiskModel;
 import com.bluelemon.bluelemon.R;
+import com.bluelemon.bluelemon.Utils;
 
 import java.util.List;
 
 public class RisksAdapter extends RecyclerView.Adapter<RisksAdapter.ViewHolder>{
     private Activity activity;
-    private List<RiskModel> list;
+    private List<RiskBody> list;
 
-    public RisksAdapter(Activity activity, List<RiskModel> list) {
+    public RisksAdapter(Activity activity, List<RiskBody> list) {
         this.activity = activity;
         this.list = list;
     }
@@ -34,18 +36,22 @@ public class RisksAdapter extends RecyclerView.Adapter<RisksAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        final RiskModel model = list.get(i);
-        viewHolder.status.setText(model.getStatus());
-        viewHolder.title.setText(model.getTitle());
-        viewHolder.date.setText(model.getDate());
-        viewHolder.code.setText(model.getCode());
+        try {
+            final RiskBody model = list.get(i);
+            viewHolder.status.setText(model.getStatus());
+            viewHolder.title.setText(model.getName());
+            viewHolder.date.setText(Utils.dayFormatFromTimestamp(model.getCreated()));
+            viewHolder.code.setText(model.getRefno());
 
-        viewHolder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.startActivity(new Intent(activity,  DownloadActivity.class));
-            }
-        });
+            viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    activity.startActivity(new Intent(activity, DownloadActivity.class));
+                }
+            });
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
