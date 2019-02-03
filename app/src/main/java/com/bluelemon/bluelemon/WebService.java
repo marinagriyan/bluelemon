@@ -92,6 +92,11 @@ public interface WebService {
                                       @Header("Authorization") String token,
                                       @Body JsonObject body);
 
+    @POST("/equipment/instance")
+    Call<JsonObject> createEquipment(@Header("Origin") String origin,
+                                  @Header("Authorization") String token,
+                                  @Body JsonObject body);
+
     @POST("/training/GetStaffCourses")
     Call<Courses> getCourses(@Header("Origin") String origin,
                              @Header("Authorization") String token,
