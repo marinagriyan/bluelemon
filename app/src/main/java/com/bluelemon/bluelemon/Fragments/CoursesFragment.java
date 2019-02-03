@@ -10,27 +10,34 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.bluelemon.bluelemon.Adapters.CoursesAdapter;
-import com.bluelemon.bluelemon.Adapters.MyAlertsAdapter;
-import com.bluelemon.bluelemon.Models.AlertsModel;
-import com.bluelemon.bluelemon.Models.CoursesModel;
-import com.bluelemon.bluelemon.Models.SingleAlert;
-import com.bluelemon.bluelemon.Models.SingleCourse;
+import com.bluelemon.bluelemon.Activities.MainActivity;
+import com.bluelemon.bluelemon.Adapters.CourseAdapter;
+import com.bluelemon.bluelemon.App;
+import com.bluelemon.bluelemon.Constants;
+import com.bluelemon.bluelemon.Models.Responses.CourseBody;
+import com.bluelemon.bluelemon.Models.Responses.Courses;
 import com.bluelemon.bluelemon.R;
+import com.bluelemon.bluelemon.RetrofitClient;
+import com.bluelemon.bluelemon.Utils;
+import com.google.gson.JsonObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CoursesFragment extends Fragment {
-    private Activity activity;
+    private MainActivity activity;
     private RecyclerView recyclerView;
+    private List<CourseBody> list;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        this.activity = (Activity) context;
+        this.activity = (MainActivity) context;
     }
 
     @Override
@@ -41,19 +48,41 @@ public class CoursesFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
 
-        List<CoursesModel> sections = new ArrayList<>();
-
-        List<SingleCourse> childList = new ArrayList<>();
-
-        childList.add(new SingleCourse("How to speak Armenian", "Language Course"));
-        childList.add(new SingleCourse("How to speak Armenian", "Language Course"));
-
-
-        sections.add(new CoursesModel("June 12, 2018", childList));
-
-        recyclerView.setAdapter(new CoursesAdapter(activity, sections));
+        getCourses();
 
         return view;
+    }
+
+    private void getCourses() {
+        JsonObject body = new JsonObject();
+        body.addProperty("staffID", 295);
+        Call<Courses> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .getCourses(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
+        call.enqueue(new Callback<Courses>() {
+            @Override
+            public void onResponse(Call<Courses> call, Response<Courses> response) {
+                if (response.code() == 401){
+                    Utils.logout(activity);
+                } else if (response.isSuccessful()){
+                    if (response.body() != null && response.body().getBody() != null){
+                        list = response.body().getBody();
+                        recyclerView.setAdapter(new CourseAdapter(activity, list));
+                    }
+                    else {
+                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Utils.showError(activity, response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Courses> call, Throwable t) {
+                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }

@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bluelemon.bluelemon.Activities.MainActivity;
+import com.bluelemon.bluelemon.Fragments.CoursesFragment;
 import com.bluelemon.bluelemon.Models.Responses.CourseBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.Utils;
@@ -14,10 +16,10 @@ import com.bluelemon.bluelemon.Utils;
 import java.util.List;
 
 public class TrainingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private Activity activity;
+    private MainActivity activity;
     private List<CourseBody> list;
 
-    public TrainingsAdapter(Activity activity, List<CourseBody> list) {
+    public TrainingsAdapter(MainActivity activity, List<CourseBody> list) {
         this.activity = activity;
         this.list = list;
     }
@@ -42,6 +44,12 @@ public class TrainingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 CourseBody body = list.get(position);
                 ((ViewHolder) holder).name.setText(body.getCourseTitle());
                 ((ViewHolder) holder).date.setText(Utils.dayFormatFromTimestamp(body.getCourseCompleted()));
+                ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        activity.setFragment(new CoursesFragment());
+                    }
+                });
             } catch (Exception e){
                 e.printStackTrace();
             }
