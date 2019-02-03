@@ -3,9 +3,13 @@ package com.bluelemon.bluelemon.Fragments;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.provider.DocumentFile;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +29,15 @@ import com.bluelemon.bluelemon.Models.Responses.SingleDocumentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
+import com.google.android.gms.common.util.IOUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,15 +49,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 public class NewDocumentFragment extends Fragment implements View.OnClickListener{
+    private static final int REQUEST_CODE_ATTACH = 842;
     private MainActivity activity;
     private int id;
     private EditText title, category;
     private Spinner sites;
     private TextView date;
+    private View upload;
+    private TextView fileName;
     private Calendar calendar;
     private List<String> siteData = new ArrayList<>();
     private String selectedSite;
+    private String file;
 
     @Override
     public void onAttach(Context context) {
@@ -67,6 +83,7 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
         initViews(view);
         calendar = Calendar.getInstance();
         date.setOnClickListener(this);
+        upload.setOnClickListener(this);
 
         siteData.addAll(App.getInstance().getPreferences().getSites().keySet());
         sites.setAdapter(new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, siteData));
@@ -95,6 +112,8 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
         sites = view.findViewById(R.id.sites);
         category = view.findViewById(R.id.category);
         date = view.findViewById(R.id.date);
+        upload = view.findViewById(R.id.upload);
+        fileName = view.findViewById(R.id.file_name);
     }
 
     private void getDocument(){
@@ -159,9 +178,9 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
         body.addProperty("siteID", selectedSite);
         body.addProperty("live", true);
         body.addProperty("currentDocumentID", 81);
-        body.addProperty("fileName", "");
+        body.addProperty("fileName", fileName.getText().toString());
         // add file as byte[]
-        body.addProperty("file", "");
+        body.addProperty("file", file);
         Call<SingleDocument> call = RetrofitClient
                 .getInstance()
                 .getApi()
@@ -196,11 +215,41 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
             case R.id.date:
                 openCalendar();
                 break;
+            case R.id.upload:
+                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                i.setType("*/*");
+                i.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                startActivityForResult(i, REQUEST_CODE_ATTACH);
+                break;
             case R.id.add:
                 addDocument();
+                break;
             case R.id.close:
                 activity.setFragment(new DocumentsMainFragment());
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_ATTACH && resultCode == RESULT_OK){
+            setFile(data.getData());
+        }
+    }
+
+    private void setFile(Uri data) {
+        DocumentFile documentFile = DocumentFile.fromSingleUri(activity, data);
+        if (documentFile != null && documentFile.getName() != null){
+            fileName.setText(documentFile.getName());
+        }
+        InputStream inputStream = null;
+        try {
+            inputStream = activity.getContentResolver().openInputStream(data);
+            byte[] fileContent = IOUtils.toByteArray(inputStream);
+            file = Base64.encodeToString(fileContent, Base64.DEFAULT);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
