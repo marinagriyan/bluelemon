@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bluelemon.bluelemon.Activities.LoginActivity;
 import com.bluelemon.bluelemon.Activities.MainActivity;
 
 import org.json.JSONObject;
@@ -49,6 +50,13 @@ public class Utils {
         activity.findViewById(R.id.risks).setOnClickListener(listener);
         activity.findViewById(R.id.equipment).setOnClickListener(listener);
         activity.findViewById(R.id.incidents).setOnClickListener(listener);
+    }
+
+    public static void logout(Activity activity){
+        App.getInstance().getPreferences().setAccessToken(null);
+        Intent intent = new Intent(activity, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        activity.startActivity(intent);
     }
 
     public static void showError(Activity activity, ResponseBody errorBody){

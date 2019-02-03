@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bluelemon.bluelemon.Activities.LoginActivity;
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
@@ -23,6 +24,7 @@ import com.bluelemon.bluelemon.Models.Responses.SingleDocumentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.text.SimpleDateFormat;
@@ -30,6 +32,7 @@ import java.util.AbstractSequentialList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -86,7 +89,9 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
         call.enqueue(new Callback<SingleDocument>() {
             @Override
             public void onResponse(Call<SingleDocument> call, Response<SingleDocument> response) {
-                if (response.isSuccessful()){
+                if (response.code() == 401){
+                    Utils.logout(activity);
+                } else if (response.isSuccessful()){
                     if (response.body() != null && response.body().getBody() != null){
                         setData(response.body().getBody());
                     }
@@ -125,6 +130,47 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
+    private void addCertificate(){
+        JsonObject body = new JsonObject();
+        body.addProperty("comments", "test");
+        body.addProperty("documentCategory", 43);
+        body.addProperty("documentID", (Number) null);
+        body.addProperty("documentName", title.getText().toString());
+        body.addProperty("issueDate", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).format(calendar.getTime()));
+        body.addProperty("renewalFrequency", 365);
+        body.addProperty("siteID", "edafb0c8-83c5-43ba-9d8d-11bfd03bc53f");
+        body.addProperty("live", true);
+        body.addProperty("currentDocumentID", 81);
+        body.addProperty("fileName", "");
+        // add file as byte[]
+        body.addProperty("file", "");
+        Call<SingleDocument> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .createCertificate(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
+        call.enqueue(new Callback<SingleDocument>() {
+            @Override
+            public void onResponse(Call<SingleDocument> call, Response<SingleDocument> response) {
+                if (response.code() == 401){
+                    Utils.logout(activity);
+                } else if (response.isSuccessful()){
+                    if (response.body() != null && response.body().getBody() != null){
+
+                    } else {
+                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Utils.showError(activity, response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SingleDocument> call, Throwable t) {
+                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -132,7 +178,7 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
                 openCalendar();
                 break;
             case R.id.add:
-
+                addCertificate();
             case R.id.close:
                 activity.setFragment(new DocumentsMainFragment());
                 break;

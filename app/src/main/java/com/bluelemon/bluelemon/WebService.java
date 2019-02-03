@@ -48,7 +48,7 @@ public interface WebService {
                                            @Body JsonObject body);
 
     @POST("/document/document")
-    Call<JsonObject> createDocument(@Header("Origin") String origin,
+    Call<SingleDocument> createDocument(@Header("Origin") String origin,
                         @Header("Authorization") String token,
                         @Body JsonObject body);
 
@@ -63,7 +63,7 @@ public interface WebService {
                                            @Body JsonObject body);
 
     @POST("/certificate/certificate")
-    Call<JsonObject> createCertificate(@Header("Origin") String origin,
+    Call<SingleDocument> createCertificate(@Header("Origin") String origin,
                                  @Header("Authorization") String token,
                                  @Body JsonObject body);
 }

@@ -78,11 +78,13 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
         Call<SingleDocument> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .getSingleCertificate(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
+                .getSingleDocument(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
         call.enqueue(new Callback<SingleDocument>() {
             @Override
             public void onResponse(Call<SingleDocument> call, Response<SingleDocument> response) {
-                if (response.isSuccessful()){
+                if (response.code() == 401){
+                    Utils.logout(activity);
+                } else if (response.isSuccessful()){
                     if (response.body() != null && response.body().getBody() != null){
                         setData(response.body().getBody());
                     }
@@ -121,6 +123,48 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
+    private void addDocument(){
+        JsonObject body = new JsonObject();
+        body.addProperty("comments", "test");
+        body.addProperty("documentCategory", 43);
+        body.addProperty("documentID", (Number) null);
+        body.addProperty("documentName", title.getText().toString());
+        body.addProperty("issueDate", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).format(calendar.getTime()));
+        body.addProperty("renewalFrequency", 365);
+        body.addProperty("siteID", "edafb0c8-83c5-43ba-9d8d-11bfd03bc53f");
+        body.addProperty("live", true);
+        body.addProperty("currentDocumentID", 81);
+        body.addProperty("fileName", "");
+        // add file as byte[]
+        body.addProperty("file", "");
+        Call<SingleDocument> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .createDocument(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
+        call.enqueue(new Callback<SingleDocument>() {
+            @Override
+            public void onResponse(Call<SingleDocument> call, Response<SingleDocument> response) {
+                if (response.code() == 401){
+                    Utils.logout(activity);
+                } else if (response.isSuccessful()){
+                    if (response.body() != null && response.body().getBody() != null){
+
+                    } else {
+                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Utils.showError(activity, response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SingleDocument> call, Throwable t) {
+                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -128,7 +172,7 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
                 openCalendar();
                 break;
             case R.id.add:
-
+                addDocument();
             case R.id.close:
                 activity.setFragment(new DocumentsMainFragment());
                 break;

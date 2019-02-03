@@ -72,7 +72,9 @@ public class MyIncidentsFragment extends Fragment {
         call.enqueue(new Callback<Accidents>() {
             @Override
             public void onResponse(Call<Accidents> call, Response<Accidents> response) {
-                if (response.isSuccessful()){
+                if (response.code() == 401){
+                    Utils.logout(activity);
+                } else if (response.isSuccessful()){
                     if (response.body() != null && response.body().getBody() != null){
                         list = response.body().getBody();
                         recyclerView.setAdapter(new MyIncidentsAdapter(activity, list));

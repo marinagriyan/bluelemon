@@ -72,7 +72,9 @@ public class DocumentsFragment extends Fragment {
         call.enqueue(new Callback<Documents>() {
             @Override
             public void onResponse(Call<Documents> call, Response<Documents> response) {
-                if (response.isSuccessful()){
+                if (response.code() == 401){
+                    Utils.logout(activity);
+                } else if (response.isSuccessful()){
                     if (response.body() != null && response.body().getBody() != null){
                         list = response.body().getBody();
                         recyclerView.setAdapter(new DocumentsAdapter(activity, list));

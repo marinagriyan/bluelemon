@@ -65,7 +65,9 @@ public class BeginInvestigationFragment extends Fragment {
         call.enqueue(new Callback<SingleAccident>() {
             @Override
             public void onResponse(Call<SingleAccident> call, Response<SingleAccident> response) {
-                if (response.isSuccessful()){
+                if (response.code() == 401){
+                    Utils.logout(activity);
+                } else if (response.isSuccessful()){
                     if (response.body() != null && response.body().getBody() != null){
 
                     }
