@@ -10,9 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
-import com.bluelemon.bluelemon.Fragments.BeginInvestigationFragment;
 import com.bluelemon.bluelemon.Fragments.NewDocumentFragment;
-import com.bluelemon.bluelemon.Models.DocumentModel;
 import com.bluelemon.bluelemon.Models.Responses.DocumentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.Utils;

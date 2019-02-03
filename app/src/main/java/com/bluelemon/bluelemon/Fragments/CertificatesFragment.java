@@ -12,10 +12,8 @@ import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Adapters.CertificatesAdapter;
-import com.bluelemon.bluelemon.Adapters.DocumentsAdapter;
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
-import com.bluelemon.bluelemon.Models.DocumentModel;
 import com.bluelemon.bluelemon.Models.Responses.DocumentBody;
 import com.bluelemon.bluelemon.Models.Responses.Documents;
 import com.bluelemon.bluelemon.R;

@@ -3,10 +3,14 @@ package com.bluelemon.bluelemon;
 
 import com.bluelemon.bluelemon.Models.Responses.Accidents;
 import com.bluelemon.bluelemon.Models.Responses.Documents;
+import com.bluelemon.bluelemon.Models.Responses.EquipmentBody;
 import com.bluelemon.bluelemon.Models.Responses.Risks;
 import com.bluelemon.bluelemon.Models.Responses.SingleAccident;
 import com.bluelemon.bluelemon.Models.Responses.SingleDocument;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -72,4 +76,8 @@ public interface WebService {
     Call<Risks> getRisks(@Header("Origin") String origin,
                              @Header("Authorization") String token,
                              @Body JsonObject body);
+
+    @POST("/equipment")
+    Call<List<EquipmentBody>> getEquipment(@Header("Origin") String origin,
+                                           @Header("Authorization") String token);
 }

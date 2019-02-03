@@ -11,15 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
-import com.bluelemon.bluelemon.Adapters.DocumentsAdapter;
 import com.bluelemon.bluelemon.Adapters.RisksAdapter;
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
-import com.bluelemon.bluelemon.Models.DocumentModel;
-import com.bluelemon.bluelemon.Models.Responses.Documents;
 import com.bluelemon.bluelemon.Models.Responses.RiskBody;
 import com.bluelemon.bluelemon.Models.Responses.Risks;
-import com.bluelemon.bluelemon.Models.RiskModel;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;

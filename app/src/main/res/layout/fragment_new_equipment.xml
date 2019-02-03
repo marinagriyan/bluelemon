@@ -24,10 +24,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,12 +37,12 @@
             android:text="@string/ref_number"/>
 
         <EditText
+            android:id="@+id/ref_no"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="45dp"
-            android:text="LX MAILLON 001"
             android:background="@drawable/input_field_gray_stroke"
             style="@style/InputField" />
 
@@ -59,12 +57,12 @@
             />
 
         <EditText
+            android:id="@+id/make"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="45dp"
-            android:text="Mallion 12"
             android:background="@drawable/input_field_gray_stroke"
             style="@style/InputField" />
 
@@ -79,13 +77,13 @@
             />
 
         <EditText
+            android:id="@+id/model"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="45dp"
             android:background="@drawable/input_field_gray_stroke"
-            android:text="DELTA"
             style="@style/InputField" />
 
         <TextView
@@ -99,13 +97,13 @@
             />
 
         <EditText
+            android:id="@+id/serial_no"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="45dp"
             android:background="@drawable/input_field_gray_stroke"
-            android:text="B687077"
             style="@style/InputField" />
         
         <RelativeLayout
@@ -126,14 +124,14 @@
                 android:text="@string/entered_by" />
 
             <TextView
+                android:id="@+id/entered_by"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:textColor="@color/hintColor"
                 android:textSize="12sp"
                 android:fontFamily="@font/opensans_semibold"
-                android:layout_alignParentEnd="true"
-                android:text="Chris Davies" />
+                android:layout_alignParentEnd="true"/>
 
         </RelativeLayout>
 
@@ -144,16 +142,16 @@
             android:layout_marginStart="25dp"
             android:layout_marginEnd="45dp"
             style="@style/SmallText"
-            android:text="Equipment Description (ID 1543)"
+            android:text="@string/equipment_description"
             />
 
         <EditText
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="45dp"
-            android:text="10 rung Jacobs ladder on roof PEL 22	"
             android:background="@drawable/input_field_gray_stroke"
             android:gravity="start"
             style="@style/InputField" />
@@ -169,12 +167,12 @@
             />
 
         <EditText
+            android:id="@+id/template"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="45dp"
-            android:text="Stair Climber"
             style="@style/InputField" />
 
         <TextView
@@ -188,12 +186,12 @@
             />
 
         <EditText
+            android:id="@+id/sites"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="45dp"
-            android:text="Hera"
             style="@style/InputField" />
 
         <TextView
@@ -207,12 +205,12 @@
             />
 
         <EditText
+            android:id="@+id/department"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="45dp"
-            android:text="ELEX"
             style="@style/InputField" />
 
         <TextView
@@ -226,13 +224,13 @@
             />
 
         <EditText
+            android:id="@+id/frequency"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="45dp"
             android:background="@drawable/input_field_gray_stroke"
-            android:text="180"
             style="@style/InputField" />
 
         <TextView
@@ -255,10 +253,10 @@
             style="@style/InputField">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/check_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:text="13 November 2018"
                 style="@style/SmallText" />
 
             <ImageView
@@ -316,14 +314,16 @@
 
             </RelativeLayout>
 
-            <LinearLayout
+            <TextView
                 android:id="@+id/requirements"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:orientation="vertical">
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="45dp"
+                android:background="@color/fieldColorGrayTransparent">
 
-            </LinearLayout>
+            </TextView>
 
         </LinearLayout>
 

@@ -11,15 +11,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
-import com.bluelemon.bluelemon.Adapters.DocumentsAdapter;
+import com.bluelemon.bluelemon.Adapters.EquipmentsAdapter;
+import com.bluelemon.bluelemon.Adapters.RisksAdapter;
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
-import com.bluelemon.bluelemon.Models.Responses.DocumentBody;
-import com.bluelemon.bluelemon.Models.Responses.Documents;
+import com.bluelemon.bluelemon.Models.EquipmentModel;
+import com.bluelemon.bluelemon.Models.Responses.EquipmentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
-import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,53 +28,54 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DocumentsFragment extends Fragment {
+public class FolderEquipmentFragment extends Fragment {
     private MainActivity activity;
-    private DocumentsMainFragment fragment;
     private RecyclerView recyclerView;
-    private List<DocumentBody> list = new ArrayList<>();
+    private View move;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = (MainActivity) context;
-        fragment = (DocumentsMainFragment) getParentFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_documents, container, false);
+        View view = inflater.inflate(R.layout.fragment_folder_equipment, container, false);
+
+        activity.showBack(true);
+
         recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
 
-        getDocuments();
+        move = view.findViewById(R.id.move);
 
-        view.findViewById(R.id.add_document).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.add_equipment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.setFragment(new NewDocumentFragment());
+                activity.setFragment(new NewEquipmentFragment());
             }
         });
+
+        getEquipment();
+
         return view;
     }
 
-    private void getDocuments() {
-        JsonObject body = new JsonObject();
-        body.add("sites", App.getInstance().getPreferences().getSites());
-        Call<Documents> call = RetrofitClient
+    private void getEquipment(){
+        Call<List<EquipmentBody>> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .getDocuments(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
-        call.enqueue(new Callback<Documents>() {
+                .getEquipment(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken());
+        call.enqueue(new Callback<List<EquipmentBody>>() {
             @Override
-            public void onResponse(Call<Documents> call, Response<Documents> response) {
+            public void onResponse(Call<List<EquipmentBody>> call, Response<List<EquipmentBody>> response) {
                 if (response.code() == 401){
                     Utils.logout(activity);
                 } else if (response.isSuccessful()){
-                    if (response.body() != null && response.body().getBody() != null){
-                        list = response.body().getBody();
-                        recyclerView.setAdapter(new DocumentsAdapter(activity, list));
+                    if (response.body() != null){
+                        recyclerView.setAdapter(new EquipmentsAdapter(activity,FolderEquipmentFragment.this, response.body()));
                     }
                     else {
                         Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
@@ -85,9 +86,14 @@ public class DocumentsFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Documents> call, Throwable t) {
+            public void onFailure(Call<List<EquipmentBody>> call, Throwable t) {
                 Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+
+    public void move(){
+        move.setVisibility(View.VISIBLE);
     }
 }

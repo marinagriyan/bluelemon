@@ -7,13 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bluelemon.bluelemon.Activities.DownloadActivity;
-import com.bluelemon.bluelemon.Models.DocumentModel;
 import com.bluelemon.bluelemon.Models.Responses.RiskBody;
-import com.bluelemon.bluelemon.Models.RiskModel;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.Utils;
 

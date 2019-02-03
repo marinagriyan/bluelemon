@@ -1,6 +1,5 @@
 package com.bluelemon.bluelemon.Adapters;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,9 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
-import com.bluelemon.bluelemon.Fragments.NewFolderFragment;
+import com.bluelemon.bluelemon.Fragments.FolderEquipmentFragment;
 import com.bluelemon.bluelemon.Models.FolderModel;
-import com.bluelemon.bluelemon.Models.RiskModel;
 import com.bluelemon.bluelemon.R;
 
 import java.util.List;
@@ -40,7 +38,7 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.ViewHold
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.setFragment(new NewFolderFragment());
+                activity.setFragment(new FolderEquipmentFragment());
             }
         });
     }
