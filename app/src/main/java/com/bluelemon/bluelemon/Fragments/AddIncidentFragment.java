@@ -217,7 +217,7 @@ public class AddIncidentFragment extends Fragment implements View.OnClickListene
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                activity.setFragment(new IncidentsFragment());
+                activity.onBackPressed();
             }
 
             @Override

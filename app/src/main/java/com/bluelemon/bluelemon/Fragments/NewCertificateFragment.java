@@ -21,28 +21,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bluelemon.bluelemon.Activities.LoginActivity;
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
-import com.bluelemon.bluelemon.Models.Responses.DocumentBody;
 import com.bluelemon.bluelemon.Models.Responses.SingleDocument;
 import com.bluelemon.bluelemon.Models.Responses.SingleDocumentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
 import com.google.android.gms.common.util.IOUtils;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.AbstractSequentialList;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -226,7 +221,7 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
                 addCertificate();
                 break;
             case R.id.close:
-                activity.setFragment(new DocumentsMainFragment());
+                activity.onBackPressed();
                 break;
         }
     }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,12 +20,16 @@ import com.bluelemon.bluelemon.Fragments.RisksFragment;
 import com.bluelemon.bluelemon.Fragments.TrainingFragment;
 import com.bluelemon.bluelemon.R;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, TabLayout.OnTabSelectedListener {
 
     private FrameLayout view_stub;
     private TabLayout tabLayout;
-    private int[] tabIcons;
-    private int[] tabSelectedIcons;
+    private FragmentManager fragmentManager;
+    private int[] tabIcons = {R.drawable.documents_icon, R.drawable.training_icon, R.drawable.risk_icon, R.drawable.equipment_icon, R.drawable.incident_icon};
+    private int[] tabSelectedIcons = {R.drawable.documents_icon_pr, R.drawable.training_icon_pr, R.drawable.risk_icon_pr, R.drawable.equipment_icon_pr, R.drawable.incident_icon_pr};
     private String[] tabLabels;
     private DocumentsMainFragment documentsMainFragment;
     private TrainingFragment trainingFragment;
@@ -37,7 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView back;
 
     private View messageLayout;
-
+    private Deque<Integer> stack = new ArrayDeque<>();
+    private Deque<Integer> secondStack = new ArrayDeque<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +51,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.setContentView(R.layout.activity_main);
         view_stub = findViewById(R.id.view_stub);
         tabLayout = findViewById(R.id.tabs);
-        tabIcons = new int[]{R.drawable.documents_icon, R.drawable.training_icon, R.drawable.risk_icon, R.drawable.equipment_icon, R.drawable.incident_icon};
-        tabSelectedIcons = new int[]{R.drawable.documents_icon_pr, R.drawable.training_icon_pr, R.drawable.risk_icon_pr, R.drawable.equipment_icon_pr, R.drawable.incident_icon_pr};
         tabLabels = getResources().getStringArray(R.array.tabs);
-        for (int i = 0; i < tabLabels.length; i ++) {
-            tabLayout.addTab(tabLayout.newTab().setText(tabLabels[i]).setIcon(tabIcons[i]));
-        }
+
+        fragmentManager = getSupportFragmentManager();
 
         documentsMainFragment = new DocumentsMainFragment();
         fragment = documentsMainFragment;
@@ -59,14 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         equipmentFragment = new EquipmentFragment();
         incidentsFragment = new IncidentsFragment();
 
-        getSupportFragmentManager().beginTransaction()
-                .add(view_stub.getId(), documentsMainFragment).commit();
-
-        tabLayout.addOnTabSelectedListener(this);
-
-        int selectedTab = Constants.SELECTED_TAB;
-        tabLayout.getTabAt(selectedTab).select();
-        tabLayout.getTabAt(selectedTab).setIcon(tabSelectedIcons[selectedTab]);
+        setupTabs();
 
         profile = findViewById(R.id.profile);
         profile.setOnClickListener(this);
@@ -84,6 +80,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 messageLayout.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void setupTabs() {
+        for (int i = 0; i < tabLabels.length; i++) {
+            tabLayout.addTab(tabLayout.newTab().setText(tabLabels[i]).setIcon(tabIcons[i]));
+        }
+        tabLayout.addOnTabSelectedListener(this);
+        try {
+            int selectedTab = Constants.SELECTED_TAB;
+            setFragment(documentsMainFragment, "0");
+            pushFragmentIntoStack(0);
+            tabLayout.getTabAt(selectedTab).select();
+            tabLayout.getTabAt(selectedTab).setIcon(tabSelectedIcons[selectedTab]);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void pushFragmentIntoStack(int id) {
+        stack.remove(id);
+        stack.push(id);
+    }
+
+    private void setFragment(Fragment fragment, String tag) {
+        fragmentManager.beginTransaction().replace(view_stub.getId(), fragment, tag).addToBackStack(tag).commit();
     }
 
     public void showMessageLayout(){
@@ -119,10 +140,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(view_stub.getId(), fragment)
-                .commit();
-        showBack(false);
+        if (secondStack.size() > 0){
+            secondStack.pop();
+            super.onBackPressed();
+        } else {
+            if (stack.size() > 1) {
+                stack.pop();
+                int index = stack.peek();
+                tabLayout.getTabAt(index).select();
+            } else {
+                //openExitDialog();
+            }
+        }
     }
 
     @Override
@@ -130,27 +159,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int position = tab.getPosition();
         tab.setIcon(tabSelectedIcons[position]);
         Constants.SELECTED_TAB = position;
-        switch (position) {
+        switch (position){
             case 0:
-                fragment = documentsMainFragment;
+                setFragment(documentsMainFragment, "0");
                 break;
             case 1:
-                fragment = trainingFragment;
+                setFragment(trainingFragment, "1");
                 break;
             case 2:
-                fragment = risksFragment;
+                setFragment(risksFragment, "1");
                 break;
             case 3:
-                fragment = equipmentFragment;
+                setFragment(equipmentFragment, "3");
                 break;
             case 4:
-                fragment = incidentsFragment;
+                setFragment(incidentsFragment, "4");
                 break;
+
         }
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(view_stub.getId(), fragment)
-                .commit();
+        pushFragmentIntoStack(tab.getPosition());
     }
 
     @Override
@@ -164,11 +191,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void setFragment(Fragment fragment){
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(view_stub.getId(), fragment)
-                .commit();
+    public void addFragment(Fragment fragment, int id){
+        fragmentManager.beginTransaction().replace(view_stub.getId(), fragment).addToBackStack(String.valueOf(id)).commit();
+        secondStack.push(id);
     }
 
     public void showBack(boolean show){

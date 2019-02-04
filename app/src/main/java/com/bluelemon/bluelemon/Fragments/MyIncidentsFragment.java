@@ -52,7 +52,7 @@ public class MyIncidentsFragment extends Fragment {
         view.findViewById(R.id.report).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.setFragment(new AddIncidentFragment());
+                activity.addFragment(new AddIncidentFragment(), 41);
             }
         });
         return view;

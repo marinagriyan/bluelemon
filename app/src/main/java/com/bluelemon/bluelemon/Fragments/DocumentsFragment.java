@@ -53,7 +53,7 @@ public class DocumentsFragment extends Fragment {
         view.findViewById(R.id.add_document).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.setFragment(new NewDocumentFragment());
+                activity.addFragment(new NewDocumentFragment(), 1);
             }
         });
         return view;

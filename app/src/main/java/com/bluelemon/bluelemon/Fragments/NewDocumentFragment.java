@@ -30,18 +30,12 @@ import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
 import com.google.android.gms.common.util.IOUtils;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -225,7 +219,7 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
                 addDocument();
                 break;
             case R.id.close:
-                activity.setFragment(new DocumentsMainFragment());
+                activity.onBackPressed();
                 break;
         }
     }

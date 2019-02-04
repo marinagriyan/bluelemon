@@ -51,7 +51,7 @@ public class FolderEquipmentFragment extends Fragment {
         view.findViewById(R.id.add_equipment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.setFragment(new NewEquipmentFragment());
+                activity.addFragment(new NewEquipmentFragment(), 33);
             }
         });
 

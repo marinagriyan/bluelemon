@@ -52,7 +52,7 @@ public class EquipmentsAdapter extends RecyclerView.Adapter<EquipmentsAdapter.Vi
                     Bundle bundle = new Bundle();
                     bundle.putString("equipment", new Gson().toJson(model));
                     fragment.setArguments(bundle);
-                    activity.setFragment(fragment);
+                    activity.addFragment(fragment, 34);
                 }
             });
             viewHolder.review.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +62,7 @@ public class EquipmentsAdapter extends RecyclerView.Adapter<EquipmentsAdapter.Vi
                     Bundle bundle = new Bundle();
                     bundle.putString("equipment", new Gson().toJson(model));
                     fragment.setArguments(bundle);
-                    activity.setFragment(fragment);
+                    activity.addFragment(fragment, 34);
                 }
             });
 

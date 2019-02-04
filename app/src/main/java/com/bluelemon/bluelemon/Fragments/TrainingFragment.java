@@ -48,7 +48,7 @@ public class TrainingFragment extends Fragment {
                             if(selectedIds.size() > 0) {
                                select(finalI);
                             } else {
-                                activity.setFragment(new TrainerDetailsFragment());
+                                activity.addFragment(new TrainerDetailsFragment(), 11);
                             }
                         }
                     });

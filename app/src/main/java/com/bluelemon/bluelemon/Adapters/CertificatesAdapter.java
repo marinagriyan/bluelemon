@@ -10,9 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
-import com.bluelemon.bluelemon.Fragments.BeginInvestigationFragment;
 import com.bluelemon.bluelemon.Fragments.NewCertificateFragment;
-import com.bluelemon.bluelemon.Fragments.NewDocumentFragment;
 import com.bluelemon.bluelemon.Models.Responses.DocumentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.Utils;
@@ -53,8 +51,7 @@ public class CertificatesAdapter extends RecyclerView.Adapter<CertificatesAdapte
                     Bundle bundle = new Bundle();
                     bundle.putInt("id", body.getDocumentID());
                     fragment.setArguments(bundle);
-                    activity.setFragment(fragment);
-                    activity.setFragment(fragment);
+                    activity.addFragment(fragment, 2);
                 }
             });
             viewHolder.renew.setOnClickListener(new View.OnClickListener() {

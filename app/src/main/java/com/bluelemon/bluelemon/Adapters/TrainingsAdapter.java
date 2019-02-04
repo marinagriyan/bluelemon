@@ -1,6 +1,5 @@
 package com.bluelemon.bluelemon.Adapters;
 
-import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +46,7 @@ public class TrainingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        activity.setFragment(new CoursesFragment());
+                        activity.addFragment(new CoursesFragment(), 22);
                     }
                 });
             } catch (Exception e){

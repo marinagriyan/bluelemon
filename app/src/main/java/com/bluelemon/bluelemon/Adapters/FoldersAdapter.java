@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Fragments.FolderEquipmentFragment;
-import com.bluelemon.bluelemon.Models.FolderModel;
 import com.bluelemon.bluelemon.Models.Responses.Folder;
 import com.bluelemon.bluelemon.R;
 
@@ -41,7 +40,7 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.ViewHold
             viewHolder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activity.setFragment(new FolderEquipmentFragment());
+                    activity.addFragment(new FolderEquipmentFragment(), 31);
                 }
             });
         } catch (Exception e){

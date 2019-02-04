@@ -37,14 +37,14 @@ public class EquipmentFragment extends Fragment {
         view.findViewById(R.id.create_folder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.setFragment(new FolderEquipmentFragment());
+                activity.addFragment(new FolderEquipmentFragment(), 31);
             }
         });
 
         view.findViewById(R.id.show_all).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.setFragment(new AllFoldersFragment());
+                activity.addFragment(new AllFoldersFragment(), 32);
             }
         });
 
@@ -60,7 +60,7 @@ public class EquipmentFragment extends Fragment {
             folder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activity.setFragment(new AllFoldersFragment());
+                    activity.addFragment(new AllFoldersFragment(), 32);
                 }
             });
             folders.addView(folder);

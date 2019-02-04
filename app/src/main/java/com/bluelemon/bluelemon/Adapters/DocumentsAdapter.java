@@ -51,8 +51,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.View
                     Bundle bundle = new Bundle();
                     bundle.putInt("id", body.getDocumentID());
                     fragment.setArguments(bundle);
-                    activity.setFragment(fragment);
-                    activity.setFragment(fragment);
+                    activity.addFragment(fragment, 1);
                 }
             });
             viewHolder.renew.setOnClickListener(new View.OnClickListener() {

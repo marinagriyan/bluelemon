@@ -45,7 +45,7 @@ public class AssignedIncidentsAdapter extends RecyclerView.Adapter<AssignedIncid
                         Bundle bundle = new Bundle();
                         bundle.putInt("id", body.getAccidentID());
                         fragment.setArguments(bundle);
-                        activity.setFragment(fragment);
+                        activity.addFragment(fragment, 42);
                     }
                 }
             });

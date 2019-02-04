@@ -53,7 +53,7 @@ public class CertificatesFragment extends Fragment {
         view.findViewById(R.id.add_document).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.setFragment(new NewCertificateFragment());
+                activity.addFragment(new NewCertificateFragment(), 21);
             }
         });
         return view;
