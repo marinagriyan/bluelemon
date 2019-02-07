@@ -53,20 +53,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful()){
-                    if (response.body() != null && response.body().get("Body") != null){
-                        JsonObject body = response.body().getAsJsonObject("Body");
-                        String token = body.get("AccessToken").getAsString();
-                        preferences.setSites(body.getAsJsonObject("SiteAccesses"));
-                        Set<String> siteAccesses = body.getAsJsonObject("SiteAccesses").keySet();
-                        JsonArray sites = new JsonArray();
-                        for (String site : siteAccesses) {
-                            sites.add(site);
+                    if (response.body() != null && !response.body().get("Body").isJsonNull()){
+                        try {
+                            JsonObject body = response.body().getAsJsonObject("Body");
+                            String token = body.get("AccessToken").getAsString();
+                            preferences.setSites(body.getAsJsonObject("SiteAccesses"));
+                            Set<String> siteAccesses = body.getAsJsonObject("SiteAccesses").keySet();
+                            JsonArray sites = new JsonArray();
+                            for (String site : siteAccesses) {
+                                sites.add(site);
+                            }
+                            preferences.setSiteIDs(sites);
+                            App.getInstance().getPreferences().setAccessToken(token);
+                            openApp();
+                        } catch (Exception e){
+                            e.printStackTrace();
                         }
-                        preferences.setSiteIDs(sites);
-                        App.getInstance().getPreferences().setAccessToken(token);
-                        openApp();
                     } else {
-                        Toast.makeText(LoginActivity.this, response.message(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Wrong Credentials", Toast.LENGTH_LONG).show();
                     }
                 } else {
                     Utils.showError(LoginActivity.this, response.errorBody());
