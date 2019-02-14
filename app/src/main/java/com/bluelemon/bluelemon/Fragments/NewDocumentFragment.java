@@ -63,11 +63,6 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = (MainActivity) context;
-        Bundle bundle = getArguments();
-        if (bundle != null && bundle.getInt("id") != 0){
-            id = bundle.getInt("id");
-            getDocument();
-        }
     }
 
     @Override
@@ -110,45 +105,6 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
         fileName = view.findViewById(R.id.file_name);
     }
 
-    private void getDocument(){
-        JsonObject body = new JsonObject();
-        body.addProperty("documentID", id);
-        Call<SingleDocument> call = RetrofitClient
-                .getInstance()
-                .getApi()
-                .getSingleDocument(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
-        call.enqueue(new Callback<SingleDocument>() {
-            @Override
-            public void onResponse(Call<SingleDocument> call, Response<SingleDocument> response) {
-                if (response.code() == 401){
-                    Utils.logout(activity);
-                } else if (response.isSuccessful()){
-                    if (response.body() != null && response.body().getBody() != null){
-                        setData(response.body().getBody());
-                    }
-                    else {
-                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Utils.showError(activity, response.errorBody());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SingleDocument> call, Throwable t) {
-                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    private void setData(SingleDocumentBody body){
-        title.setText(body.getDocumentName());
-//        sites.setSelection();
-        category.setText(body.getCategoryName());
-        if (body.getSyncDateTime() != null){
-            date.setText(Utils.dayFormatFromTimestamp(body.getSyncDateTime()));
-        }
-    }
 
     private void openCalendar(){
         new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {

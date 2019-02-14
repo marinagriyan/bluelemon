@@ -45,25 +45,28 @@ import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class NewCertificateFragment extends Fragment implements View.OnClickListener{
+public class ViewCertificateFragment extends Fragment implements View.OnClickListener{
     private static final int REQUEST_CODE_ATTACH = 908;
     private MainActivity activity;
     private int id;
     private EditText title, category;
     private Spinner sites;
     private TextView date;
-    private Calendar calendar;
     private View upload;
     private TextView fileName;
     private List<String> siteData = new ArrayList<>();
     private String selectedSite;
-    private String file;
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = (MainActivity) context;
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.getInt("id") != 0){
+            id = bundle.getInt("id");
+            getCertificate();
+        }
     }
 
     @Override
@@ -72,9 +75,6 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_document, container, false);
         initViews(view);
-        calendar = Calendar.getInstance();
-        date.setOnClickListener(this);
-        upload.setOnClickListener(this);
 
         siteData.addAll(App.getInstance().getPreferences().getSites().keySet());
         sites.setAdapter(new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, siteData));
@@ -92,7 +92,8 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
 
 
         view.findViewById(R.id.close).setOnClickListener(this);
-        view.findViewById(R.id.add).setOnClickListener(this);
+        view.findViewById(R.id.add).setVisibility(View.GONE);
+        upload.setVisibility(View.GONE);
         return view;
     }
 
@@ -101,42 +102,23 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
         certificate.setBackground(getResources().getDrawable(R.drawable.button_blue));
         certificate.setTextColor(Color.WHITE);
         title = view.findViewById(R.id.title);
+        title.setEnabled(false);
         sites = view.findViewById(R.id.sites);
+        sites.setEnabled(false);
         category = view.findViewById(R.id.category);
+        category.setEnabled(false);
         date = view.findViewById(R.id.date);
         upload = view.findViewById(R.id.upload);
         fileName = view.findViewById(R.id.file_name);
     }
 
-    private void openCalendar(){
-        new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
-                calendar.set(year, month, day);
-                SimpleDateFormat sdf = new SimpleDateFormat("d MMMM, yyyy", Locale.ENGLISH);
-                date.setText(sdf.format(calendar.getTime()));
-            }
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-    }
-
-    private void addCertificate(){
+    private void getCertificate(){
         JsonObject body = new JsonObject();
-        body.addProperty("comments", "test");
-        body.addProperty("documentCategory", 43);
-        body.addProperty("documentID", (Number) null);
-        body.addProperty("documentName", title.getText().toString());
-        body.addProperty("issueDate", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).format(calendar.getTime()));
-        body.addProperty("renewalFrequency", 365);
-        body.addProperty("siteID", selectedSite);
-        body.addProperty("live", true);
-        body.addProperty("currentDocumentID", 81);
-        body.addProperty("fileName", fileName.getText().toString());
-        // add file as byte[]
-        body.addProperty("file", file);
+        body.addProperty("documentID", id);
         Call<SingleDocument> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .createCertificate(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
+                .getSingleCertificate(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
         call.enqueue(new Callback<SingleDocument>() {
             @Override
             public void onResponse(Call<SingleDocument> call, Response<SingleDocument> response) {
@@ -144,8 +126,9 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
                     Utils.logout(activity);
                 } else if (response.isSuccessful()){
                     if (response.body() != null && response.body().getBody() != null){
-
-                    } else {
+                        setData(response.body().getBody());
+                    }
+                    else {
                         Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
                     }
                 } else {
@@ -160,48 +143,21 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
         });
     }
 
+    private void setData(SingleDocumentBody body){
+        title.setText(body.getDocumentName());
+        //sites.setText(body.getSite());
+        category.setText(body.getCategoryName());
+        if (body.getSyncDateTime() != null){
+            date.setText(Utils.dayFormatFromTimestamp(body.getSyncDateTime()));
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.date:
-                openCalendar();
-                break;
-            case R.id.upload:
-                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-                i.setType("*/*");
-                i.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-                startActivityForResult(i, REQUEST_CODE_ATTACH);
-                break;
-            case R.id.add:
-                addCertificate();
-                break;
             case R.id.close:
                 activity.onBackPressed();
                 break;
-        }
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_ATTACH && resultCode == RESULT_OK){
-            setFile(data.getData());
-        }
-    }
-
-    private void setFile(Uri data) {
-        DocumentFile documentFile = DocumentFile.fromSingleUri(activity, data);
-        if (documentFile != null && documentFile.getName() != null){
-            fileName.setText(documentFile.getName());
-        }
-        InputStream inputStream = null;
-        try {
-            inputStream = activity.getContentResolver().openInputStream(data);
-            byte[] fileContent = IOUtils.toByteArray(inputStream);
-            file = Base64.encodeToString(fileContent, Base64.DEFAULT);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

@@ -45,20 +45,19 @@ import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class NewCertificateFragment extends Fragment implements View.OnClickListener{
-    private static final int REQUEST_CODE_ATTACH = 908;
+public class EditDocumentFragment extends Fragment implements View.OnClickListener{
+    private static final int REQUEST_CODE_ATTACH = 842;
     private MainActivity activity;
     private int id;
     private EditText title, category;
     private Spinner sites;
     private TextView date;
-    private Calendar calendar;
     private View upload;
     private TextView fileName;
+    private Calendar calendar;
     private List<String> siteData = new ArrayList<>();
     private String selectedSite;
     private String file;
-
 
     @Override
     public void onAttach(Context context) {
@@ -69,9 +68,13 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_document, container, false);
         initViews(view);
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.getInt("id") != 0){
+            id = bundle.getInt("id");
+            getDocument();
+        }
         calendar = Calendar.getInstance();
         date.setOnClickListener(this);
         upload.setOnClickListener(this);
@@ -90,22 +93,61 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
             }
         });
 
-
         view.findViewById(R.id.close).setOnClickListener(this);
         view.findViewById(R.id.add).setOnClickListener(this);
         return view;
     }
 
     private void initViews(View view) {
-        TextView certificate = view.findViewById(R.id.certificate);
-        certificate.setBackground(getResources().getDrawable(R.drawable.button_blue));
-        certificate.setTextColor(Color.WHITE);
+        TextView document = view.findViewById(R.id.document);
+        document.setBackground(getResources().getDrawable(R.drawable.button_blue));
+        document.setTextColor(Color.WHITE);
         title = view.findViewById(R.id.title);
         sites = view.findViewById(R.id.sites);
         category = view.findViewById(R.id.category);
         date = view.findViewById(R.id.date);
         upload = view.findViewById(R.id.upload);
         fileName = view.findViewById(R.id.file_name);
+    }
+
+    private void getDocument(){
+        JsonObject body = new JsonObject();
+        body.addProperty("documentID", id);
+        Call<SingleDocument> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .getSingleDocument(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
+        call.enqueue(new Callback<SingleDocument>() {
+            @Override
+            public void onResponse(Call<SingleDocument> call, Response<SingleDocument> response) {
+                if (response.code() == 401){
+                    Utils.logout(activity);
+                } else if (response.isSuccessful()){
+                    if (response.body() != null && response.body().getBody() != null){
+                        setData(response.body().getBody());
+                    }
+                    else {
+                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Utils.showError(activity, response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SingleDocument> call, Throwable t) {
+                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void setData(SingleDocumentBody body){
+        title.setText(body.getDocumentName());
+//        sites.setSelection();
+        category.setText(body.getCategoryName());
+        if (body.getSyncDateTime() != null){
+            date.setText(Utils.dayFormatFromTimestamp(body.getSyncDateTime()));
+        }
     }
 
     private void openCalendar(){
@@ -119,7 +161,7 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
-    private void addCertificate(){
+    private void addDocument(){
         JsonObject body = new JsonObject();
         body.addProperty("comments", "test");
         body.addProperty("documentCategory", 43);
@@ -136,7 +178,7 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
         Call<SingleDocument> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .createCertificate(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
+                .createDocument(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
         call.enqueue(new Callback<SingleDocument>() {
             @Override
             public void onResponse(Call<SingleDocument> call, Response<SingleDocument> response) {
@@ -160,6 +202,7 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
         });
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -173,14 +216,13 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
                 startActivityForResult(i, REQUEST_CODE_ATTACH);
                 break;
             case R.id.add:
-                addCertificate();
+                addDocument();
                 break;
             case R.id.close:
                 activity.onBackPressed();
                 break;
         }
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".App"
@@ -18,7 +20,8 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".Activities.LoginActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden">
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,19 +30,26 @@
         </activity>
         <activity
             android:name=".Activities.ResetPasswordActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.MainActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.AlertsActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.AddAlertActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".Activities.ProfileActivity" />
-        <activity android:name=".Activities.AlertDetailsActivity" />
-        <activity android:name=".Activities.NotificationsActivity" />
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.ProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.AlertDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.NotificationsActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.DownloadActivity"
             android:theme="@style/Theme.Transparent" />

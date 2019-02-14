@@ -14,13 +14,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
-import com.bluelemon.bluelemon.Adapters.RisksAdapter;
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.Models.Responses.EquipmentBody;
@@ -31,7 +29,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.text.SimpleDateFormat;
-import java.util.AbstractSequentialList;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -44,7 +41,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewEquipmentFragment extends Fragment {
+public class EditEquipmentFragment extends Fragment {
     private MainActivity activity;
     private EditText refNO, make;
     private EditText model, serialNumber;
@@ -55,6 +52,7 @@ public class NewEquipmentFragment extends Fragment {
     private TextView checkDate;
 
     private TextView requirementsList;
+    private EquipmentBody equipmentBody;
     private Calendar calendar;
     private List<String> siteData = new ArrayList<>();
     private String selectedSite;
@@ -72,6 +70,18 @@ public class NewEquipmentFragment extends Fragment {
 
         initViews(view);
         calendar = Calendar.getInstance();
+        Bundle bundle = getArguments();
+        if (bundle != null){
+            try {
+                equipmentBody = new Gson().fromJson(bundle.getString("equipment"), EquipmentBody.class);
+            } catch (NullPointerException e){
+                e.printStackTrace();
+            }
+        }
+
+        if (equipmentBody != null){
+            setData();
+        }
 
         activity.showBack(true);
         view.findViewById(R.id.done).setOnClickListener(new View.OnClickListener() {
@@ -108,7 +118,6 @@ public class NewEquipmentFragment extends Fragment {
         model = view.findViewById(R.id.model);
         serialNumber = view.findViewById(R.id.serial_no);
         enteredBy = view.findViewById(R.id.entered_by);
-        enteredBy.setVisibility(View.GONE);
         description = view.findViewById(R.id.description);
         template = view.findViewById(R.id.template);
         sites = view.findViewById(R.id.sites);
@@ -117,6 +126,25 @@ public class NewEquipmentFragment extends Fragment {
         checkDate = view.findViewById(R.id.check_date);
 
         requirementsList = view.findViewById(R.id.requirements);
+    }
+
+    private void setData(){
+        refNO.setText(equipmentBody.getRefno());
+        make.setText(equipmentBody.getMake());
+        model.setText(equipmentBody.getModel());
+        serialNumber.setText(equipmentBody.getSerial());
+        enteredBy.setText(equipmentBody.getUserName());
+        description.setText(equipmentBody.getComments());
+        template.setText(equipmentBody.getCategory());
+        department.setText(equipmentBody.getDepartmentName());
+        frequency.setText(String.valueOf(equipmentBody.getFrequency()));
+        checkDate.setText(Utils.dayFormatFromTimestamp(equipmentBody.getCheckDate()));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            requirementsList.setText(Html.fromHtml(equipmentBody.getCheckRequirements(), Html.FROM_HTML_MODE_COMPACT));
+        } else {
+            requirementsList.setText(Html.fromHtml(equipmentBody.getCheckRequirements()));
+        }
     }
 
     private void openCalendar(){

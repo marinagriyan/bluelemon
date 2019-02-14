@@ -45,7 +45,7 @@ import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class NewCertificateFragment extends Fragment implements View.OnClickListener{
+public class EditCertificateFragment extends Fragment implements View.OnClickListener{
     private static final int REQUEST_CODE_ATTACH = 908;
     private MainActivity activity;
     private int id;
@@ -64,6 +64,11 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = (MainActivity) context;
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.getInt("id") != 0){
+            id = bundle.getInt("id");
+            getCertificate();
+        }
     }
 
     @Override
@@ -106,6 +111,46 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
         date = view.findViewById(R.id.date);
         upload = view.findViewById(R.id.upload);
         fileName = view.findViewById(R.id.file_name);
+    }
+
+    private void getCertificate(){
+        JsonObject body = new JsonObject();
+        body.addProperty("documentID", id);
+        Call<SingleDocument> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .getSingleCertificate(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
+        call.enqueue(new Callback<SingleDocument>() {
+            @Override
+            public void onResponse(Call<SingleDocument> call, Response<SingleDocument> response) {
+                if (response.code() == 401){
+                    Utils.logout(activity);
+                } else if (response.isSuccessful()){
+                    if (response.body() != null && response.body().getBody() != null){
+                        setData(response.body().getBody());
+                    }
+                    else {
+                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Utils.showError(activity, response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SingleDocument> call, Throwable t) {
+                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void setData(SingleDocumentBody body){
+        title.setText(body.getDocumentName());
+        //sites.setText(body.getSite());
+        category.setText(body.getCategoryName());
+        if (body.getSyncDateTime() != null){
+            date.setText(Utils.dayFormatFromTimestamp(body.getSyncDateTime()));
+        }
     }
 
     private void openCalendar(){

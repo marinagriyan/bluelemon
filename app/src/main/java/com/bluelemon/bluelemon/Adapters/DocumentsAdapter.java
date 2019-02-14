@@ -1,21 +1,42 @@
 package com.bluelemon.bluelemon.Adapters;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
+import com.bluelemon.bluelemon.App;
+import com.bluelemon.bluelemon.Constants;
+import com.bluelemon.bluelemon.Fragments.EditDocumentFragment;
 import com.bluelemon.bluelemon.Fragments.NewDocumentFragment;
+import com.bluelemon.bluelemon.Fragments.ViewDocumentFragment;
 import com.bluelemon.bluelemon.Models.Responses.DocumentBody;
+import com.bluelemon.bluelemon.Models.Responses.SingleDocument;
 import com.bluelemon.bluelemon.R;
+import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.ViewHolder>{
     private MainActivity activity;
@@ -47,17 +68,27 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.View
             viewHolder.edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    NewDocumentFragment fragment = new NewDocumentFragment();
+                    EditDocumentFragment fragment = new EditDocumentFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt("id", body.getDocumentID());
                     fragment.setArguments(bundle);
                     activity.addFragment(fragment, 1);
                 }
             });
-            viewHolder.renew.setOnClickListener(new View.OnClickListener() {
+            viewHolder.download.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Utils.download(activity, body.getItemID(), body.getFileName());
+                }
+            });
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewDocumentFragment fragment = new ViewDocumentFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", body.getDocumentID());
+                    fragment.setArguments(bundle);
+                    activity.addFragment(fragment, 10);
                 }
             });
         } catch (Exception e){
@@ -76,6 +107,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.View
         private TextView date;
         private TextView category;
         private TextView location;
+        private View download;
         private View edit;
         private View renew;
 
@@ -86,6 +118,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.View
             date = view.findViewById(R.id.date);
             category = view.findViewById(R.id.category);
             location = view.findViewById(R.id.location);
+            download = view.findViewById(R.id.download);
             edit = view.findViewById(R.id.edit);
             renew = view.findViewById(R.id.renew);
         }

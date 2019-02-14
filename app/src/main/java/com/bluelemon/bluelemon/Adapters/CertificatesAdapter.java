@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
+import com.bluelemon.bluelemon.Fragments.EditCertificateFragment;
 import com.bluelemon.bluelemon.Fragments.NewCertificateFragment;
+import com.bluelemon.bluelemon.Fragments.ViewCertificateFragment;
 import com.bluelemon.bluelemon.Models.Responses.DocumentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.Utils;
@@ -47,17 +49,27 @@ public class CertificatesAdapter extends RecyclerView.Adapter<CertificatesAdapte
             viewHolder.edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    NewCertificateFragment fragment = new NewCertificateFragment();
+                    EditCertificateFragment fragment = new EditCertificateFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", body.getDocumentID());
+                    fragment.setArguments(bundle);
+                    activity.addFragment(fragment, 20);
+                }
+            });
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewCertificateFragment fragment = new ViewCertificateFragment();
                     Bundle bundle = new Bundle();
                     bundle.putInt("id", body.getDocumentID());
                     fragment.setArguments(bundle);
                     activity.addFragment(fragment, 2);
                 }
             });
-            viewHolder.renew.setOnClickListener(new View.OnClickListener() {
+            viewHolder.download.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Utils.download(activity, body.getItemID(), body.getFileName());
                 }
             });
         } catch (Exception e){
@@ -76,6 +88,7 @@ public class CertificatesAdapter extends RecyclerView.Adapter<CertificatesAdapte
         private TextView date;
         private TextView category;
         private TextView location;
+        private View download;
         private View edit;
         private View renew;
 
@@ -86,6 +99,7 @@ public class CertificatesAdapter extends RecyclerView.Adapter<CertificatesAdapte
             date = view.findViewById(R.id.date);
             category = view.findViewById(R.id.category);
             location = view.findViewById(R.id.location);
+            download = view.findViewById(R.id.download);
             edit = view.findViewById(R.id.edit);
             renew = view.findViewById(R.id.renew);
         }

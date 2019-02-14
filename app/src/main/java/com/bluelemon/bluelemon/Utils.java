@@ -1,7 +1,11 @@
 package com.bluelemon.bluelemon;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.Toast;
 
@@ -10,12 +14,18 @@ import com.bluelemon.bluelemon.Activities.MainActivity;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Utils {
     public static void setTabLayoutClicks(final Activity activity){
@@ -84,5 +94,50 @@ public class Utils {
         } else return "";
     }
 
+    public static void download(final Activity activity, int id, final String name){
+        Call<ResponseBody> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .downloadDocument(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), id);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.body() != null){
+                    try {
+                        Utils.writeFile(activity, name, response.body().bytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private static void writeFile(Activity activity, String name, byte[] body){
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.REQUEST_PERMISSIONS);
+        } else {
+
+            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), name);
+            if (!file.getParentFile().mkdirs()) {
+                file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), name);
+            }
+            FileOutputStream os = null;
+            try {
+                os = new FileOutputStream(file, true);
+                os.write(body);
+                os.close();
+                Toast.makeText(activity, "File downloaded!", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

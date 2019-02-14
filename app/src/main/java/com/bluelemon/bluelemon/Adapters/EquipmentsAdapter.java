@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
+import com.bluelemon.bluelemon.Fragments.EditEquipmentFragment;
 import com.bluelemon.bluelemon.Fragments.NewEquipmentFragment;
 import com.bluelemon.bluelemon.Fragments.FolderEquipmentFragment;
+import com.bluelemon.bluelemon.Fragments.ViewEquipmentFragment;
 import com.bluelemon.bluelemon.Models.Responses.EquipmentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.Utils;
@@ -48,21 +50,21 @@ public class EquipmentsAdapter extends RecyclerView.Adapter<EquipmentsAdapter.Vi
             viewHolder.edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    NewEquipmentFragment fragment = new NewEquipmentFragment();
+                    EditEquipmentFragment fragment = new EditEquipmentFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("equipment", new Gson().toJson(model));
                     fragment.setArguments(bundle);
-                    activity.addFragment(fragment, 34);
+                    activity.addFragment(fragment, 35);
                 }
             });
             viewHolder.review.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    NewEquipmentFragment fragment = new NewEquipmentFragment();
+                    ViewEquipmentFragment fragment = new ViewEquipmentFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("equipment", new Gson().toJson(model));
                     fragment.setArguments(bundle);
-                    activity.addFragment(fragment, 34);
+                    activity.addFragment(fragment, 36);
                 }
             });
 
