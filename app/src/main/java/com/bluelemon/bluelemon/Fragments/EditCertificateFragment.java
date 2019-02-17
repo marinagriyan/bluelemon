@@ -189,7 +189,7 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
                     Utils.logout(activity);
                 } else if (response.isSuccessful()){
                     if (response.body() != null && response.body().getBody() != null){
-
+                        activity.onBackPressed();
                     } else {
                         Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
                     }

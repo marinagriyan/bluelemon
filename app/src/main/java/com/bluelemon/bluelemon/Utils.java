@@ -2,6 +2,7 @@ package com.bluelemon.bluelemon;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Environment;
@@ -26,6 +27,8 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.DOWNLOAD_SERVICE;
 
 public class Utils {
     public static void setTabLayoutClicks(final Activity activity){
