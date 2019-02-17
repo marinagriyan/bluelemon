@@ -57,8 +57,8 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
     private TextView fileName;
     private List<String> siteData = new ArrayList<>();
     private String selectedSite;
-    private String file;
-
+    private String file = null;
+    private SingleDocumentBody singleDocumentBody;
 
     @Override
     public void onAttach(Context context) {
@@ -127,7 +127,8 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
                     Utils.logout(activity);
                 } else if (response.isSuccessful()){
                     if (response.body() != null && response.body().getBody() != null){
-                        setData(response.body().getBody());
+                        singleDocumentBody = response.body().getBody();
+                        setData();
                     }
                     else {
                         Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
@@ -144,12 +145,12 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
         });
     }
 
-    private void setData(SingleDocumentBody body){
-        title.setText(body.getDocumentName());
+    private void setData(){
+        title.setText(singleDocumentBody.getDocumentName());
         //sites.setText(body.getSite());
-        category.setText(body.getCategoryName());
-        if (body.getSyncDateTime() != null){
-            date.setText(Utils.dayFormatFromTimestamp(body.getSyncDateTime()));
+        category.setText(singleDocumentBody.getCategoryName());
+        if (singleDocumentBody.getSyncDateTime() != null){
+            date.setText(Utils.dayFormatFromTimestamp(singleDocumentBody.getSyncDateTime()));
         }
     }
 
@@ -167,17 +168,19 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
     private void addCertificate(){
         JsonObject body = new JsonObject();
         body.addProperty("comments", "test");
-        body.addProperty("documentCategory", 43);
-        body.addProperty("documentID", (Number) null);
+        body.addProperty("documentCategory", singleDocumentBody.getDocumentCategory());
+        body.addProperty("documentID", singleDocumentBody.getDocumentID());
         body.addProperty("documentName", title.getText().toString());
         body.addProperty("issueDate", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).format(calendar.getTime()));
-        body.addProperty("renewalFrequency", 365);
+        body.addProperty("renewalFrequency", singleDocumentBody.getRenewalFrequency());
         body.addProperty("siteID", selectedSite);
-        body.addProperty("live", true);
-        body.addProperty("currentDocumentID", 81);
-        body.addProperty("fileName", fileName.getText().toString());
-        // add file as byte[]
-        body.addProperty("file", file);
+        body.addProperty("live", singleDocumentBody.getLive());
+        body.addProperty("currentDocumentID", singleDocumentBody.getCurrentDocumentID());
+        if (file != null) {
+            body.addProperty("fileName", fileName.getText().toString());
+            // add file as byte[]
+            body.addProperty("file", file);
+        }
         Call<SingleDocument> call = RetrofitClient
                 .getInstance()
                 .getApi()

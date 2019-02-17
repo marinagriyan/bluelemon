@@ -71,7 +71,7 @@ public class Utils {
     public static void logout(Activity activity){
         App.getInstance().getPreferences().setAccessToken(null);
         Intent intent = new Intent(activity, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
     }
 

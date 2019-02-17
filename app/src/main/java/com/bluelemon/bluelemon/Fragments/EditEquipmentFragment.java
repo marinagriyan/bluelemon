@@ -3,10 +3,14 @@ package com.bluelemon.bluelemon.Fragments;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.provider.DocumentFile;
 import android.text.Html;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +29,11 @@ import com.bluelemon.bluelemon.Models.Responses.EquipmentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
+import com.google.android.gms.common.util.IOUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +43,8 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,6 +64,9 @@ public class EditEquipmentFragment extends Fragment {
     private Calendar calendar;
     private List<String> siteData = new ArrayList<>();
     private String selectedSite;
+    private final int REQUEST_CODE_ATTACH = 742;
+    private String file = null;
+    private EditText fileName;
 
     @Override
     public void onAttach(Context context) {
@@ -88,6 +99,15 @@ public class EditEquipmentFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 addNewEquipment();
+            }
+        });
+        view.findViewById(R.id.upload_images).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                i.setType("*/*");
+                i.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                startActivityForResult(i, REQUEST_CODE_ATTACH);
             }
         });
         checkDate.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +144,7 @@ public class EditEquipmentFragment extends Fragment {
         department = view.findViewById(R.id.department);
         frequency = view.findViewById(R.id.frequency);
         checkDate = view.findViewById(R.id.check_date);
-
+        fileName = view.findViewById(R.id.file_name);
         requirementsList = view.findViewById(R.id.requirements);
     }
 
@@ -160,29 +180,31 @@ public class EditEquipmentFragment extends Fragment {
 
     private void addNewEquipment(){
         JsonObject body = new JsonObject();
-        body.addProperty("file", "");
-        body.addProperty("equipmentID", "1589169d-00d1-4e4a-a46a-a247d082e6e0");
-        body.addProperty("equipmentInstanceReference", "");
+        if (file != null) {
+            body.addProperty("file", file);
+        }
+        body.addProperty("equipmentID", equipmentBody.getEquipmentID());
+        body.addProperty("equipmentInstanceReference", equipmentBody.getEquipmentInstanceReference());
         body.addProperty("comments", description.getText().toString());
-        body.addProperty("inUse", false);
-        body.addProperty("theatreID", "6620be9d-b8af-4149-bc59-095c9f4fe8c3");
-        body.addProperty("departmentID", "e1a7551d-7879-4dff-997d-2fe3422aa94e");
-        body.addProperty("checkRequirements", "");
+        body.addProperty("inUse", equipmentBody.getInUse());
+        body.addProperty("theatreID", equipmentBody.getTheatreID());
+        body.addProperty("departmentID", equipmentBody.getDepartmentID());
+        body.addProperty("checkRequirements", equipmentBody.getCheckRequirements());
         try {
             body.addProperty("frequency", Integer.parseInt(frequency.getText().toString()));
         } catch (NumberFormatException e){
             e.printStackTrace();
         }
-        body.addProperty("awaitingRepair", false);
-        body.addProperty("quarantined", false);
+        body.addProperty("awaitingRepair", equipmentBody.getAwaitingRepair());
+        body.addProperty("quarantined", equipmentBody.getQuarantined());
         body.addProperty("make", make.getText().toString());
         body.addProperty("model", model.getText().toString());
         body.addProperty("serial", serialNumber.getText().toString());
         body.addProperty("refno", refNO.getText().toString());
-        body.addProperty("retire", false);
-        body.addProperty("folderID", 5);
+        body.addProperty("retire", equipmentBody.getRetire());
+        body.addProperty("folderID", equipmentBody.getFolderID());
         body.addProperty("lastCheckDate", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).format(calendar.getTime()));
-        body.addProperty("createdBy", "6FCBB8D6-8C19-4718-8E02-30F62181D819");
+        body.addProperty("createdBy", equipmentBody.getCreatedBy());
 
         Call<JsonObject> call = RetrofitClient
                 .getInstance()
@@ -205,5 +227,28 @@ public class EditEquipmentFragment extends Fragment {
                 Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_ATTACH && resultCode == RESULT_OK){
+            setFile(data.getData());
+        }
+    }
+
+    private void setFile(Uri data) {
+        DocumentFile documentFile = DocumentFile.fromSingleUri(activity, data);
+        if (documentFile != null && documentFile.getName() != null){
+            fileName.setText(documentFile.getName());
+        }
+        InputStream inputStream = null;
+        try {
+            inputStream = activity.getContentResolver().openInputStream(data);
+            byte[] fileContent = IOUtils.toByteArray(inputStream);
+            file = Base64.encodeToString(fileContent, Base64.DEFAULT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
