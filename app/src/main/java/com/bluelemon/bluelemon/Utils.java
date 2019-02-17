@@ -2,11 +2,14 @@ package com.bluelemon.bluelemon;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DownloadManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Toast;
 
@@ -141,6 +144,20 @@ public class Utils {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void showDialog(Activity activity, String message,
+                                  String posBtn){
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+        dialog.
+                setMessage(message).
+                setPositiveButton(posBtn, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setCancelable(false).show();
     }
 
 }

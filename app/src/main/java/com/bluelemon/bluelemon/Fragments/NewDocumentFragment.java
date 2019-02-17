@@ -142,7 +142,7 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
                     Utils.logout(activity);
                 } else if (response.isSuccessful()){
                     if (response.body() != null && response.body().getBody() != null){
-
+                        Utils.showDialog(activity, "Document Created!", "OK");
                     } else {
                         Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
                     }

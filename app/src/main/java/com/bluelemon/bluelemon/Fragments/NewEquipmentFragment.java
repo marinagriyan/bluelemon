@@ -1,11 +1,16 @@
 package com.bluelemon.bluelemon.Fragments;
 
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,9 +46,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class NewEquipmentFragment extends Fragment {
     private MainActivity activity;
     private EditText refNO, make;
@@ -58,6 +60,8 @@ public class NewEquipmentFragment extends Fragment {
     private Calendar calendar;
     private List<String> siteData = new ArrayList<>();
     private String selectedSite;
+    private final int CAMERA_REQUEST_CODE = 725;
+    private final int PICK_IMAGE_ID = 193;
 
     @Override
     public void onAttach(Context context) {
@@ -78,6 +82,12 @@ public class NewEquipmentFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 addNewEquipment();
+            }
+        });
+        view.findViewById(R.id.upload_images).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadImages();
             }
         });
         checkDate.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +139,17 @@ public class NewEquipmentFragment extends Fragment {
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
+
+    private void uploadImages(){
+        if(ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
+        } else{
+            startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), PICK_IMAGE_ID);
+        }
+    }
+
+
 
     private void addNewEquipment(){
         JsonObject body = new JsonObject();

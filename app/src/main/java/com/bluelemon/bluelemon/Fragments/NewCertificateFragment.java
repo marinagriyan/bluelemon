@@ -144,7 +144,7 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
                     Utils.logout(activity);
                 } else if (response.isSuccessful()){
                     if (response.body() != null && response.body().getBody() != null){
-
+                        Utils.showDialog(activity, "Certificate Created!", "OK");
                     } else {
                         Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
                     }
