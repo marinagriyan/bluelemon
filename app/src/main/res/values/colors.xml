@@ -5,6 +5,9 @@
     <color name="colorAccent">#6b7885</color>
     <color name="colorAccentTransparent">#326b7885</color>
 
+    <color name="colorPrimaryPix">#1978ea</color>
+    <color name="colorPrimaryLightPix">#27476d</color>
+
     <color name="colorBlue">#3088f4</color>
     <color name="colorGreen">#35d6b7</color>
     <color name="colorGreenDark">#086150</color>

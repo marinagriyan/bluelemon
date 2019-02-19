@@ -216,7 +216,7 @@ public class EditEquipmentFragment extends Fragment {
                 if (response.code() == 401){
                     Utils.logout(activity);
                 } else if (response.isSuccessful()){
-                    activity.onBackPressed();
+                    activity.removeFragment();
                 } else {
                     Utils.showError(activity, response.errorBody());
                 }

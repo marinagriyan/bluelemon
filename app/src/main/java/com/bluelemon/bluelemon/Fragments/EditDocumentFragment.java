@@ -190,7 +190,7 @@ public class EditDocumentFragment extends Fragment implements View.OnClickListen
                     Utils.logout(activity);
                 } else if (response.isSuccessful()){
                     if (response.body() != null && response.body().getBody() != null){
-                        activity.onBackPressed();
+                        activity.removeFragment();
                     } else {
                         Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
                     }
@@ -223,7 +223,7 @@ public class EditDocumentFragment extends Fragment implements View.OnClickListen
                 addDocument();
                 break;
             case R.id.close:
-                activity.onBackPressed();
+                activity.removeFragment();
                 break;
         }
     }

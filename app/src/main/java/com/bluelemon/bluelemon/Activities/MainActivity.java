@@ -197,6 +197,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         secondStack.push(id);
     }
 
+    public void removeFragment(){
+        fragmentManager.popBackStack();
+        secondStack.pop();
+    }
+
     public void showBack(boolean show){
         if (show){
             profile.setVisibility(View.GONE);

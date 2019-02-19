@@ -147,7 +147,7 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                                activity.onBackPressed();
+                                activity.removeFragment();
                             }
                         });
                     } else {
@@ -182,7 +182,7 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
                 addDocument();
                 break;
             case R.id.close:
-                activity.onBackPressed();
+                activity.removeFragment();
                 break;
         }
     }

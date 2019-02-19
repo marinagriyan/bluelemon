@@ -149,7 +149,7 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                                activity.onBackPressed();
+                                activity.removeFragment();
                             }
                         });
                     } else {
@@ -183,7 +183,7 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
                 addCertificate();
                 break;
             case R.id.close:
-                activity.onBackPressed();
+                activity.removeFragment();
                 break;
         }
     }
