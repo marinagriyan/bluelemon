@@ -3,6 +3,7 @@ package com.bluelemon.bluelemon.Fragments;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -142,7 +143,13 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
                     Utils.logout(activity);
                 } else if (response.isSuccessful()){
                     if (response.body() != null && response.body().getBody() != null){
-                        Utils.showDialog(activity, "Document Created!", "OK");
+                        Utils.showDialog(activity, "Document Created!", "OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                activity.onBackPressed();
+                            }
+                        });
                     } else {
                         Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
                     }

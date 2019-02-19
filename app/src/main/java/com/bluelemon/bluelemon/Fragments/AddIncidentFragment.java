@@ -4,7 +4,11 @@ package com.bluelemon.bluelemon.Fragments;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -23,17 +29,29 @@ import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.PresetRadioGroup;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
+import com.fxn.pix.Pix;
 import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 public class AddIncidentFragment extends Fragment implements View.OnClickListener{
+    public static final int ADD_IMAGE = 715;
+    public static final int CHANGE_IMAGE = 291;
     private MainActivity activity;
     private View generalInformationLayout;
     private View yourDetailsLayout;
@@ -43,6 +61,8 @@ public class AddIncidentFragment extends Fragment implements View.OnClickListene
     private EditText category, department;
     private TextView date, time;
     private EditText value, location, venue;
+
+    private View addPhotos;
 
     private EditText firstName, lastName;
     private Spinner isRiddorSpinner;
@@ -54,6 +74,10 @@ public class AddIncidentFragment extends Fragment implements View.OnClickListene
     private PresetRadioGroup radioGroup;
     private String level = "0";
     private Calendar calendar;
+    private LinearLayout images;
+    private LinearLayout.LayoutParams layoutParams;
+    private List<File> files = new ArrayList<>();
+    private int changedImage = -1;
 
     @Override
     public void onAttach(Context context) {
@@ -68,6 +92,7 @@ public class AddIncidentFragment extends Fragment implements View.OnClickListene
         activity.showBack(true);
 
         initViews(view);
+        configureViewSizes();
         calendar = Calendar.getInstance();
 
         view.findViewById(R.id.complete).setOnClickListener(this);
@@ -75,6 +100,7 @@ public class AddIncidentFragment extends Fragment implements View.OnClickListene
         yourDetails.setOnClickListener(this);
         date.setOnClickListener(this);
         time.setOnClickListener(this);
+        addPhotos.setOnClickListener(this);
         radioGroup.setOnCheckedChangeListener(new PresetRadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(View radioGroup, View radioButton, boolean isChecked, int checkedId) {
@@ -131,6 +157,9 @@ public class AddIncidentFragment extends Fragment implements View.OnClickListene
         jobTitle = view.findViewById(R.id.job_title);
         occupation = view.findViewById(R.id.occupation);
 
+        images = view.findViewById(R.id.images);
+        addPhotos = view.findViewById(R.id.add_photos);
+
         radioGroup =  view.findViewById(R.id.radio);
     }
 
@@ -151,6 +180,9 @@ public class AddIncidentFragment extends Fragment implements View.OnClickListene
                 break;
             case R.id.time:
                 openTimePicker();
+                break;
+            case R.id.add_photos:
+                Pix.start(activity, ADD_IMAGE, 3 - files.size());
                 break;
         }
     }
@@ -186,6 +218,18 @@ public class AddIncidentFragment extends Fragment implements View.OnClickListene
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
     }
 
+    private void configureViewSizes() {
+        Point size = new Point();
+        activity.getWindowManager().getDefaultDisplay().getSize(size);
+        float density = Resources.getSystem().getDisplayMetrics().density;
+        int width = (int) ((size.x - (90 * density)) / 3);
+        layoutParams = new LinearLayout.LayoutParams(width,(int)(0.8 * width));
+        layoutParams.setMarginStart((int) (5 * density));
+        layoutParams.setMarginEnd((int) (5 * density));
+
+        addPhotos.setLayoutParams(layoutParams);
+    }
+
     private void setData(){
         JsonObject body = new JsonObject();
         String accidentDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).format(calendar.getTime());
@@ -209,7 +253,70 @@ public class AddIncidentFragment extends Fragment implements View.OnClickListene
         create(body);
     }
 
+    private void setImages(final File image, final int position){
+        final ImageView imageView = (ImageView) LayoutInflater.from(activity).inflate(R.layout.image_layout, images, false);
+        imageView.setLayoutParams(layoutParams);
+        Picasso.get().load(image).centerCrop().fit().into(imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changedImage = position;
+                Pix.start(activity, CHANGE_IMAGE, 1);
+            }
+        });
+
+        images.addView(imageView);
+        files.add(image);
+
+        if (files.size() < 3){
+            addPhotos.setVisibility(View.VISIBLE);
+        } else {
+            addPhotos.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case CHANGE_IMAGE:
+                if (resultCode == RESULT_OK){
+                    try {
+                        File file = new File(data.getStringArrayListExtra(Pix.IMAGE_RESULTS).get(0));
+                        files.set(changedImage, file);
+                        ImageView imageView = (ImageView) images.getChildAt(changedImage);
+                        Picasso.get().load(file).centerCrop().fit().into(imageView);
+                        changedImage = -1;
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case ADD_IMAGE:
+                if (resultCode == RESULT_OK){
+                    try {
+                        List<String> uriList = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
+                        for (int i = 0; i < uriList.size(); i ++){
+                            setImages(new File(uriList.get(i)), files.size() + i);
+                        }
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+                break;
+        }
+    }
+
     private void create(JsonObject body){
+        // send images
+        MultipartBody.Part imagesList[] = new MultipartBody.Part[3];
+        for (int  i = 0; i < files.size(); i++){
+            if (files.get(i) != null){
+                RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), files.get(i));
+                MultipartBody.Part part = MultipartBody.Part.createFormData("images[]", files.get(i).getName(), reqFile);
+                imagesList[i] = part;
+            }
+        }
         Call<JsonObject> call = RetrofitClient
                 .getInstance()
                 .getApi()

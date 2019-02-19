@@ -161,4 +161,5 @@
     <string name="accident_date">Accident Date</string>
     <string name="images">Images</string>
     <string name="equipment_description">Equipment Description</string>
+    <string name="add_photos">Add photos</string>
 </resources>

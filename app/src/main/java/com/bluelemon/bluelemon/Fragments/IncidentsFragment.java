@@ -21,6 +21,7 @@ public class IncidentsFragment extends Fragment implements  View.OnClickListener
     private MainActivity activity;
     private TabLayout tabLayout;
     private ViewPager pager;
+    private AddIncidentFragment addIncidentFragment;
 
     @Override
     public void onAttach(Context context) {
@@ -47,5 +48,13 @@ public class IncidentsFragment extends Fragment implements  View.OnClickListener
         switch (v.getId()){
 
         }
+    }
+
+    public void setAddIncidentFragment(AddIncidentFragment addIncidentFragment) {
+        this.addIncidentFragment = addIncidentFragment;
+    }
+
+    public AddIncidentFragment getAddIncidentFragment() {
+        return addIncidentFragment;
     }
 }

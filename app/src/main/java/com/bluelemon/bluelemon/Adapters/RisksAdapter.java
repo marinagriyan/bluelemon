@@ -53,38 +53,14 @@ public class RisksAdapter extends RecyclerView.Adapter<RisksAdapter.ViewHolder>{
             viewHolder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    download(model.getiD());
+                    Intent intent = new Intent(activity, DownloadActivity.class);
+                    intent.putExtra("id", model.getiD());
+                    activity.startActivity(intent);
                 }
             });
         } catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-    private void download(int id){
-        Call<ResponseBody> call = RetrofitClient
-                .getInstance()
-                .getApi()
-                .downloadRisk(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), id);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.body() != null){
-                    try {
-                        String disposition = response.headers().get("Content-Disposition");
-                        String fileName = disposition.replaceFirst("(?i)^.*filename=\"?([^\"]+)\"?.*$", "$1");
-                        Utils.writeFile(activity, fileName, response.body().bytes());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
     }
 
     @Override

@@ -125,7 +125,7 @@ public class Utils {
         });
     }
 
-    public static void writeFile(Activity activity, String name, byte[] body){
+    public static boolean writeFile(Activity activity, String name, byte[] body){
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.REQUEST_PERMISSIONS);
@@ -145,23 +145,20 @@ public class Utils {
                 os.write(body);
                 os.close();
                 Toast.makeText(activity, "File downloaded!", Toast.LENGTH_SHORT).show();
+                return true;
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        return false;
     }
 
     public static void showDialog(Activity activity, String message,
-                                  String posBtn){
+                                  String posBtn, DialogInterface.OnClickListener posBtnListener){
         final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
         dialog.
                 setMessage(message).
-                setPositiveButton(posBtn, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                setPositiveButton(posBtn, posBtnListener)
                 .setCancelable(false).show();
     }
 

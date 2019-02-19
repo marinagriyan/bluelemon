@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.bluelemon.bluelemon.Constants;
+import com.bluelemon.bluelemon.Fragments.AddIncidentFragment;
 import com.bluelemon.bluelemon.Fragments.DocumentsMainFragment;
 import com.bluelemon.bluelemon.Fragments.EquipmentFragment;
 import com.bluelemon.bluelemon.Fragments.IncidentsFragment;
@@ -204,5 +205,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             back.setVisibility(View.GONE);
             profile.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AddIncidentFragment.ADD_IMAGE || requestCode == AddIncidentFragment.CHANGE_IMAGE){
+            incidentsFragment.getAddIncidentFragment().onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    public IncidentsFragment getIncidentsFragment() {
+        return incidentsFragment;
     }
 }

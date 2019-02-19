@@ -21,7 +21,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="150dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="63dp"
         android:paddingBottom="10dp"
@@ -45,7 +45,6 @@
             android:layout_marginBottom="7dp"
             android:background="@color/fieldBorderGray"/>
 
-        <include layout="@layout/pdf_layout"/>
         <include layout="@layout/pdf_layout"/>
 
     </LinearLayout>
