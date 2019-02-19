@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -124,15 +125,19 @@ public class Utils {
         });
     }
 
-    private static void writeFile(Activity activity, String name, byte[] body){
+    public static void writeFile(Activity activity, String name, byte[] body){
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.REQUEST_PERMISSIONS);
         } else {
-
-            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), name);
+            String dir = "BlueLemon Files";
+            File storageDir =  new File(Environment.getExternalStorageDirectory(), dir);
+            if (!storageDir.exists()) {
+                storageDir.mkdirs();
+            }
+            File file = new File(storageDir, name);
             if (!file.getParentFile().mkdirs()) {
-                file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), name);
+                file = new File(storageDir, name);
             }
             FileOutputStream os = null;
             try {

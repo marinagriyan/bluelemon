@@ -10,11 +10,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bluelemon.bluelemon.Activities.DownloadActivity;
+import com.bluelemon.bluelemon.App;
+import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.Models.Responses.RiskBody;
 import com.bluelemon.bluelemon.R;
+import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
 
+import java.io.IOException;
 import java.util.List;
+
+import okhttp3.Headers;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RisksAdapter extends RecyclerView.Adapter<RisksAdapter.ViewHolder>{
     private Activity activity;
@@ -43,12 +53,38 @@ public class RisksAdapter extends RecyclerView.Adapter<RisksAdapter.ViewHolder>{
             viewHolder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activity.startActivity(new Intent(activity, DownloadActivity.class));
+                    download(model.getiD());
                 }
             });
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void download(int id){
+        Call<ResponseBody> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .downloadRisk(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), id);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.body() != null){
+                    try {
+                        String disposition = response.headers().get("Content-Disposition");
+                        String fileName = disposition.replaceFirst("(?i)^.*filename=\"?([^\"]+)\"?.*$", "$1");
+                        Utils.writeFile(activity, fileName, response.body().bytes());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

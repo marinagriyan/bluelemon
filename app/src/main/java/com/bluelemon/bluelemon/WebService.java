@@ -87,6 +87,11 @@ public interface WebService {
                              @Header("Authorization") String token,
                              @Body JsonObject body);
 
+    @GET("/Risk/downloadRisk")
+    Call<ResponseBody> downloadRisk(@Header("Origin") String origin,
+                                    @Header("Authorization") String token,
+                                    @Query("riskID") int id);
+
     @POST("/equipment")
     Call<List<EquipmentBody>> getEquipment(@Header("Origin") String origin,
                                            @Header("Authorization") String token);

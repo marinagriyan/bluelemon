@@ -66,7 +66,7 @@ public class EditEquipmentFragment extends Fragment {
     private String selectedSite;
     private final int REQUEST_CODE_ATTACH = 742;
     private String file = null;
-    private EditText fileName;
+    private TextView fileName;
 
     @Override
     public void onAttach(Context context) {

@@ -8,6 +8,7 @@
 
 
     <TextView
+        android:id="@+id/file_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="17sp"
@@ -17,6 +18,7 @@
         android:text="RiskTitle.pdf"/>
 
     <TextView
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="13sp"
@@ -104,6 +106,7 @@
 
 
         <LinearLayout
+            android:id="@+id/download"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
