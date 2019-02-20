@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
+import com.bluelemon.bluelemon.Models.Responses.Account;
 import com.bluelemon.bluelemon.Preferences;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
@@ -17,6 +18,8 @@ import com.bluelemon.bluelemon.Utils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.Set;
 
 import retrofit2.Call;
@@ -57,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         try {
                             JsonObject body = response.body().getAsJsonObject("Body");
                             String token = body.get("AccessToken").getAsString();
+                            getAccount(token);
                             preferences.setSites(body.getAsJsonObject("SiteAccesses"));
                             Set<String> siteAccesses = body.getAsJsonObject("SiteAccesses").keySet();
                             JsonArray sites = new JsonArray();
@@ -80,6 +84,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void getAccount(String token) {
+        JsonObject body = new JsonObject();
+        body.addProperty("token", token);
+        Call<Account> call = RetrofitClient.getInstance().getApi().getAccount(Constants.ORIGIN, token, body);
+        call.enqueue(new Callback<Account>() {
+            @Override
+            public void onResponse(Call<Account> call, Response<Account> response) {
+                if (response.body() != null){
+                    App.getInstance().getPreferences().setUserName(response.body().getBody().getUser().getUserName());
+                    App.getInstance().getPreferences().setEmail(response.body().getBody().getUser().getEmail());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Account> call, Throwable t) {
+
             }
         });
     }

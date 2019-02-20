@@ -143,6 +143,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onBackPressed() {
         if (secondStack.size() > 0){
             secondStack.pop();
+            if (secondStack.size() == 0){
+                showBack(false);
+            }
             super.onBackPressed();
         } else {
             if (stack.size() > 1) {

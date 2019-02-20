@@ -17,6 +17,8 @@ public class Preferences extends Application {
     private static final String PREFERENCES_NAME = "prefs";
 
     private static final String ACCESS_TOKEN = "access_token";
+    private static final String USERNAME = "username";
+    private static final String EMAIL = "email";
     private static final String SITES_IDS = "site_ids";
     private static final String SITES = "sites";
 
@@ -40,6 +42,18 @@ public class Preferences extends Application {
     }
 
     public void setAccessToken(String value){ getEditor().putString(ACCESS_TOKEN, value).apply(); }
+
+    public String getUserName(){
+        return _preferences.getString(USERNAME, null);
+    }
+
+    public void setUserName(String value){ getEditor().putString(USERNAME, value).apply(); }
+
+    public String getEmail(){
+        return _preferences.getString(EMAIL, null);
+    }
+
+    public void setEmail(String value){ getEditor().putString(EMAIL, value).apply(); }
 
     public JsonArray getSiteIDs(){
         JsonArray jsonArray = null;

@@ -2,6 +2,7 @@ package com.bluelemon.bluelemon;
 
 
 import com.bluelemon.bluelemon.Models.Responses.Accidents;
+import com.bluelemon.bluelemon.Models.Responses.Account;
 import com.bluelemon.bluelemon.Models.Responses.Courses;
 import com.bluelemon.bluelemon.Models.Responses.DocumentCategories;
 import com.bluelemon.bluelemon.Models.Responses.Documents;
@@ -10,6 +11,7 @@ import com.bluelemon.bluelemon.Models.Responses.EquipmentFolders;
 import com.bluelemon.bluelemon.Models.Responses.Risks;
 import com.bluelemon.bluelemon.Models.Responses.SingleAccident;
 import com.bluelemon.bluelemon.Models.Responses.SingleDocument;
+import com.bluelemon.bluelemon.Models.Responses.UpdatePassword;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -32,6 +34,16 @@ public interface WebService {
                            @Header ("Device") String device,
                            @Field("username") String username,
                            @Field("password") String password);
+
+    @POST("/Account/GetUserData")
+    Call<Account> getAccount(@Header("Origin") String origin,
+                             @Header("Authorization") String token,
+                             @Body JsonObject body);
+
+    @POST("/Account/UpdatePassword")
+    Call<UpdatePassword> updatePassword(@Header("Origin") String origin,
+                                        @Header("Authorization") String token,
+                                        @Body JsonObject body);
 
     @POST("/Accident/CreateOrUpdate")
     Call<JsonObject> createAccident(@Header("Origin") String origin,
