@@ -28,9 +28,7 @@ import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.Models.Responses.DocumentBody;
 import com.bluelemon.bluelemon.Models.Responses.DocumentCategories;
 import com.bluelemon.bluelemon.Models.Responses.DocumentCategory;
-import com.bluelemon.bluelemon.Models.Responses.EquipmentBody;
 import com.bluelemon.bluelemon.Models.Responses.SingleDocument;
-import com.bluelemon.bluelemon.Models.Responses.SingleDocumentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
@@ -42,12 +40,8 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.function.Predicate;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,11 +76,20 @@ public class EditDocumentFragment extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_new_document, container, false);
         initViews(view);
-//        Bundle bundle = getArguments();
-//        if (bundle != null && bundle.getInt("id") != 0){
-//            id = bundle.getInt("id");
-//            getDocument();
-//        }
+
+        siteData.addAll(App.getInstance().getPreferences().getSiteNames().keySet());
+        sites.setAdapter(new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, siteData));
+        sites.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedSite = App.getInstance().getPreferences().getSiteNames().get(siteData.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         Bundle bundle = getArguments();
         if (bundle != null){
@@ -103,20 +106,6 @@ public class EditDocumentFragment extends Fragment implements View.OnClickListen
         calendar = Calendar.getInstance();
         date.setOnClickListener(this);
         upload.setOnClickListener(this);
-
-        siteData.addAll(App.getInstance().getPreferences().getSites().keySet());
-        sites.setAdapter(new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, siteData));
-        sites.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedSite = App.getInstance().getPreferences().getSites().get(siteData.get(position));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         view.findViewById(R.id.close).setOnClickListener(this);
         view.findViewById(R.id.add).setOnClickListener(this);
@@ -220,8 +209,8 @@ public class EditDocumentFragment extends Fragment implements View.OnClickListen
 
     private void setData(){
         title.setText(documentBody.getDocumentName());
-        if (siteData.contains(documentBody.getSite())) {
-            sites.setSelection(siteData.indexOf(documentBody.getSite()));
+        if (App.getInstance().getPreferences().getSites().containsKey(documentBody.getSiteID())) {
+            sites.setSelection(siteData.indexOf(App.getInstance().getPreferences().getSites().get(documentBody.getSiteID())));
         }
         if (documentBody.getDocumentDate() != null){
             date.setText(Utils.dayFormatFromTimestamp(documentBody.getDocumentDate()));

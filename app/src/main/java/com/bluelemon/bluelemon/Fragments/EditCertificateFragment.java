@@ -85,12 +85,12 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
         date.setOnClickListener(this);
         upload.setOnClickListener(this);
 
-        siteData.addAll(App.getInstance().getPreferences().getSites().keySet());
+        siteData.addAll(App.getInstance().getPreferences().getSiteNames().keySet());
         sites.setAdapter(new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, siteData));
         sites.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedSite = App.getInstance().getPreferences().getSites().get(siteData.get(position));
+                selectedSite = App.getInstance().getPreferences().getSiteNames().get(siteData.get(position));
             }
 
             @Override

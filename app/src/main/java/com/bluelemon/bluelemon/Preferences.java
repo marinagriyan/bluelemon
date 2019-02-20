@@ -69,7 +69,7 @@ public class Preferences extends Application {
         getEditor().putString(SITES_IDS, value.toString()).apply();
     }
 
-    public HashMap<String, String> getSites(){
+    public HashMap<String, String> getSiteNames(){
         HashMap<String, String> map = new Gson().fromJson(
                 _preferences.getString(SITES, null), new TypeToken<HashMap<String, String>>() {}.getType()
         );
@@ -78,6 +78,13 @@ public class Preferences extends Application {
             swapped.put(entry.getValue(), entry.getKey());
         }
         return swapped;
+    }
+
+    public HashMap<String, String> getSites(){
+        HashMap<String, String> map = new Gson().fromJson(
+                _preferences.getString(SITES, null), new TypeToken<HashMap<String, String>>() {}.getType()
+        );
+        return map;
     }
 
     public void setSites(JsonObject value){

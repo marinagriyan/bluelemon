@@ -6,12 +6,10 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,24 +17,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
-import com.bluelemon.bluelemon.Adapters.RisksAdapter;
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
-import com.bluelemon.bluelemon.Models.Responses.EquipmentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.text.SimpleDateFormat;
-import java.util.AbstractSequentialList;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -101,12 +94,12 @@ public class NewEquipmentFragment extends Fragment {
                 openCalendar();
             }
         });
-        siteData.addAll(App.getInstance().getPreferences().getSites().keySet());
+        siteData.addAll(App.getInstance().getPreferences().getSiteNames().keySet());
         sites.setAdapter(new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, siteData));
         sites.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedSite = App.getInstance().getPreferences().getSites().get(siteData.get(position));
+                selectedSite = App.getInstance().getPreferences().getSiteNames().get(siteData.get(position));
             }
 
             @Override

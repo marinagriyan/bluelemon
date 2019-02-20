@@ -1,23 +1,13 @@
 package com.bluelemon.bluelemon.Fragments;
 
 
-import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.provider.DocumentFile;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,21 +19,11 @@ import com.bluelemon.bluelemon.Models.Responses.SingleDocumentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
-import com.google.android.gms.common.util.IOUtils;
 import com.google.gson.JsonObject;
-
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.app.Activity.RESULT_OK;
 
 public class ViewDocumentFragment extends Fragment implements View.OnClickListener{
     private MainActivity activity;

@@ -16,27 +16,19 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.App;
-import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.Models.Responses.EquipmentBody;
 import com.bluelemon.bluelemon.R;
-import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -92,12 +84,12 @@ public class ViewEquipmentFragment extends Fragment {
                 openCalendar();
             }
         });
-        siteData.addAll(App.getInstance().getPreferences().getSites().keySet());
+        siteData.addAll(App.getInstance().getPreferences().getSiteNames().keySet());
         sites.setAdapter(new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, siteData));
         sites.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedSite = App.getInstance().getPreferences().getSites().get(siteData.get(position));
+                selectedSite = App.getInstance().getPreferences().getSiteNames().get(siteData.get(position));
             }
 
             @Override

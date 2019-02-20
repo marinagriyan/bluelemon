@@ -29,7 +29,6 @@ import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.Models.Responses.DocumentCategories;
 import com.bluelemon.bluelemon.Models.Responses.DocumentCategory;
 import com.bluelemon.bluelemon.Models.Responses.SingleDocument;
-import com.bluelemon.bluelemon.Models.Responses.SingleDocumentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
@@ -80,12 +79,12 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
         date.setOnClickListener(this);
         upload.setOnClickListener(this);
 
-        siteData.addAll(App.getInstance().getPreferences().getSites().keySet());
+        siteData.addAll(App.getInstance().getPreferences().getSiteNames().keySet());
         sites.setAdapter(new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, siteData));
         sites.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedSite = App.getInstance().getPreferences().getSites().get(siteData.get(position));
+                selectedSite = App.getInstance().getPreferences().getSiteNames().get(siteData.get(position));
             }
 
             @Override
