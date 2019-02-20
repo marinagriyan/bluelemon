@@ -174,7 +174,7 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
         body.addProperty("documentID", (Number) null);
         body.addProperty("documentName", title.getText().toString());
         body.addProperty("issueDate", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).format(calendar.getTime()));
-        body.addProperty("renewalFrequency", 365);
+        body.addProperty("renewalFrequency", 60);
         body.addProperty("siteID", selectedSite);
         body.addProperty("live", true);
         body.addProperty("currentDocumentID", 0);

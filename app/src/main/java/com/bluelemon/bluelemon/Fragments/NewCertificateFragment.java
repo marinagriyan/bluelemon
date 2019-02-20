@@ -105,7 +105,7 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
         Call<DocumentCategories> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .getDocumentCategories(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken());
+                .getCertificateCategories(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken());
         call.enqueue(new Callback<DocumentCategories>() {
             @Override
             public void onResponse(Call<DocumentCategories> call, Response<DocumentCategories> response) {
