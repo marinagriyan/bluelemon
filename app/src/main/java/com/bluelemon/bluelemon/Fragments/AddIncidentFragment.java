@@ -329,7 +329,7 @@ public class AddIncidentFragment extends Fragment implements View.OnClickListene
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
             }
         });
     }

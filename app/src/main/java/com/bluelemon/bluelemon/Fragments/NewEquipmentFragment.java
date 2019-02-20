@@ -194,13 +194,13 @@ public class NewEquipmentFragment extends Fragment {
                 } else if (response.isSuccessful()){
                     activity.removeFragment();
                 } else {
-                    Utils.showError(activity, response.errorBody());
+                    Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
             }
         });
     }

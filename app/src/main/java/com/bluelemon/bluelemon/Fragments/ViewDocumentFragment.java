@@ -46,15 +46,11 @@ import retrofit2.Response;
 import static android.app.Activity.RESULT_OK;
 
 public class ViewDocumentFragment extends Fragment implements View.OnClickListener{
-    private static final int REQUEST_CODE_ATTACH = 842;
     private MainActivity activity;
     private int id;
-    private EditText title, category;
-    private Spinner sites;
+    private TextView title, category;
+    private TextView sites;
     private TextView date;
-    private View upload;
-    private List<String> siteData = new ArrayList<>();
-    private String selectedSite;
 
     @Override
     public void onAttach(Context context) {
@@ -65,7 +61,7 @@ public class ViewDocumentFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_new_document, container, false);
+        View view = inflater.inflate(R.layout.fragment_view_document, container, false);
         initViews(view);
         Bundle bundle = getArguments();
         if (bundle != null && bundle.getInt("id") != 0){
@@ -73,23 +69,7 @@ public class ViewDocumentFragment extends Fragment implements View.OnClickListen
             getDocument();
         }
 
-        siteData.addAll(App.getInstance().getPreferences().getSites().keySet());
-        sites.setAdapter(new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, siteData));
-        sites.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedSite = App.getInstance().getPreferences().getSites().get(siteData.get(position));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         view.findViewById(R.id.close).setOnClickListener(this);
-        view.findViewById(R.id.add).setVisibility(View.GONE);
-        upload.setVisibility(View.GONE);
         return view;
     }
 
@@ -98,13 +78,9 @@ public class ViewDocumentFragment extends Fragment implements View.OnClickListen
         document.setBackground(getResources().getDrawable(R.drawable.button_blue));
         document.setTextColor(Color.WHITE);
         title = view.findViewById(R.id.title);
-        title.setEnabled(false);
         sites = view.findViewById(R.id.sites);
-        sites.setEnabled(false);
         category = view.findViewById(R.id.category);
-        category.setEnabled(false);
         date = view.findViewById(R.id.date);
-        upload = view.findViewById(R.id.upload);
     }
 
     private void getDocument(){
@@ -124,23 +100,23 @@ public class ViewDocumentFragment extends Fragment implements View.OnClickListen
                         setData(response.body().getBody());
                     }
                     else {
-                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Utils.showError(activity, response.errorBody());
+                    Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SingleDocument> call, Throwable t) {
-                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void setData(SingleDocumentBody body){
         title.setText(body.getDocumentName());
-//        sites.setSelection();
+        sites.setText(body.getSite());
         category.setText(body.getCategoryName());
         if (body.getSyncDateTime() != null){
             date.setText(Utils.dayFormatFromTimestamp(body.getSyncDateTime()));

@@ -74,16 +74,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             e.printStackTrace();
                         }
                     } else {
-                        Toast.makeText(LoginActivity.this, "Wrong Credentials", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Utils.showError(LoginActivity.this, response.errorBody());
+                    Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_LONG).show();
             }
         });
     }

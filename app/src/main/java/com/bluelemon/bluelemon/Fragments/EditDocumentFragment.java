@@ -134,16 +134,16 @@ public class EditDocumentFragment extends Fragment implements View.OnClickListen
                         setCategories(response.body().getBody());
                     }
                     else {
-                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Utils.showError(activity, response.errorBody());
+                    Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<DocumentCategories> call, Throwable t) {
-
+                Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -188,16 +188,16 @@ public class EditDocumentFragment extends Fragment implements View.OnClickListen
                         setData();
                     }
                     else {
-                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Utils.showError(activity, response.errorBody());
+                    Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SingleDocument> call, Throwable t) {
-                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -251,16 +251,16 @@ public class EditDocumentFragment extends Fragment implements View.OnClickListen
                     if (response.body() != null && response.body().getBody() != null){
                         activity.removeFragment();
                     } else {
-                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Utils.showError(activity, response.errorBody());
+                    Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SingleDocument> call, Throwable t) {
-                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
             }
         });
     }

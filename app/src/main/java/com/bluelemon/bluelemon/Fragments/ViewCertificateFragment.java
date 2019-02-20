@@ -46,16 +46,11 @@ import retrofit2.Response;
 import static android.app.Activity.RESULT_OK;
 
 public class ViewCertificateFragment extends Fragment implements View.OnClickListener{
-    private static final int REQUEST_CODE_ATTACH = 908;
     private MainActivity activity;
     private int id;
-    private EditText title, category;
-    private Spinner sites;
+    private TextView title, category;
+    private TextView sites;
     private TextView date;
-    private View upload;
-    private TextView fileName;
-    private List<String> siteData = new ArrayList<>();
-    private String selectedSite;
 
 
     @Override
@@ -75,25 +70,7 @@ public class ViewCertificateFragment extends Fragment implements View.OnClickLis
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_document, container, false);
         initViews(view);
-
-        siteData.addAll(App.getInstance().getPreferences().getSites().keySet());
-        sites.setAdapter(new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, siteData));
-        sites.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedSite = App.getInstance().getPreferences().getSites().get(siteData.get(position));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
         view.findViewById(R.id.close).setOnClickListener(this);
-        view.findViewById(R.id.add).setVisibility(View.GONE);
-        upload.setVisibility(View.GONE);
         return view;
     }
 
@@ -102,14 +79,9 @@ public class ViewCertificateFragment extends Fragment implements View.OnClickLis
         certificate.setBackground(getResources().getDrawable(R.drawable.button_blue));
         certificate.setTextColor(Color.WHITE);
         title = view.findViewById(R.id.title);
-        title.setEnabled(false);
         sites = view.findViewById(R.id.sites);
-        sites.setEnabled(false);
         category = view.findViewById(R.id.category);
-        category.setEnabled(false);
         date = view.findViewById(R.id.date);
-        upload = view.findViewById(R.id.upload);
-        fileName = view.findViewById(R.id.file_name);
     }
 
     private void getCertificate(){
@@ -129,23 +101,23 @@ public class ViewCertificateFragment extends Fragment implements View.OnClickLis
                         setData(response.body().getBody());
                     }
                     else {
-                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Utils.showError(activity, response.errorBody());
+                    Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SingleDocument> call, Throwable t) {
-                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void setData(SingleDocumentBody body){
         title.setText(body.getDocumentName());
-        //sites.setText(body.getSite());
+        sites.setText(body.getSite());
         category.setText(body.getCategoryName());
         if (body.getSyncDateTime() != null){
             date.setText(Utils.dayFormatFromTimestamp(body.getSyncDateTime()));

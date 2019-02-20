@@ -80,7 +80,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-
+                Toast.makeText(ProfileActivity.this, "Failed", Toast.LENGTH_LONG).show();
             }
         });
     }

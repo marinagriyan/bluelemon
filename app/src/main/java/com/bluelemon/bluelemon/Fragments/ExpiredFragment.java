@@ -70,16 +70,16 @@ public class ExpiredFragment extends Fragment {
                         recyclerView.setAdapter(new TrainingsAdapter(activity, list));
                     }
                     else {
-                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Utils.showError(activity, response.errorBody());
+                    Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Courses> call, Throwable t) {
-                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
             }
         });
     }

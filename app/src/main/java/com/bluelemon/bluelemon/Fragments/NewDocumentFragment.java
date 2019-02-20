@@ -200,16 +200,16 @@ public class NewDocumentFragment extends Fragment implements View.OnClickListene
                             }
                         });
                     } else {
-                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Utils.showError(activity, response.errorBody());
+                    Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<SingleDocument> call, Throwable t) {
-                Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
             }
         });
     }
