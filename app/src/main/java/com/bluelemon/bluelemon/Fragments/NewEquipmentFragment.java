@@ -60,6 +60,7 @@ public class NewEquipmentFragment extends Fragment {
     private Calendar calendar;
     private List<String> siteData = new ArrayList<>();
     private String selectedSite;
+    private int folderID;
     private final int CAMERA_REQUEST_CODE = 725;
     private final int PICK_IMAGE_ID = 193;
 
@@ -77,6 +78,10 @@ public class NewEquipmentFragment extends Fragment {
         initViews(view);
         calendar = Calendar.getInstance();
 
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey("folderID")){
+            folderID = bundle.getInt("folderID");
+        }
         activity.showBack(true);
         view.findViewById(R.id.done).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,7 +178,7 @@ public class NewEquipmentFragment extends Fragment {
         body.addProperty("serial", serialNumber.getText().toString());
         body.addProperty("refno", refNO.getText().toString());
         body.addProperty("retire", false);
-        body.addProperty("folderID", 5);
+        body.addProperty("folderID", folderID);
         body.addProperty("lastCheckDate", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).format(calendar.getTime()));
         body.addProperty("createdBy", "6FCBB8D6-8C19-4718-8E02-30F62181D819");
 

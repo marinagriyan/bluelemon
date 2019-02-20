@@ -22,8 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
+import com.bluelemon.bluelemon.Adapters.SpinnerAdapter;
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
+import com.bluelemon.bluelemon.Models.Responses.DocumentCategories;
+import com.bluelemon.bluelemon.Models.Responses.DocumentCategory;
 import com.bluelemon.bluelemon.Models.Responses.SingleDocument;
 import com.bluelemon.bluelemon.Models.Responses.SingleDocumentBody;
 import com.bluelemon.bluelemon.R;
@@ -49,8 +52,8 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
     private static final int REQUEST_CODE_ATTACH = 908;
     private MainActivity activity;
     private int id;
-    private EditText title, category;
-    private Spinner sites;
+    private EditText title;
+    private Spinner sites, category;
     private TextView date;
     private Calendar calendar;
     private View upload;
@@ -59,6 +62,7 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
     private String selectedSite;
     private String file = null;
     private SingleDocumentBody singleDocumentBody;
+    private int categoryId;
 
     @Override
     public void onAttach(Context context) {
@@ -113,6 +117,57 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
         fileName = view.findViewById(R.id.file_name);
     }
 
+
+    private void getCategories(){
+        Call<DocumentCategories> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .getDocumentCategories(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken());
+        call.enqueue(new Callback<DocumentCategories>() {
+            @Override
+            public void onResponse(Call<DocumentCategories> call, Response<DocumentCategories> response) {
+                if (response.code() == 401){
+                    Utils.logout(activity);
+                } else if (response.isSuccessful()){
+                    if (response.body() != null && response.body().getBody() != null){
+                        setCategories(response.body().getBody());
+                    }
+                    else {
+                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Utils.showError(activity, response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DocumentCategories> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void setCategories(final List<DocumentCategory> body){
+        category.setAdapter(new SpinnerAdapter(activity, body, android.R.layout.simple_spinner_item));
+        category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                categoryId = body.get(position).getCategoryID();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        for (DocumentCategory cat : body){
+            if (cat.getCategoryID().equals(singleDocumentBody.getCategoryID())){
+                category.setSelection(body.indexOf(cat));
+                break;
+            }
+        }
+    }
+
     private void getCertificate(){
         JsonObject body = new JsonObject();
         body.addProperty("documentID", id);
@@ -128,6 +183,7 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
                 } else if (response.isSuccessful()){
                     if (response.body() != null && response.body().getBody() != null){
                         singleDocumentBody = response.body().getBody();
+                        getCategories();
                         setData();
                     }
                     else {
@@ -147,8 +203,9 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
 
     private void setData(){
         title.setText(singleDocumentBody.getDocumentName());
-        //sites.setText(body.getSite());
-        category.setText(singleDocumentBody.getCategoryName());
+        if (siteData.contains(singleDocumentBody.getSite())) {
+            sites.setSelection(siteData.indexOf(singleDocumentBody.getSite()));
+        }
         if (singleDocumentBody.getSyncDateTime() != null){
             date.setText(Utils.dayFormatFromTimestamp(singleDocumentBody.getSyncDateTime()));
         }
@@ -168,7 +225,7 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
     private void addCertificate(){
         JsonObject body = new JsonObject();
         body.addProperty("comments", "test");
-        body.addProperty("documentCategory", singleDocumentBody.getDocumentCategory());
+        body.addProperty("documentCategory", categoryId);
         body.addProperty("documentID", singleDocumentBody.getDocumentID());
         body.addProperty("documentName", title.getText().toString());
         body.addProperty("issueDate", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).format(calendar.getTime()));
@@ -178,7 +235,6 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
         body.addProperty("currentDocumentID", singleDocumentBody.getCurrentDocumentID());
         if (file != null) {
             body.addProperty("fileName", fileName.getText().toString());
-            // add file as byte[]
             body.addProperty("file", file);
         }
         Call<SingleDocument> call = RetrofitClient

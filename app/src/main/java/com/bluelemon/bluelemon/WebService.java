@@ -3,6 +3,7 @@ package com.bluelemon.bluelemon;
 
 import com.bluelemon.bluelemon.Models.Responses.Accidents;
 import com.bluelemon.bluelemon.Models.Responses.Courses;
+import com.bluelemon.bluelemon.Models.Responses.DocumentCategories;
 import com.bluelemon.bluelemon.Models.Responses.Documents;
 import com.bluelemon.bluelemon.Models.Responses.EquipmentBody;
 import com.bluelemon.bluelemon.Models.Responses.EquipmentFolders;
@@ -62,6 +63,10 @@ public interface WebService {
                         @Header("Authorization") String token,
                         @Body JsonObject body);
 
+    @POST("/document/GetAllCategories")
+    Call<DocumentCategories> getDocumentCategories(@Header("Origin") String origin,
+                                                   @Header("Authorization") String token);
+
     @GET("/document/download")
     Call<ResponseBody> downloadDocument(@Header("Origin") String origin,
                                         @Header("Authorization") String token,
@@ -81,6 +86,10 @@ public interface WebService {
     Call<SingleDocument> createCertificate(@Header("Origin") String origin,
                                  @Header("Authorization") String token,
                                  @Body JsonObject body);
+
+    @POST("/certificate/GetAllCategories")
+    Call<DocumentCategories> getCertificateCategories(@Header("Origin") String origin,
+                                                   @Header("Authorization") String token);
 
     @POST("/Risk")
     Call<Risks> getRisks(@Header("Origin") String origin,

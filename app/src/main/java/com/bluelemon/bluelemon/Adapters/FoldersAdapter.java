@@ -1,5 +1,6 @@
 package com.bluelemon.bluelemon.Adapters;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Fragments.FolderEquipmentFragment;
 import com.bluelemon.bluelemon.Models.Responses.Folder;
 import com.bluelemon.bluelemon.R;
+import com.google.gson.Gson;
 
 import java.util.List;
 import java.util.Locale;
@@ -40,7 +42,11 @@ public class FoldersAdapter extends RecyclerView.Adapter<FoldersAdapter.ViewHold
             viewHolder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activity.addFragment(new FolderEquipmentFragment(), 31);
+                    FolderEquipmentFragment fragment = new FolderEquipmentFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("folderID", model.getFolderID());
+                    fragment.setArguments(bundle);
+                    activity.addFragment(fragment, 31);
                 }
             });
         } catch (Exception e){

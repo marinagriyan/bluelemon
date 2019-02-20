@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Fragments.EditEquipmentFragment;
-import com.bluelemon.bluelemon.Fragments.NewEquipmentFragment;
 import com.bluelemon.bluelemon.Fragments.FolderEquipmentFragment;
 import com.bluelemon.bluelemon.Fragments.ViewEquipmentFragment;
 import com.bluelemon.bluelemon.Models.Responses.EquipmentBody;

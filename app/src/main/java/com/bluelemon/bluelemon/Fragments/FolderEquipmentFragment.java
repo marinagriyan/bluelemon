@@ -18,6 +18,7 @@ import com.bluelemon.bluelemon.Models.Responses.EquipmentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -47,11 +48,14 @@ public class FolderEquipmentFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
 
         move = view.findViewById(R.id.move);
+        final Bundle bundle = getArguments();
 
         view.findViewById(R.id.add_equipment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.addFragment(new NewEquipmentFragment(), 33);
+                NewEquipmentFragment fragment = new NewEquipmentFragment();
+                fragment.setArguments(bundle);
+                activity.addFragment(fragment, 33);
             }
         });
 

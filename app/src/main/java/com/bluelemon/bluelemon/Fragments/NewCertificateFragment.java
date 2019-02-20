@@ -23,8 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
+import com.bluelemon.bluelemon.Adapters.SpinnerAdapter;
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
+import com.bluelemon.bluelemon.Models.Responses.DocumentCategories;
+import com.bluelemon.bluelemon.Models.Responses.DocumentCategory;
 import com.bluelemon.bluelemon.Models.Responses.SingleDocument;
 import com.bluelemon.bluelemon.Models.Responses.SingleDocumentBody;
 import com.bluelemon.bluelemon.R;
@@ -49,9 +52,9 @@ import static android.app.Activity.RESULT_OK;
 public class NewCertificateFragment extends Fragment implements View.OnClickListener{
     private static final int REQUEST_CODE_ATTACH = 908;
     private MainActivity activity;
-    private int id;
-    private EditText title, category;
-    private Spinner sites;
+    private int categoryId;
+    private EditText title;
+    private Spinner sites, category;
     private TextView date;
     private Calendar calendar;
     private View upload;
@@ -91,10 +94,55 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
             }
         });
 
+        getCategories();
 
         view.findViewById(R.id.close).setOnClickListener(this);
         view.findViewById(R.id.add).setOnClickListener(this);
         return view;
+    }
+
+    private void getCategories(){
+        Call<DocumentCategories> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .getDocumentCategories(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken());
+        call.enqueue(new Callback<DocumentCategories>() {
+            @Override
+            public void onResponse(Call<DocumentCategories> call, Response<DocumentCategories> response) {
+                if (response.code() == 401){
+                    Utils.logout(activity);
+                } else if (response.isSuccessful()){
+                    if (response.body() != null && response.body().getBody() != null){
+                        setCategories(response.body().getBody());
+                    }
+                    else {
+                        Toast.makeText(activity, response.message(), Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Utils.showError(activity, response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DocumentCategories> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void setCategories(final List<DocumentCategory> body){
+        category.setAdapter(new SpinnerAdapter(activity, body, android.R.layout.simple_spinner_item));
+        category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                categoryId = body.get(position).getCategoryID();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void initViews(View view) {
@@ -123,14 +171,14 @@ public class NewCertificateFragment extends Fragment implements View.OnClickList
     private void addCertificate(){
         JsonObject body = new JsonObject();
         body.addProperty("comments", "test");
-        body.addProperty("documentCategory", 43);
+        body.addProperty("documentCategory", categoryId);
         body.addProperty("documentID", (Number) null);
         body.addProperty("documentName", title.getText().toString());
         body.addProperty("issueDate", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).format(calendar.getTime()));
         body.addProperty("renewalFrequency", 365);
         body.addProperty("siteID", selectedSite);
         body.addProperty("live", true);
-        body.addProperty("currentDocumentID", 81);
+        body.addProperty("currentDocumentID", 0);
         body.addProperty("fileName", fileName.getText().toString());
         // add file as byte[]
         body.addProperty("file", file);
