@@ -54,6 +54,7 @@ public class FolderEquipmentFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NewEquipmentFragment fragment = new NewEquipmentFragment();
+                activity.setNewEquipmentFragment(fragment);
                 fragment.setArguments(bundle);
                 activity.addFragment(fragment, 33);
             }

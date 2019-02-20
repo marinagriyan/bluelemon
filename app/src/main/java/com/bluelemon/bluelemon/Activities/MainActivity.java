@@ -15,8 +15,10 @@ import android.widget.ImageView;
 import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.Fragments.AddIncidentFragment;
 import com.bluelemon.bluelemon.Fragments.DocumentsMainFragment;
+import com.bluelemon.bluelemon.Fragments.EditEquipmentFragment;
 import com.bluelemon.bluelemon.Fragments.EquipmentFragment;
 import com.bluelemon.bluelemon.Fragments.IncidentsFragment;
+import com.bluelemon.bluelemon.Fragments.NewEquipmentFragment;
 import com.bluelemon.bluelemon.Fragments.RisksFragment;
 import com.bluelemon.bluelemon.Fragments.TrainingFragment;
 import com.bluelemon.bluelemon.R;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TrainingFragment trainingFragment;
     private RisksFragment risksFragment;
     private EquipmentFragment equipmentFragment;
+    private NewEquipmentFragment newEquipmentFragment;
+    private EditEquipmentFragment editEquipmentFragment;
     private IncidentsFragment incidentsFragment;
     private Fragment fragment;
 
@@ -220,7 +224,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AddIncidentFragment.ADD_IMAGE || requestCode == AddIncidentFragment.CHANGE_IMAGE){
             incidentsFragment.getAddIncidentFragment().onActivityResult(requestCode, resultCode, data);
+        } else if (requestCode == NewEquipmentFragment.ADD_IMAGE){
+            newEquipmentFragment.onActivityResult(requestCode, resultCode, data);
+        } else if (requestCode == EditEquipmentFragment.ADD_IMAGE) {
+            editEquipmentFragment.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    public void setNewEquipmentFragment(NewEquipmentFragment newEquipmentFragment) {
+        this.newEquipmentFragment = newEquipmentFragment;
+    }
+
+    public void setEditEquipmentFragment(EditEquipmentFragment editEquipmentFragment) {
+        this.editEquipmentFragment = editEquipmentFragment;
     }
 
     public IncidentsFragment getIncidentsFragment() {

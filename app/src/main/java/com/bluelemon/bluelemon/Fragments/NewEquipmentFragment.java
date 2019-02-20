@@ -1,15 +1,13 @@
 package com.bluelemon.bluelemon.Fragments;
 
 
-import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,8 +26,13 @@ import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
+import com.fxn.pix.Pix;
 import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,6 +42,8 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 public class NewEquipmentFragment extends Fragment {
     private MainActivity activity;
@@ -54,8 +60,10 @@ public class NewEquipmentFragment extends Fragment {
     private List<String> siteData = new ArrayList<>();
     private String selectedSite;
     private int folderID;
-    private final int CAMERA_REQUEST_CODE = 725;
-    private final int PICK_IMAGE_ID = 193;
+
+    public static final int ADD_IMAGE = 142;
+    private String file;
+    private ImageView image;
 
     @Override
     public void onAttach(Context context) {
@@ -85,7 +93,7 @@ public class NewEquipmentFragment extends Fragment {
         view.findViewById(R.id.upload_images).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImages();
+                Pix.start(activity, ADD_IMAGE, 1);
             }
         });
         checkDate.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +118,24 @@ public class NewEquipmentFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case ADD_IMAGE:
+                if (resultCode == RESULT_OK){
+                    try {
+                        List<String> uriList = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
+                        setFile(new File(uriList.get(0)));
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+                break;
+        }
+    }
+
+
     private void initViews(View view) {
         refNO = view.findViewById(R.id.ref_no);
         make = view.findViewById(R.id.make);
@@ -125,6 +151,7 @@ public class NewEquipmentFragment extends Fragment {
         checkDate = view.findViewById(R.id.check_date);
 
         requirementsList = view.findViewById(R.id.requirements);
+        image = view.findViewById(R.id.image);
     }
 
     private void openCalendar(){
@@ -138,20 +165,23 @@ public class NewEquipmentFragment extends Fragment {
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
-    private void uploadImages(){
-        if(ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
-        } else{
-            startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), PICK_IMAGE_ID);
+    private void setFile(File f) {
+        int size = (int) f.length();
+        byte[] bytes = new byte[size];
+        try {
+            BufferedInputStream buf = new BufferedInputStream(new FileInputStream(f));
+            buf.read(bytes, 0, bytes.length);
+            buf.close();
+            file = Base64.encodeToString(bytes, Base64.DEFAULT);
+            Picasso.get().load(f).centerCrop().fit().into(image);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-
-
     private void addNewEquipment(){
         JsonObject body = new JsonObject();
-        body.addProperty("file", "");
+        body.addProperty("file", file);
         body.addProperty("equipmentID", "1589169d-00d1-4e4a-a46a-a247d082e6e0");
         body.addProperty("equipmentInstanceReference", "");
         body.addProperty("comments", description.getText().toString());

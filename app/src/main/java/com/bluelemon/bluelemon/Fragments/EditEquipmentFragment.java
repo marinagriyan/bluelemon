@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.provider.DocumentFile;
 import android.text.Html;
@@ -18,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,10 +31,15 @@ import com.bluelemon.bluelemon.Models.Responses.EquipmentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
+import com.fxn.pix.Pix;
 import com.google.android.gms.common.util.IOUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,9 +71,9 @@ public class EditEquipmentFragment extends Fragment {
     private Calendar calendar;
     private List<String> siteData = new ArrayList<>();
     private String selectedSite;
-    private final int REQUEST_CODE_ATTACH = 742;
+    public static final int ADD_IMAGE = 910;
     private String file = null;
-    private TextView fileName;
+    private ImageView image;
 
     @Override
     public void onAttach(Context context) {
@@ -104,10 +111,7 @@ public class EditEquipmentFragment extends Fragment {
         view.findViewById(R.id.upload_images).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-                i.setType("*/*");
-                i.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-                startActivityForResult(i, REQUEST_CODE_ATTACH);
+                Pix.start(activity, ADD_IMAGE, 1);
             }
         });
         checkDate.setOnClickListener(new View.OnClickListener() {
@@ -144,8 +148,8 @@ public class EditEquipmentFragment extends Fragment {
         department = view.findViewById(R.id.department);
         frequency = view.findViewById(R.id.frequency);
         checkDate = view.findViewById(R.id.check_date);
-        fileName = view.findViewById(R.id.file_name);
         requirementsList = view.findViewById(R.id.requirements);
+        image = view.findViewById(R.id.image);
     }
 
     private void setData(){
@@ -230,23 +234,33 @@ public class EditEquipmentFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_ATTACH && resultCode == RESULT_OK){
-            setFile(data.getData());
+        switch (requestCode){
+            case ADD_IMAGE:
+                if (resultCode == RESULT_OK){
+                    try {
+                        List<String> uriList = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
+                        setFile(new File(uriList.get(0)));
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+                break;
         }
     }
 
-    private void setFile(Uri data) {
-        DocumentFile documentFile = DocumentFile.fromSingleUri(activity, data);
-        if (documentFile != null && documentFile.getName() != null){
-            fileName.setText(documentFile.getName());
-        }
-        InputStream inputStream = null;
+
+
+    private void setFile(File f) {
+        int size = (int) f.length();
+        byte[] bytes = new byte[size];
         try {
-            inputStream = activity.getContentResolver().openInputStream(data);
-            byte[] fileContent = IOUtils.toByteArray(inputStream);
-            file = Base64.encodeToString(fileContent, Base64.DEFAULT);
+            BufferedInputStream buf = new BufferedInputStream(new FileInputStream(f));
+            buf.read(bytes, 0, bytes.length);
+            buf.close();
+            file = Base64.encodeToString(bytes, Base64.DEFAULT);
+            Picasso.get().load(f).centerCrop().fit().into(image);
         } catch (Exception e) {
             e.printStackTrace();
         }

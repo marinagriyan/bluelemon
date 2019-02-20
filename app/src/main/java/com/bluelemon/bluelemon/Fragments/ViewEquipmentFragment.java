@@ -76,7 +76,7 @@ public class ViewEquipmentFragment extends Fragment {
         }
         activity.showBack(true);
         view.findViewById(R.id.done).setVisibility(View.GONE);
-        view.findViewById(R.id.upload_images).setVisibility(View.GONE);
+        view.findViewById(R.id.add_photos).setVisibility(View.GONE);
 
         checkDate.setOnClickListener(new View.OnClickListener() {
             @Override
