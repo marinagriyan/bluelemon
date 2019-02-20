@@ -26,6 +26,7 @@ import com.bluelemon.bluelemon.Models.Responses.SingleDocument;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -70,7 +71,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.View
                 public void onClick(View v) {
                     EditDocumentFragment fragment = new EditDocumentFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putInt("id", body.getDocumentID());
+                    bundle.putString("body", new Gson().toJson(body));
                     fragment.setArguments(bundle);
                     activity.addFragment(fragment, 1);
                 }
