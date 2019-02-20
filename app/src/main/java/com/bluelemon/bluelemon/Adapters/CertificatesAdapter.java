@@ -16,6 +16,7 @@ import com.bluelemon.bluelemon.Fragments.ViewCertificateFragment;
 import com.bluelemon.bluelemon.Models.Responses.DocumentBody;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.Utils;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class CertificatesAdapter extends RecyclerView.Adapter<CertificatesAdapte
                 public void onClick(View v) {
                     EditCertificateFragment fragment = new EditCertificateFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putInt("id", body.getDocumentID());
+                    bundle.putString("body", new Gson().toJson(body));
                     fragment.setArguments(bundle);
                     activity.addFragment(fragment, 20);
                 }
@@ -61,7 +62,7 @@ public class CertificatesAdapter extends RecyclerView.Adapter<CertificatesAdapte
                 public void onClick(View v) {
                     ViewCertificateFragment fragment = new ViewCertificateFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putInt("id", body.getDocumentID());
+                    bundle.putString("body", new Gson().toJson(body));
                     fragment.setArguments(bundle);
                     activity.addFragment(fragment, 2);
                 }

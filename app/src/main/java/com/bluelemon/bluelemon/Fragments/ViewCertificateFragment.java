@@ -1,75 +1,52 @@
 package com.bluelemon.bluelemon.Fragments;
 
 
-import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.provider.DocumentFile;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.App;
-import com.bluelemon.bluelemon.Constants;
-import com.bluelemon.bluelemon.Models.Responses.SingleDocument;
-import com.bluelemon.bluelemon.Models.Responses.SingleDocumentBody;
+import com.bluelemon.bluelemon.Models.Responses.DocumentBody;
 import com.bluelemon.bluelemon.R;
-import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
-import com.google.android.gms.common.util.IOUtils;
-import com.google.gson.JsonObject;
-
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static android.app.Activity.RESULT_OK;
+import com.google.gson.Gson;
 
 public class ViewCertificateFragment extends Fragment implements View.OnClickListener{
     private MainActivity activity;
-    private int id;
     private TextView title, category;
     private TextView sites;
     private TextView date;
+    private DocumentBody documentBody;
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = (MainActivity) context;
-        Bundle bundle = getArguments();
-        if (bundle != null && bundle.getInt("id") != 0){
-            id = bundle.getInt("id");
-            getCertificate();
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_new_document, container, false);
+        View view = inflater.inflate(R.layout.fragment_view_document, container, false);
         initViews(view);
+        Bundle bundle = getArguments();
+        if (bundle != null){
+            try {
+                documentBody = new Gson().fromJson(bundle.getString("body"), DocumentBody.class);
+                setData();
+            } catch (NullPointerException e){
+                e.printStackTrace();
+                activity.removeFragment();
+            }
+        }
+
         view.findViewById(R.id.close).setOnClickListener(this);
         return view;
     }
@@ -84,43 +61,14 @@ public class ViewCertificateFragment extends Fragment implements View.OnClickLis
         date = view.findViewById(R.id.date);
     }
 
-    private void getCertificate(){
-        JsonObject body = new JsonObject();
-        body.addProperty("documentID", id);
-        Call<SingleDocument> call = RetrofitClient
-                .getInstance()
-                .getApi()
-                .getSingleCertificate(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
-        call.enqueue(new Callback<SingleDocument>() {
-            @Override
-            public void onResponse(Call<SingleDocument> call, Response<SingleDocument> response) {
-                if (response.code() == 401){
-                    Utils.logout(activity);
-                } else if (response.isSuccessful()){
-                    if (response.body() != null && response.body().getBody() != null){
-                        setData(response.body().getBody());
-                    }
-                    else {
-                        Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SingleDocument> call, Throwable t) {
-                Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    private void setData(SingleDocumentBody body){
-        title.setText(body.getDocumentName());
-        sites.setText(body.getSite());
-        category.setText(body.getCategoryName());
-        if (body.getSyncDateTime() != null){
-            date.setText(Utils.dayFormatFromTimestamp(body.getSyncDateTime()));
+    private void setData(){
+        title.setText(documentBody.getDocumentName());
+        if (App.getInstance().getPreferences().getSites().containsKey(documentBody.getSiteID())) {
+            sites.setText(App.getInstance().getPreferences().getSites().get(documentBody.getSiteID()));
+        }
+        category.setText(documentBody.getCategoryName());
+        if (documentBody.getDocumentDate() != null){
+            date.setText(Utils.dayFormatFromTimestamp(documentBody.getDocumentDate()));
         }
     }
 

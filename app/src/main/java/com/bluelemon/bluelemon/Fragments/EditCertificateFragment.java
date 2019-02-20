@@ -25,6 +25,7 @@ import com.bluelemon.bluelemon.Activities.MainActivity;
 import com.bluelemon.bluelemon.Adapters.SpinnerAdapter;
 import com.bluelemon.bluelemon.App;
 import com.bluelemon.bluelemon.Constants;
+import com.bluelemon.bluelemon.Models.Responses.DocumentBody;
 import com.bluelemon.bluelemon.Models.Responses.DocumentCategories;
 import com.bluelemon.bluelemon.Models.Responses.DocumentCategory;
 import com.bluelemon.bluelemon.Models.Responses.SingleDocument;
@@ -33,6 +34,7 @@ import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
 import com.bluelemon.bluelemon.Utils;
 import com.google.android.gms.common.util.IOUtils;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.io.InputStream;
@@ -51,7 +53,6 @@ import static android.app.Activity.RESULT_OK;
 public class EditCertificateFragment extends Fragment implements View.OnClickListener{
     private static final int REQUEST_CODE_ATTACH = 908;
     private MainActivity activity;
-    private int id;
     private EditText title;
     private Spinner sites, category;
     private TextView date;
@@ -61,30 +62,23 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
     private List<String> siteData = new ArrayList<>();
     private String selectedSite;
     private String file = null;
-    private SingleDocumentBody singleDocumentBody;
     private int categoryId;
+    private DocumentBody documentBody;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = (MainActivity) context;
-        Bundle bundle = getArguments();
-        if (bundle != null && bundle.getInt("id") != 0){
-            id = bundle.getInt("id");
-            getCertificate();
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_document, container, false);
         initViews(view);
         calendar = Calendar.getInstance();
         date.setOnClickListener(this);
         upload.setOnClickListener(this);
-
         siteData.addAll(App.getInstance().getPreferences().getSiteNames().keySet());
         sites.setAdapter(new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, siteData));
         sites.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -98,6 +92,18 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
 
             }
         });
+
+        Bundle bundle = getArguments();
+        if (bundle != null){
+            try {
+                documentBody = new Gson().fromJson(bundle.getString("body"), DocumentBody.class);
+                setData();
+                getCategories();
+            } catch (NullPointerException e){
+                e.printStackTrace();
+                activity.removeFragment();
+            }
+        }
 
 
         view.findViewById(R.id.close).setOnClickListener(this);
@@ -162,53 +168,20 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
             }
         });
         for (DocumentCategory cat : body){
-            if (cat.getCategoryID().equals(singleDocumentBody.getCategoryID())){
+            if (cat.getCategoryID().equals(documentBody.getCategoryID())){
                 category.setSelection(body.indexOf(cat));
                 break;
             }
         }
     }
 
-    private void getCertificate(){
-        JsonObject body = new JsonObject();
-        body.addProperty("documentID", id);
-        Call<SingleDocument> call = RetrofitClient
-                .getInstance()
-                .getApi()
-                .getSingleCertificate(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
-        call.enqueue(new Callback<SingleDocument>() {
-            @Override
-            public void onResponse(Call<SingleDocument> call, Response<SingleDocument> response) {
-                if (response.code() == 401){
-                    Utils.logout(activity);
-                } else if (response.isSuccessful()){
-                    if (response.body() != null && response.body().getBody() != null){
-                        singleDocumentBody = response.body().getBody();
-                        getCategories();
-                        setData();
-                    }
-                    else {
-                        Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SingleDocument> call, Throwable t) {
-                Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
     private void setData(){
-        title.setText(singleDocumentBody.getDocumentName());
-        if (siteData.contains(singleDocumentBody.getSite())) {
-            sites.setSelection(siteData.indexOf(singleDocumentBody.getSite()));
+        title.setText(documentBody.getDocumentName());
+        if (App.getInstance().getPreferences().getSites().containsKey(documentBody.getSiteID())) {
+            sites.setSelection(siteData.indexOf(App.getInstance().getPreferences().getSites().get(documentBody.getSiteID())));
         }
-        if (singleDocumentBody.getSyncDateTime() != null){
-            date.setText(Utils.dayFormatFromTimestamp(singleDocumentBody.getSyncDateTime()));
+        if (documentBody.getDocumentDate() != null){
+            date.setText(Utils.dayFormatFromTimestamp(documentBody.getDocumentDate()));
         }
     }
 
@@ -227,13 +200,13 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
         JsonObject body = new JsonObject();
         body.addProperty("comments", "test");
         body.addProperty("documentCategory", categoryId);
-        body.addProperty("documentID", singleDocumentBody.getDocumentID());
+        body.addProperty("documentID", documentBody.getDocumentID());
         body.addProperty("documentName", title.getText().toString());
         body.addProperty("issueDate", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH).format(calendar.getTime()));
-        body.addProperty("renewalFrequency", singleDocumentBody.getRenewalFrequency());
+        body.addProperty("renewalFrequency", documentBody.getRenewalFrequency());
         body.addProperty("siteID", selectedSite);
-        body.addProperty("live", singleDocumentBody.getLive());
-        body.addProperty("currentDocumentID", singleDocumentBody.getCurrentDocumentID());
+        body.addProperty("live", documentBody.getLive());
+        body.addProperty("currentDocumentID", documentBody.getCurrentDocumentID());
         if (file != null) {
             body.addProperty("fileName", fileName.getText().toString());
             body.addProperty("file", file);

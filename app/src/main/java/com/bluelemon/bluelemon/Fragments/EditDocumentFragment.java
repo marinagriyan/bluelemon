@@ -52,7 +52,6 @@ import static android.app.Activity.RESULT_OK;
 public class EditDocumentFragment extends Fragment implements View.OnClickListener{
     private static final int REQUEST_CODE_ATTACH = 842;
     private MainActivity activity;
-    private int id = 0;
     private EditText title;
     private Spinner sites, category;
     private TextView date;
@@ -173,39 +172,6 @@ public class EditDocumentFragment extends Fragment implements View.OnClickListen
             }
         }
     }
-
-//    private void getDocument(){
-//        JsonObject body = new JsonObject();
-//        body.addProperty("documentID", id);
-//        Call<SingleDocument> call = RetrofitClient
-//                .getInstance()
-//                .getApi()
-//                .getSingleDocument(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken(), body);
-//        call.enqueue(new Callback<SingleDocument>() {
-//            @Override
-//            public void onResponse(Call<SingleDocument> call, Response<SingleDocument> response) {
-//                if (response.code() == 401){
-//                    Utils.logout(activity);
-//                } else if (response.isSuccessful()){
-//                    if (response.body() != null && response.body().getBody() != null){
-//                        singleDocumentBody = response.body().getBody();
-//                        getCategories();
-//                        setData();
-//                    }
-//                    else {
-//                        Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
-//                    }
-//                } else {
-//                    Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<SingleDocument> call, Throwable t) {
-//                Toast.makeText(activity, "Failed", Toast.LENGTH_LONG).show();
-//            }
-//        });
-//    }
 
     private void setData(){
         title.setText(documentBody.getDocumentName());

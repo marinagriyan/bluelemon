@@ -87,7 +87,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter<DocumentsAdapter.View
                 public void onClick(View v) {
                     ViewDocumentFragment fragment = new ViewDocumentFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putInt("id", body.getDocumentID());
+                    bundle.putString("body", new Gson().toJson(body));
                     fragment.setArguments(bundle);
                     activity.addFragment(fragment, 10);
                 }
