@@ -35,6 +35,11 @@ public interface WebService {
                            @Field("username") String username,
                            @Field("password") String password);
 
+    @POST("/account/logout")
+    Call<JsonObject> logout(@Header ("Origin") String origin,
+                           @Header ("Device") String device);
+
+
     @POST("/Account/GetUserData")
     Call<Account> getAccount(@Header("Origin") String origin,
                              @Header("Authorization") String token,

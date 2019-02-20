@@ -12,6 +12,7 @@ import com.bluelemon.bluelemon.Constants;
 import com.bluelemon.bluelemon.Models.Responses.UpdatePassword;
 import com.bluelemon.bluelemon.R;
 import com.bluelemon.bluelemon.RetrofitClient;
+import com.bluelemon.bluelemon.Utils;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -41,6 +42,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.edit_email).setOnClickListener(this);
         findViewById(R.id.edit_password).setOnClickListener(this);
+        findViewById(R.id.logout).setOnClickListener(this);
     }
 
     @Override
@@ -49,6 +51,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.save:
                 updatePassword();
                 break;
+            case R.id.logout:
+                logout();
+                break;    
             case R.id.back:
                 finish();
                 overridePendingTransition(R.anim.left_in, R.anim.left_out);
@@ -60,6 +65,24 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 confirmPass.setVisibility(View.VISIBLE);
                 break;
         }
+    }
+
+    private void logout() {
+        Call<JsonObject> call = RetrofitClient.getInstance().getApi()
+                .logout(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken());
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.code() == 200) {
+                    Utils.logout(ProfileActivity.this);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+
+            }
+        });
     }
 
     private void updatePassword(){
