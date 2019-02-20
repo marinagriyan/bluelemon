@@ -122,7 +122,7 @@ public class EditCertificateFragment extends Fragment implements View.OnClickLis
         Call<DocumentCategories> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .getCertificateCategories(gitConstants.ORIGIN, App.getInstance().getPreferences().getAccessToken());
+                .getCertificateCategories(Constants.ORIGIN, App.getInstance().getPreferences().getAccessToken());
         call.enqueue(new Callback<DocumentCategories>() {
             @Override
             public void onResponse(Call<DocumentCategories> call, Response<DocumentCategories> response) {
